@@ -1,0 +1,83 @@
+author: QuantEcon team
+
+execute:
+  execute_notebooks: "off"
+
+only_build_toc_files: true
+
+html:
+  favicon : "figures/favicon.ico"
+  baseurl :  "https://quantecon.org/"
+
+sphinx:
+  config:
+    html_js_files:
+    - https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js
+    thebe_config:
+      use_thebe_lite: true
+      exclude_patterns: ["**/_*.yml", "**/*.md", "**/*.ipynb"]
+    html_theme_options:
+      logo:
+        text: QuantEcon Intro Lectures
+        image_light: figures/qe-logo.png
+        image_dark: figures/qe-logo.png
+      authors:
+        - name: Thomas J. Sargent
+          url: http://www.tomsargent.com/
+        - name: John Stachurski
+          url: https://johnstachurski.net/
+      header_organisation_url: https://quantecon.org
+      header_organisation: QuantEcon
+      repository_url: https://github.com/QuantEcon/lecture-python-advanced.myst
+      nb_repository_url: https://github.com/QuantEcon/lecture-python-advanced.notebooks
+      twitter: quantecon
+      twitter_logo_url: https://assets.quantecon.org/img/qe-twitter-logo.png
+      og_logo_url: https://assets.quantecon.org/img/qe-og-logo.png
+      description: This website presents a set of lectures on advanced quantitative economic modeling, designed and written by Thomas J. Sargent and John Stachurski.
+      keywords: Python, QuantEcon, Quantitative Economics, Economics, Sloan, Alfred P. Sloan Foundation, Tom J. Sargent, John Stachurski
+      analytics:
+        google_analytics_id: G-KZLV7PM9LL
+      launch_buttons:
+        thebe:                true
+        #colab_url             : https://colab.research.google.com
+    mathjax3_config:
+      tex:
+        macros:
+          "argmax": "arg\\,max"
+          "argmin": "arg\\,min"
+          "col": "col"
+          "Span":  "span"
+          "epsilon": "\\varepsilon"
+          "EE": "\\mathbb{E}"
+          "PP": "\\mathbb{P}"
+          "RR": "\\mathbb{R}"
+          "NN": "\\mathbb{N}"
+          "ZZ": "\\mathbb{Z}"
+          "aA": "\\mathcal{A}"
+          "bB": "\\mathcal{B}"
+          "cC": "\\mathcal{C}"
+          "dD": "\\mathcal{D}"
+          "eE": "\\mathcal{E}"
+          "fF": "\\mathcal{F}"
+          "gG": "\\mathcal{G}"
+          "hH": "\\mathcal{H}"
+    html_show_copyright: false
+    html_last_updated_fmt: '%B %-d, %Y'
+    html_static_path: ["figures"] # add folders that contain files that need to be included, such as the location of the logo(s)
+    mathjax3_config:
+      chtml: {
+        mtextInheritFont: true # To typeset text within math prettier
+      }
+  extra_extensions:
+    - sphinx.ext.imgconverter
+    - jupyterbook_patches
+    - download_link_replacer
+    - sphinx.ext.extlinks
+    - sphinx_image_inverter
+    - sphinx_exercise
+    - sphinx_proof
+    - sphinx_tojupyter
+    - sphinx_reredirects
+
+bibtex_bibfiles: 
+  - references.bib

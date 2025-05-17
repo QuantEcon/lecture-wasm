@@ -1,0 +1,1288 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>35. Univariate Time Series with Matrix Algebra &#8212; My Jupyter Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/code.css" />
+    <link rel="stylesheet" type="text/css" href="_static/image_dark_mode.css" />
+    <link rel="stylesheet" type="text/css" href="_static/exercise.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/fix_admonition_style.css" />
+    <link rel="stylesheet" type="text/css" href="_static/fix_dropdown_style.css" />
+    <link rel="stylesheet" type="text/css" href="_static/fix_code_header_style.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-KZLV7PM9LL"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-KZLV7PM9LL');
+            </script>
+    <script defer="defer" src="_static/refresh.js"></script>
+    <script>const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script defer="defer" src="_static/sphinx-thebe-lite.js"></script>
+    <script>window.MathJax = {"chtml": {"mtextInheritFont": true}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'time_series_with_matrices';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="canonical" href="https://quantecon.org/time_series_with_matrices.html" />
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="36. Linear Programming" href="lp_intro.html" />
+    <link rel="prev" title="34. Markov Chains: Irreducibility and Ergodicity" href="markov_chains_II.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="February 1, 2025"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/qe-logo.png" class="logo__image only-light" alt=""/>
+    <script>document.write(`<img src="_static/qe-logo.png" class="logo__image only-dark" alt=""/>`);</script>
+  
+  
+    <p class="title logo__title">QuantEcon Intro Lectures</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="about.html">1. About These Lectures</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Economic Data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="long_run_growth.html">2. Long-Run Growth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="business_cycle.html">3. Business Cycles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inflation_history.html">4. Price Level Histories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="french_rev.html">5. Inflation During French Revolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inequality.html">6. Income and Wealth Inequality</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="intro_supply_demand.html">7. Introduction to Supply and Demand</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linear_equations.html">8. Linear Equations and Matrix Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="complex_and_trig.html">9. Complex Numbers and Trigonometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geom_series.html">10. Geometric Series for Elementary Economics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Linear Dynamics: Finite Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="pv.html">11. Present Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cons_smooth.html">12. Consumption Smoothing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="equalizing_difference.html">13. Equalizing Difference Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cagan_ree.html">14. A Monetarist Theory of Price Levels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cagan_adaptive.html">15. Monetarist Theory of Price Levels with Adaptive Expectations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Linear Dynamics: Infinite Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="eigen_I.html">16. Eigenvalues and Eigenvectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="greek_square.html">17. Computing Square Roots</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Probability and Distributions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="prob_dist.html">18. Distributions and Probabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lln_clt.html">19. LLN and CLT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo.html">20. Monte Carlo and Option Pricing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="heavy_tails.html">21. Heavy-Tailed Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="schelling.html">22. Racial Segregation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Nonlinear Dynamics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="scalar_dynam.html">23. Dynamics in One Dimension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solow.html">24. The Solow-Swan Growth Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cobweb.html">25. The Cobweb Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="olg.html">26. The Overlapping Generations Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commod_price.html">27. Commodity Prices</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Monetary-Fiscal Policy Interactions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="money_inflation.html">28. Money Financed Government Deficits and Price Levels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unpleasant.html">29. Some Unpleasant Monetarist Arithmetic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="money_inflation_nonlinear.html">30. Inflation Rate Laffer Curves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laffer_adaptive.html">31. Laffer Curves  with Adaptive Expectations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Stochastic Dynamics</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ar1_processes.html">32. AR(1) Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="markov_chains_I.html">33. Markov Chains: Basic Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="markov_chains_II.html">34. Markov Chains: Irreducibility and Ergodicity</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">35. Univariate Time Series with Matrix Algebra</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Optimization</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="lp_intro.html">36. Linear Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="short_path.html">37. Shortest Paths</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modeling in Higher Dimensions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="eigen_II.html">38. The Perron-Frobenius Theorem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="input_output.html">39. Input-Output Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lake_model.html">40. A Lake Model of Employment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="networks.html">41. Networks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Markets and Competitive Equilibrium</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="supply_demand_multiple_goods.html">42. Supply and Demand with Many Goods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="supply_demand_heterogeneity.html">43. Market Equilibrium with Heterogeneity</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Estimation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="simple_linear_regression.html">44. Simple Linear Regression Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mle.html">45. Maximum Likelihood Estimation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Other</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">46. Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zreferences.html">47. References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="status.html">48. Execution Statistics</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/time_series_with_matrices.ipynb" target="_blank"
+   class="btn btn-sm btn-download-notebook-button dropdown-item"
+   title="Download notebook file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="_sources/time_series_with_matrices.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Univariate Time Series with Matrix Algebra</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">35.1. Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#samuelson-s-model">35.2. Samuelson’s model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-random-term">35.3. Adding a random term</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-population-moments">35.4. Computing population moments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moving-average-representation">35.5. Moving average representation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-forward-looking-model">35.6. A forward looking model</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="univariate-time-series-with-matrix-algebra">
+<h1><span class="section-number">35. </span>Univariate Time Series with Matrix Algebra<a class="headerlink" href="#univariate-time-series-with-matrix-algebra" title="Permalink to this heading">#</a></h1>
+<section id="overview">
+<h2><span class="section-number">35.1. </span>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
+<p>This lecture uses matrices to solve some linear difference equations.</p>
+<p>As a running example, we’ll study a <strong>second-order linear difference
+equation</strong> that was the key technical tool in Paul Samuelson’s 1939
+article <span id="id1">[]</span> that introduced the <em>multiplier-accelerator model</em>.</p>
+<p>This model became the workhorse that powered early econometric versions of
+Keynesian macroeconomic models in the United States.</p>
+<p>You can read about the details of that model in <span class="xref std std-doc">intermediate:samuelson</span>.</p>
+<p>(That lecture also describes some technicalities about second-order linear difference equations.)</p>
+<p>In this lecture, we’ll also learn about an <strong>autoregressive</strong> representation and a <strong>moving average</strong> representation of a  non-stationary
+univariate time series <span class="math notranslate nohighlight">\(\{y_t\}_{t=0}^T\)</span>.</p>
+<p>We’ll also study a “perfect foresight” model of stock prices that involves solving
+a “forward-looking” linear difference equation.</p>
+<p>We will use the following imports:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">cm</span>
+
+<span class="c1"># Custom figsize for this lecture</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.figsize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># Set decimal printing to 3 decimal places</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="samuelson-s-model">
+<h2><span class="section-number">35.2. </span>Samuelson’s model<a class="headerlink" href="#samuelson-s-model" title="Permalink to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(t = 0, \pm 1, \pm 2, \ldots\)</span> index time.</p>
+<p>For <span class="math notranslate nohighlight">\(t = 1, 2, 3, \ldots, T\)</span> suppose that</p>
+<div class="math notranslate nohighlight" id="equation-tswm-1">
+<span class="eqno">(35.1)<a class="headerlink" href="#equation-tswm-1" title="Permalink to this equation">#</a></span>\[y_{t} = \alpha_{0} + \alpha_{1} y_{t-1} + \alpha_{2} y_{t-2}\]</div>
+<p>where we assume that <span class="math notranslate nohighlight">\(y_0\)</span> and <span class="math notranslate nohighlight">\(y_{-1}\)</span> are given numbers
+that we take as <em>initial conditions</em>.</p>
+<p>In Samuelson’s model, <span class="math notranslate nohighlight">\(y_t\)</span> stood for <strong>national income</strong> or perhaps a different
+measure of aggregate activity called <strong>gross domestic product</strong> (GDP) at time <span class="math notranslate nohighlight">\(t\)</span>.</p>
+<p>Equation <a class="reference internal" href="#equation-tswm-1">(35.1)</a> is called a <em>second-order linear difference equation</em>. It is called second order because it depends on two lags.</p>
+<p>But actually, it is a collection of <span class="math notranslate nohighlight">\(T\)</span> simultaneous linear
+equations in the <span class="math notranslate nohighlight">\(T\)</span> variables <span class="math notranslate nohighlight">\(y_1, y_2, \ldots, y_T\)</span>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To be able to solve a second-order linear difference
+equation, we require two <em>boundary conditions</em> that can take the form
+either of two <em>initial conditions</em>, two <em>terminal conditions</em> or
+possibly one of each.</p>
+</div>
+<p>Let’s write our equations as a stacked system</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\underset{\equiv A}{\underbrace{\left[\begin{array}{cccccccc}
+1 &amp; 0 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 &amp; 0\\
+-\alpha_{1} &amp; 1 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 &amp; 0\\
+-\alpha_{2} &amp; -\alpha_{1} &amp; 1 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -\alpha_{2} &amp; -\alpha_{1} &amp; 1 &amp; \cdots &amp; 0 &amp; 0 &amp; 0\\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \cdots &amp; \vdots &amp; \vdots &amp; \vdots\\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; \cdots &amp; -\alpha_{2} &amp; -\alpha_{1} &amp; 1
+\end{array}\right]}}\left[\begin{array}{c}
+y_{1}\\
+y_{2}\\
+y_{3}\\
+y_{4}\\
+\vdots\\
+y_{T}
+\end{array}\right]=\underset{\equiv b}{\underbrace{\left[\begin{array}{c}
+\alpha_{0}+\alpha_{1}y_{0}+\alpha_{2}y_{-1}\\
+\alpha_{0}+\alpha_{2}y_{0}\\
+\alpha_{0}\\
+\alpha_{0}\\
+\vdots\\
+\alpha_{0}
+\end{array}\right]}}
+\end{split}\]</div>
+<p>or</p>
+<div class="math notranslate nohighlight">
+\[
+A y = b
+\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[
+y = \begin{bmatrix} y_1 \cr y_2 \cr \vdots \cr y_T \end{bmatrix}
+\]</div>
+<p>Evidently <span class="math notranslate nohighlight">\(y\)</span> can be computed from</p>
+<div class="math notranslate nohighlight">
+\[
+y = A^{-1} b
+\]</div>
+<p>The vector <span class="math notranslate nohighlight">\(y\)</span> is a complete time path <span class="math notranslate nohighlight">\(\{y_t\}_{t=1}^T\)</span>.</p>
+<p>Let’s put Python to work on an example that captures the flavor of
+Samuelson’s multiplier-accelerator model.</p>
+<p>We’ll set parameters equal to the same values we used in <span class="xref std std-doc">intermediate:samuelson</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">T</span> <span class="o">=</span> <span class="mi">80</span>
+
+<span class="c1"># parameters</span>
+<span class="n">α_0</span> <span class="o">=</span> <span class="mf">10.0</span>
+<span class="n">α_1</span> <span class="o">=</span> <span class="mf">1.53</span>
+<span class="n">α_2</span> <span class="o">=</span> <span class="o">-</span><span class="mf">.9</span>
+
+<span class="n">y_neg1</span> <span class="o">=</span> <span class="mf">28.0</span> <span class="c1"># y_{-1}</span>
+<span class="n">y_0</span> <span class="o">=</span> <span class="mf">24.0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we construct <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(b\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>  <span class="c1"># The T x T identity matrix</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">α_1</span>
+
+    <span class="k">if</span> <span class="n">i</span><span class="o">-</span><span class="mi">2</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">α_2</span>
+
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">α_0</span><span class="p">)</span>
+<span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">α_0</span> <span class="o">+</span> <span class="n">α_1</span> <span class="o">*</span> <span class="n">y_0</span> <span class="o">+</span> <span class="n">α_2</span> <span class="o">*</span> <span class="n">y_neg1</span>
+<span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">α_0</span> <span class="o">+</span> <span class="n">α_2</span> <span class="o">*</span> <span class="n">y_0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s look at the matrix <span class="math notranslate nohighlight">\(A\)</span> and the vector <span class="math notranslate nohighlight">\(b\)</span> for our
+example.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">,</span> <span class="n">b</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now let’s solve for the path of <span class="math notranslate nohighlight">\(y\)</span>.</p>
+<p>If <span class="math notranslate nohighlight">\(y_t\)</span> is GNP at time <span class="math notranslate nohighlight">\(t\)</span>, then we have a version of
+Samuelson’s model of the dynamics for GNP.</p>
+<p>To solve <span class="math notranslate nohighlight">\(y = A^{-1} b\)</span> we can either invert <span class="math notranslate nohighlight">\(A\)</span> directly, as in</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">A_inv</span> <span class="o">@</span> <span class="n">b</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>or we can use <code class="docutils literal notranslate"><span class="pre">np.linalg.solve</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_second_method</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here make sure the two methods give the same result, at least up to floating
+point precision:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_second_method</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><span class="math notranslate nohighlight">\(A\)</span> is invertible as it is lower triangular and <a class="reference external" href="https://www.statlect.com/matrix-algebra/triangular-matrix">its diagonal entries are non-zero</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check if A is lower triangular</span>
+<span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">tril</span><span class="p">(</span><span class="n">A</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In general, <code class="docutils literal notranslate"><span class="pre">np.linalg.solve</span></code> is more numerically stable than using
+<code class="docutils literal notranslate"><span class="pre">np.linalg.inv</span></code> directly.
+However, stability is not an issue for this small example. Moreover, we will
+repeatedly use <code class="docutils literal notranslate"><span class="pre">A_inv</span></code> in what follows, so there is added value in computing
+it directly.</p>
+</div>
+<p>Now we can plot.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The <a class="reference internal" href="scalar_dynam.html#scalar-dynam-steady-state"><span class="std std-ref">*steady state*</span></a> value <span class="math notranslate nohighlight">\(y^*\)</span> of <span class="math notranslate nohighlight">\(y_t\)</span> is obtained by setting <span class="math notranslate nohighlight">\(y_t = y_{t-1} =
+y_{t-2} = y^*\)</span> in <a class="reference internal" href="#equation-tswm-1">(35.1)</a>, which yields</p>
+<div class="math notranslate nohighlight">
+\[
+y^* = \frac{\alpha_{0}}{1 - \alpha_{1} - \alpha_{2}}
+\]</div>
+<p>If we set the initial values to <span class="math notranslate nohighlight">\(y_{0} = y_{-1} = y^*\)</span>, then <span class="math notranslate nohighlight">\(y_{t}\)</span> will be
+constant:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_star</span> <span class="o">=</span> <span class="n">α_0</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">α_1</span> <span class="o">-</span> <span class="n">α_2</span><span class="p">)</span>
+<span class="n">y_neg1_steady</span> <span class="o">=</span> <span class="n">y_star</span> <span class="c1"># y_{-1}</span>
+<span class="n">y_0_steady</span> <span class="o">=</span> <span class="n">y_star</span>
+
+<span class="n">b_steady</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">α_0</span><span class="p">)</span>
+<span class="n">b_steady</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">α_0</span> <span class="o">+</span> <span class="n">α_1</span> <span class="o">*</span> <span class="n">y_0_steady</span> <span class="o">+</span> <span class="n">α_2</span> <span class="o">*</span> <span class="n">y_neg1_steady</span>
+<span class="n">b_steady</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">α_0</span> <span class="o">+</span> <span class="n">α_2</span> <span class="o">*</span> <span class="n">y_0_steady</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_steady</span> <span class="o">=</span> <span class="n">A_inv</span> <span class="o">@</span> <span class="n">b_steady</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">y_steady</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="adding-a-random-term">
+<h2><span class="section-number">35.3. </span>Adding a random term<a class="headerlink" href="#adding-a-random-term" title="Permalink to this heading">#</a></h2>
+<p>To generate some excitement, we’ll follow in the spirit of the great economists
+<a class="reference external" href="https://en.wikipedia.org/wiki/Eugen_Slutsky">Eugen Slutsky</a> and <a class="reference external" href="https://en.wikipedia.org/wiki/Ragnar_Frisch">Ragnar Frisch</a> and replace our original second-order difference
+equation with the following <strong>second-order stochastic linear difference
+equation</strong>:</p>
+<div class="math notranslate nohighlight" id="equation-tswm-2">
+<span class="eqno">(35.2)<a class="headerlink" href="#equation-tswm-2" title="Permalink to this equation">#</a></span>\[y_{t} = \alpha_{0} + \alpha_{1} y_{t-1} + \alpha_{2} y_{t-2} + u_t\]</div>
+<p>where <span class="math notranslate nohighlight">\(u_{t} \sim N\left(0, \sigma_{u}^{2}\right)\)</span> and is <a class="reference internal" href="lln_clt.html#iid-theorem"><span class="std std-ref">IID</span></a>,
+meaning independent and identically distributed.</p>
+<p>We’ll stack these <span class="math notranslate nohighlight">\(T\)</span> equations into a system cast in terms of
+matrix algebra.</p>
+<p>Let’s define the random vector</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+u=\left[\begin{array}{c}
+u_{1}\\
+u_{2}\\
+\vdots\\
+u_{T}
+\end{array}\right]
+\end{split}\]</div>
+<p>Where <span class="math notranslate nohighlight">\(A, b, y\)</span> are defined as above, now assume that <span class="math notranslate nohighlight">\(y\)</span> is
+governed by the system</p>
+<div class="math notranslate nohighlight" id="equation-eq-eqar">
+<span class="eqno">(35.3)<a class="headerlink" href="#equation-eq-eqar" title="Permalink to this equation">#</a></span>\[
+A y = b + u
+\]</div>
+<p>The solution for <span class="math notranslate nohighlight">\(y\)</span> becomes</p>
+<div class="math notranslate nohighlight" id="equation-eq-eqma">
+<span class="eqno">(35.4)<a class="headerlink" href="#equation-eq-eqma" title="Permalink to this equation">#</a></span>\[
+y = A^{-1} \left(b + u\right)
+\]</div>
+<p>Let’s try it out in Python.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">σ_u</span> <span class="o">=</span> <span class="mf">2.</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">σ_u</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">A_inv</span> <span class="o">@</span> <span class="p">(</span><span class="n">b</span> <span class="o">+</span> <span class="n">u</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The above time series looks a lot like (detrended) GDP series for a
+number of advanced countries in recent decades.</p>
+<p>We can simulate <span class="math notranslate nohighlight">\(N\)</span> paths.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">())</span>  <span class="c1"># Choose a random color from viridis</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">σ_u</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">A_inv</span> <span class="o">@</span> <span class="p">(</span><span class="n">b</span> <span class="o">+</span> <span class="n">u</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">col</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Also consider the case when <span class="math notranslate nohighlight">\(y_{0}\)</span> and <span class="math notranslate nohighlight">\(y_{-1}\)</span> are at
+steady state.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">())</span>  <span class="c1"># Choose a random color from viridis</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">σ_u</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">y_steady</span> <span class="o">=</span> <span class="n">A_inv</span> <span class="o">@</span> <span class="p">(</span><span class="n">b_steady</span> <span class="o">+</span> <span class="n">u</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">y_steady</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">col</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="computing-population-moments">
+<h2><span class="section-number">35.4. </span>Computing population moments<a class="headerlink" href="#computing-population-moments" title="Permalink to this heading">#</a></h2>
+<p>We can apply standard formulas for multivariate normal distributions to compute the mean vector and covariance matrix
+for our time series model</p>
+<div class="math notranslate nohighlight">
+\[
+y = A^{-1} (b + u) .
+\]</div>
+<p>You can read about multivariate normal distributions in this lecture <a class="reference external" href="https://python.quantecon.org/multivariate_normal.html">Multivariate Normal Distribution</a>.</p>
+<p>Let’s write our  model as</p>
+<div class="math notranslate nohighlight">
+\[ 
+y = \tilde A (b + u)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\tilde A = A^{-1}\)</span>.</p>
+<p>Because  linear combinations of normal random variables are normal, we know that</p>
+<div class="math notranslate nohighlight">
+\[
+y \sim {\mathcal N}(\mu_y, \Sigma_y)
+\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[ 
+\mu_y = \tilde A b
+\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[
+\Sigma_y = \tilde A (\sigma_u^2 I_{T \times T} ) \tilde A^T
+\]</div>
+<p>Let’s write a Python  class that computes the mean vector <span class="math notranslate nohighlight">\(\mu_y\)</span> and covariance matrix <span class="math notranslate nohighlight">\(\Sigma_y\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">population_moments</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute population moments μ_y, Σ_y.</span>
+<span class="sd">    ---------</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    α_0, α_1, α_2, T, y_neg1, y_0</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">α_0</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> 
+                       <span class="n">α_1</span><span class="o">=</span><span class="mf">1.53</span><span class="p">,</span> 
+                       <span class="n">α_2</span><span class="o">=-</span><span class="mf">.9</span><span class="p">,</span> 
+                       <span class="n">T</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> 
+                       <span class="n">y_neg1</span><span class="o">=</span><span class="mf">28.0</span><span class="p">,</span> 
+                       <span class="n">y_0</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span> 
+                       <span class="n">σ_u</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+
+        <span class="c1"># compute A</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">α_1</span>
+
+            <span class="k">if</span> <span class="n">i</span><span class="o">-</span><span class="mi">2</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">α_2</span>
+
+        <span class="c1"># compute b</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">α_0</span><span class="p">)</span>
+        <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">α_0</span> <span class="o">+</span> <span class="n">α_1</span> <span class="o">*</span> <span class="n">y_0</span> <span class="o">+</span> <span class="n">α_2</span> <span class="o">*</span> <span class="n">y_neg1</span>
+        <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">α_0</span> <span class="o">+</span> <span class="n">α_2</span> <span class="o">*</span> <span class="n">y_0</span>
+
+        <span class="c1"># compute A inverse</span>
+        <span class="n">A_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">A_inv</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">σ_u</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">=</span> <span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">A_inv</span><span class="p">,</span> <span class="n">σ_u</span><span class="p">,</span> <span class="n">T</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">sample_y</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Give a sample of size n of y.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">A_inv</span><span class="p">,</span> <span class="n">σ_u</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">T</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">A_inv</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">σ_u</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">us</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">σ_u</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="n">T</span><span class="p">])</span>
+        <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">A_inv</span> <span class="o">@</span> <span class="p">(</span><span class="n">b</span> <span class="o">+</span> <span class="n">u</span><span class="p">)</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">us</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">ys</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_moments</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the population moments of y.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">A_inv</span><span class="p">,</span> <span class="n">σ_u</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">A_inv</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">σ_u</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
+
+        <span class="c1"># compute μ_y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">μ_y</span> <span class="o">=</span> <span class="n">A_inv</span> <span class="o">@</span> <span class="n">b</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Σ_y</span> <span class="o">=</span> <span class="n">σ_u</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">A_inv</span> <span class="o">@</span> <span class="n">A_inv</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">μ_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Σ_y</span>
+
+
+<span class="n">series_process</span> <span class="o">=</span> <span class="n">population_moments</span><span class="p">()</span>
+    
+<span class="n">μ_y</span><span class="p">,</span> <span class="n">Σ_y</span> <span class="o">=</span> <span class="n">series_process</span><span class="o">.</span><span class="n">get_moments</span><span class="p">()</span>
+<span class="n">A_inv</span> <span class="o">=</span> <span class="n">series_process</span><span class="o">.</span><span class="n">A_inv</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>It is enlightening  to study the <span class="math notranslate nohighlight">\(\mu_y, \Sigma_y\)</span>’s implied by  various parameter values.</p>
+<p>Among other things, we can use the class to exhibit how  <strong>statistical stationarity</strong> of <span class="math notranslate nohighlight">\(y\)</span> prevails only for very special initial conditions.</p>
+<p>Let’s begin by generating <span class="math notranslate nohighlight">\(N\)</span> time realizations of <span class="math notranslate nohighlight">\(y\)</span> plotting them together with  population  mean <span class="math notranslate nohighlight">\(\mu_y\)</span> .</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot mean</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">())</span>  <span class="c1"># Choose a random color from viridis</span>
+    <span class="n">ys</span> <span class="o">=</span> <span class="n">series_process</span><span class="o">.</span><span class="n">sample_y</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ys</span><span class="p">[</span><span class="n">i</span><span class="p">,:],</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">col</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">μ_y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Visually, notice how the  variance across realizations of <span class="math notranslate nohighlight">\(y_t\)</span> decreases as <span class="math notranslate nohighlight">\(t\)</span> increases.</p>
+<p>Let’s plot the population variance of <span class="math notranslate nohighlight">\(y_t\)</span> against <span class="math notranslate nohighlight">\(t\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot variance</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">Σ_y</span><span class="o">.</span><span class="n">diagonal</span><span class="p">())</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Notice how the population variance increases and asymptotes.</p>
+<p>Let’s print out the covariance matrix <span class="math notranslate nohighlight">\(\Sigma_y\)</span> for a  time series <span class="math notranslate nohighlight">\(y\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">series_process</span> <span class="o">=</span> <span class="n">population_moments</span><span class="p">(</span><span class="n">α_0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+                                    <span class="n">α_1</span><span class="o">=</span><span class="mf">.8</span><span class="p">,</span> 
+                                    <span class="n">α_2</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+                                    <span class="n">T</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+                                    <span class="n">y_neg1</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> 
+                                    <span class="n">y_0</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> 
+                                    <span class="n">σ_u</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">μ_y</span><span class="p">,</span> <span class="n">Σ_y</span> <span class="o">=</span> <span class="n">series_process</span><span class="o">.</span><span class="n">get_moments</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;μ_y = &quot;</span><span class="p">,</span> <span class="n">μ_y</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Σ_y = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">Σ_y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Notice that  the covariance between <span class="math notranslate nohighlight">\(y_t\)</span> and <span class="math notranslate nohighlight">\(y_{t-1}\)</span> – the elements on the superdiagonal – are <em>not</em> identical.</p>
+<p>This is an indication that the time series represented by our <span class="math notranslate nohighlight">\(y\)</span> vector is not <strong>stationary</strong>.</p>
+<p>To make it stationary, we’d have to alter our system so that our <em>initial conditions</em> <span class="math notranslate nohighlight">\((y_0, y_{-1})\)</span> are not fixed numbers but instead a jointly normally distributed random vector with a particular mean and  covariance matrix.</p>
+<p>We describe how to do that in <a class="reference external" href="https://python.quantecon.org/linear_models.html">Linear State Space Models</a>.</p>
+<p>But just to set the stage for that analysis, let’s  print out the bottom right corner of <span class="math notranslate nohighlight">\(\Sigma_y\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">series_process</span> <span class="o">=</span> <span class="n">population_moments</span><span class="p">()</span>
+<span class="n">μ_y</span><span class="p">,</span> <span class="n">Σ_y</span> <span class="o">=</span> <span class="n">series_process</span><span class="o">.</span><span class="n">get_moments</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;bottom right corner of Σ_y = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">Σ_y</span><span class="p">[</span><span class="mi">72</span><span class="p">:,</span><span class="mi">72</span><span class="p">:])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Please notice how the subdiagonal and superdiagonal elements seem to have converged.</p>
+<p>This is an indication that our process is asymptotically stationary.</p>
+<p>You can read  about stationarity of more general linear time series models in this lecture <a class="reference external" href="https://python.quantecon.org/linear_models.html">Linear State Space Models</a>.</p>
+<p>There is a lot to be learned about the process by staring at the off diagonal elements of <span class="math notranslate nohighlight">\(\Sigma_y\)</span> corresponding to different time periods <span class="math notranslate nohighlight">\(t\)</span>, but we resist the temptation to do so here.</p>
+</section>
+<section id="moving-average-representation">
+<h2><span class="section-number">35.5. </span>Moving average representation<a class="headerlink" href="#moving-average-representation" title="Permalink to this heading">#</a></h2>
+<p>Let’s print out  <span class="math notranslate nohighlight">\(A^{-1}\)</span> and stare at  its structure</p>
+<ul class="simple">
+<li><p>is it triangular or almost triangular or <span class="math notranslate nohighlight">\(\ldots\)</span> ?</p></li>
+</ul>
+<p>To study the structure of <span class="math notranslate nohighlight">\(A^{-1}\)</span>, we shall print just  up to <span class="math notranslate nohighlight">\(3\)</span> decimals.</p>
+<p>Let’s begin by printing out just the upper left hand corner of <span class="math notranslate nohighlight">\(A^{-1}\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">A_inv</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">7</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Evidently, <span class="math notranslate nohighlight">\(A^{-1}\)</span> is a lower triangular matrix.</p>
+<p>Notice how  every row ends with the previous row’s pre-diagonal entries.</p>
+<p>Since <span class="math notranslate nohighlight">\(A^{-1}\)</span> is lower triangular,  each  row represents  <span class="math notranslate nohighlight">\( y_t\)</span> for a particular <span class="math notranslate nohighlight">\(t\)</span> as the sum of</p>
+<ul class="simple">
+<li><p>a time-dependent function <span class="math notranslate nohighlight">\(A^{-1} b\)</span> of the initial conditions incorporated in <span class="math notranslate nohighlight">\(b\)</span>, and</p></li>
+<li><p>a weighted sum of  current and past values of the IID shocks <span class="math notranslate nohighlight">\(\{u_t\}\)</span>.</p></li>
+</ul>
+<p>Thus,  let <span class="math notranslate nohighlight">\(\tilde{A}=A^{-1}\)</span>.</p>
+<p>Evidently,  for <span class="math notranslate nohighlight">\(t\geq0\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+y_{t+1}=\sum_{i=1}^{t+1}\tilde{A}_{t+1,i}b_{i}+\sum_{i=1}^{t}\tilde{A}_{t+1,i}u_{i}+u_{t+1}
+\]</div>
+<p>This is  a <strong>moving average</strong> representation with time-varying coefficients.</p>
+<p>Just as system <a class="reference internal" href="#equation-eq-eqma">(35.4)</a> constitutes  a
+<strong>moving average</strong> representation for <span class="math notranslate nohighlight">\(y\)</span>, system  <a class="reference internal" href="#equation-eq-eqar">(35.3)</a> constitutes  an <strong>autoregressive</strong> representation for <span class="math notranslate nohighlight">\(y\)</span>.</p>
+</section>
+<section id="a-forward-looking-model">
+<h2><span class="section-number">35.6. </span>A forward looking model<a class="headerlink" href="#a-forward-looking-model" title="Permalink to this heading">#</a></h2>
+<p>Samuelson’s model is <em>backward looking</em> in the sense that we give it <em>initial conditions</em> and let it
+run.</p>
+<p>Let’s now turn to model  that is <em>forward looking</em>.</p>
+<p>We apply similar linear algebra machinery to study a <em>perfect
+foresight</em> model widely used as a benchmark in macroeconomics and
+finance.</p>
+<p>As an example, we suppose that <span class="math notranslate nohighlight">\(p_t\)</span> is the price of a stock and
+that <span class="math notranslate nohighlight">\(y_t\)</span> is its dividend.</p>
+<p>We assume that <span class="math notranslate nohighlight">\(y_t\)</span> is determined by second-order difference
+equation that we analyzed just above, so that</p>
+<div class="math notranslate nohighlight">
+\[
+y = A^{-1} \left(b + u\right)
+\]</div>
+<p>Our <em>perfect foresight</em> model of stock prices is</p>
+<div class="math notranslate nohighlight">
+\[
+p_{t} = \sum_{j=0}^{T-t} \beta^{j} y_{t+j}, \quad \beta \in (0,1)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\beta\)</span> is a discount factor.</p>
+<p>The model asserts that the price of the stock at <span class="math notranslate nohighlight">\(t\)</span> equals the
+discounted present values of the (perfectly foreseen) future dividends.</p>
+<p>Form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\underset{\equiv p}{\underbrace{\left[\begin{array}{c}
+p_{1}\\
+p_{2}\\
+p_{3}\\
+\vdots\\
+p_{T}
+\end{array}\right]}}=\underset{\equiv B}{\underbrace{\left[\begin{array}{ccccc}
+1 &amp; \beta &amp; \beta^{2} &amp; \cdots &amp; \beta^{T-1}\\
+0 &amp; 1 &amp; \beta &amp; \cdots &amp; \beta^{T-2}\\
+0 &amp; 0 &amp; 1 &amp; \cdots &amp; \beta^{T-3}\\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots\\
+0 &amp; 0 &amp; 0 &amp; \cdots &amp; 1
+\end{array}\right]}}\left[\begin{array}{c}
+y_{1}\\
+y_{2}\\
+y_{3}\\
+\vdots\\
+y_{T}
+\end{array}\right]
+\end{split}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">β</span> <span class="o">=</span> <span class="mf">.96</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># construct B</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
+    <span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">:]</span> <span class="o">=</span> <span class="n">β</span> <span class="o">**</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="o">-</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">σ_u</span> <span class="o">=</span> <span class="mf">0.</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">σ_u</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">A_inv</span> <span class="o">@</span> <span class="p">(</span><span class="n">b</span> <span class="o">+</span> <span class="n">u</span><span class="p">)</span>
+<span class="n">y_steady</span> <span class="o">=</span> <span class="n">A_inv</span> <span class="o">@</span> <span class="p">(</span><span class="n">b_steady</span> <span class="o">+</span> <span class="n">u</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">B</span> <span class="o">@</span> <span class="n">y</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y/p&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Can you explain why the trend of the price is downward over time?</p>
+<p>Also consider the case when <span class="math notranslate nohighlight">\(y_{0}\)</span> and <span class="math notranslate nohighlight">\(y_{-1}\)</span> are at the
+steady state.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p_steady</span> <span class="o">=</span> <span class="n">B</span> <span class="o">@</span> <span class="n">y_steady</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">y_steady</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">p_steady</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y/p&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+        <script type="text/x-thebe-config">
+        {
+            "rootPath": "./",
+            "requestKernel": true,
+            "useJupyterLite": true,
+            "useBinder": false,
+            "kernelOptions": {
+                "path": "/"
+            },
+            "codeMirrorConfig": {
+                "theme": "default",
+                "mode": "python"
+            },
+            "mountRestartButton": false,
+            "mountRestartallButton": false
+        }
+        </script>
+        <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="markov_chains_II.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">34. </span>Markov Chains: Irreducibility and Ergodicity</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="lp_intro.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">36. </span>Linear Programming</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">35.1. Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#samuelson-s-model">35.2. Samuelson’s model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-random-term">35.3. Adding a random term</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-population-moments">35.4. Computing population moments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moving-average-representation">35.5. Moving average representation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-forward-looking-model">35.6. A forward looking model</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By QuantEcon team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="last-updated">
+  Last updated on February 1, 2025.
+  <br/>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
