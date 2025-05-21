@@ -1,0 +1,995 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>27. Commodity Prices &#8212; My Jupyter Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/code.css" />
+    <link rel="stylesheet" type="text/css" href="_static/image_dark_mode.css" />
+    <link rel="stylesheet" type="text/css" href="_static/exercise.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/fix_admonition_style.css" />
+    <link rel="stylesheet" type="text/css" href="_static/fix_dropdown_style.css" />
+    <link rel="stylesheet" type="text/css" href="_static/fix_code_header_style.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-KZLV7PM9LL"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-KZLV7PM9LL');
+            </script>
+    <script defer="defer" src="_static/refresh.js"></script>
+    <script>const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script defer="defer" src="_static/sphinx-thebe-lite.js"></script>
+    <script>window.MathJax = {"chtml": {"mtextInheritFont": true}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'commod_price';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="canonical" href="https://quantecon.org/commod_price.html" />
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="28. Money Financed Government Deficits and Price Levels" href="money_inflation.html" />
+    <link rel="prev" title="26. The Overlapping Generations Model" href="olg.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="February 1, 2025"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/qe-logo.png" class="logo__image only-light" alt=""/>
+    <script>document.write(`<img src="_static/qe-logo.png" class="logo__image only-dark" alt=""/>`);</script>
+  
+  
+    <p class="title logo__title">QuantEcon Intro Lectures</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="about.html">1. About These Lectures</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Economic Data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="long_run_growth.html">2. Long-Run Growth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="business_cycle.html">3. Business Cycles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inflation_history.html">4. Price Level Histories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="french_rev.html">5. Inflation During French Revolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inequality.html">6. Income and Wealth Inequality</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="intro_supply_demand.html">7. Introduction to Supply and Demand</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linear_equations.html">8. Linear Equations and Matrix Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="complex_and_trig.html">9. Complex Numbers and Trigonometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geom_series.html">10. Geometric Series for Elementary Economics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Linear Dynamics: Finite Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="pv.html">11. Present Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cons_smooth.html">12. Consumption Smoothing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="equalizing_difference.html">13. Equalizing Difference Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cagan_ree.html">14. A Monetarist Theory of Price Levels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cagan_adaptive.html">15. Monetarist Theory of Price Levels with Adaptive Expectations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Linear Dynamics: Infinite Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="eigen_I.html">16. Eigenvalues and Eigenvectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="greek_square.html">17. Computing Square Roots</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Probability and Distributions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="prob_dist.html">18. Distributions and Probabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lln_clt.html">19. LLN and CLT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo.html">20. Monte Carlo and Option Pricing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="heavy_tails.html">21. Heavy-Tailed Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="schelling.html">22. Racial Segregation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Nonlinear Dynamics</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="scalar_dynam.html">23. Dynamics in One Dimension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solow.html">24. The Solow-Swan Growth Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cobweb.html">25. The Cobweb Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="olg.html">26. The Overlapping Generations Model</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">27. Commodity Prices</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Monetary-Fiscal Policy Interactions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="money_inflation.html">28. Money Financed Government Deficits and Price Levels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unpleasant.html">29. Some Unpleasant Monetarist Arithmetic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="money_inflation_nonlinear.html">30. Inflation Rate Laffer Curves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laffer_adaptive.html">31. Laffer Curves  with Adaptive Expectations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Stochastic Dynamics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ar1_processes.html">32. AR(1) Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="markov_chains_I.html">33. Markov Chains: Basic Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="markov_chains_II.html">34. Markov Chains: Irreducibility and Ergodicity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="time_series_with_matrices.html">35. Univariate Time Series with Matrix Algebra</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Optimization</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="lp_intro.html">36. Linear Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="short_path.html">37. Shortest Paths</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modeling in Higher Dimensions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="eigen_II.html">38. The Perron-Frobenius Theorem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="input_output.html">39. Input-Output Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lake_model.html">40. A Lake Model of Employment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="networks.html">41. Networks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Markets and Competitive Equilibrium</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="supply_demand_multiple_goods.html">42. Supply and Demand with Many Goods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="supply_demand_heterogeneity.html">43. Market Equilibrium with Heterogeneity</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Estimation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="simple_linear_regression.html">44. Simple Linear Regression Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mle.html">45. Maximum Likelihood Estimation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Other</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">46. Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zreferences.html">47. References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="status.html">48. Execution Statistics</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/commod_price.ipynb" target="_blank"
+   class="btn btn-sm btn-download-notebook-button dropdown-item"
+   title="Download notebook file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="_sources/commod_price.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Commodity Prices</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outline">27.1. Outline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">27.2. Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-competitive-storage-model">27.3. The competitive storage model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-model">27.4. The model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#equilibrium">27.5. Equilibrium</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#equilibrium-conditions">27.5.1. Equilibrium conditions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#an-equilibrium-function">27.5.2. An equilibrium function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-the-equilibrium">27.5.3. Computing the equilibrium</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code">27.6. Code</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="commodity-prices">
+<h1><span class="section-number">27. </span>Commodity Prices<a class="headerlink" href="#commodity-prices" title="Permalink to this heading">#</a></h1>
+<section id="outline">
+<h2><span class="section-number">27.1. </span>Outline<a class="headerlink" href="#outline" title="Permalink to this heading">#</a></h2>
+<p>For more than half of all countries around the globe, <a class="reference external" href="https://en.wikipedia.org/wiki/Commodity">commodities</a> account for <a class="reference external" href="https://unctad.org/publication/commodities-and-development-report-2019">the majority of total exports</a>.</p>
+<p>Examples of commodities include copper, diamonds, iron ore, lithium, cotton
+and coffee beans.</p>
+<p>In this lecture we give an introduction to the theory of commodity prices.</p>
+<p>The lecture is quite advanced relative to other lectures in this series.</p>
+<p>We need to compute an equilibrium, and that equilibrium is described by a
+price function.</p>
+<p>We will solve an equation where the price function is the unknown.</p>
+<p>This is harder than solving an equation for an unknown number, or vector.</p>
+<p>The lecture will discuss one way to solve a <a class="reference external" href="https://en.wikipedia.org/wiki/Functional_equation">functional equation</a> (an equation where the unknown object is a function).</p>
+<p>For this lecture we need the <code class="docutils literal notranslate"><span class="pre">yfinance</span></code> library.</p>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="n">yfinance</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We will use the following imports</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">yfinance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">yf</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.interpolate</span><span class="w"> </span><span class="kn">import</span> <span class="n">interp1d</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">brentq</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">beta</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="data">
+<h2><span class="section-number">27.2. </span>Data<a class="headerlink" href="#data" title="Permalink to this heading">#</a></h2>
+<p>The figure below shows the price of cotton in USD since the start of 2016.</p>
+<div class="cell tag_hide-input tag_hide-output docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;CT=F&#39;</span><span class="p">,</span> <span class="s1">&#39;2016-1-1&#39;</span><span class="p">,</span> <span class="s1">&#39;2023-4-1&#39;</span><span class="p">)[</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;cotton price in USD&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<p>The figure shows surprisingly large movements in the price of cotton.</p>
+<p>What causes these movements?</p>
+<p>In general, prices depend on the choices and actions of</p>
+<ol class="arabic simple">
+<li><p>suppliers,</p></li>
+<li><p>consumers, and</p></li>
+<li><p>speculators.</p></li>
+</ol>
+<p>Our focus will be on the interaction between these parties.</p>
+<p>We will connect them together in a dynamic model of supply and demand, called
+the <em>competitive storage model</em>.</p>
+<p>This model was developed by
+<span id="id1">[]</span>,
+<span id="id2">[]</span>, <span id="id3">[]</span>,
+<span id="id4">[]</span>, <span id="id5">[]</span>, and
+<span id="id6">[]</span>.</p>
+</section>
+<section id="the-competitive-storage-model">
+<h2><span class="section-number">27.3. </span>The competitive storage model<a class="headerlink" href="#the-competitive-storage-model" title="Permalink to this heading">#</a></h2>
+<p>In the competitive storage model, commodities are assets that</p>
+<ol class="arabic simple">
+<li><p>can be traded by speculators and</p></li>
+<li><p>have intrinsic value to consumers.</p></li>
+</ol>
+<p>Total demand is the sum of consumer demand and demand by speculators.</p>
+<p>Supply is exogenous, depending on “harvests”.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These days, goods such as basic computer chips and integrated circuits are
+often treated as commodities in financial markets, being highly standardized,
+and, for these kinds of commodities, the word “harvest” is not
+appropriate.</p>
+<p>Nonetheless, we maintain it for simplicity.</p>
+</div>
+<p>The equilibrium price is determined competitively.</p>
+<p>It is a function of the current state (which determines
+current harvests and predicts future harvests).</p>
+</section>
+<section id="the-model">
+<h2><span class="section-number">27.4. </span>The model<a class="headerlink" href="#the-model" title="Permalink to this heading">#</a></h2>
+<p>Consider a market for a single commodity, whose price is given at <span class="math notranslate nohighlight">\(t\)</span> by
+<span class="math notranslate nohighlight">\(p_t\)</span>.</p>
+<p>The harvest of the commodity at time <span class="math notranslate nohighlight">\(t\)</span> is <span class="math notranslate nohighlight">\(Z_t\)</span>.</p>
+<p>We assume that the sequence <span class="math notranslate nohighlight">\(\{ Z_t \}_{t \geq 1}\)</span> is IID with common density function <span class="math notranslate nohighlight">\(\phi\)</span>, where <span class="math notranslate nohighlight">\(\phi\)</span> is nonnegative.</p>
+<p>Speculators can store the commodity between periods, with <span class="math notranslate nohighlight">\(I_t\)</span> units
+purchased in the current period yielding <span class="math notranslate nohighlight">\(\alpha I_t\)</span> units in the next.</p>
+<p>Here the parameter <span class="math notranslate nohighlight">\(\alpha \in (0,1)\)</span> is a depreciation rate for the commodity.</p>
+<p>For simplicity, the risk free interest rate is taken to be
+zero, so expected profit on purchasing <span class="math notranslate nohighlight">\(I_t\)</span> units is</p>
+<div class="math notranslate nohighlight">
+\[
+  \mathbb{E}_t \, p_{t+1} \cdot \alpha I_t - p_t I_t
+   = (\alpha \mathbb{E}_t \, p_{t+1} - p_t) I_t
+\]</div>
+<p>Here <span class="math notranslate nohighlight">\(\mathbb{E}_t \, p_{t+1}\)</span> is the expectation of <span class="math notranslate nohighlight">\(p_{t+1}\)</span> taken at time
+<span class="math notranslate nohighlight">\(t\)</span>.</p>
+</section>
+<section id="equilibrium">
+<h2><span class="section-number">27.5. </span>Equilibrium<a class="headerlink" href="#equilibrium" title="Permalink to this heading">#</a></h2>
+<p>In this section we define the equilibrium and discuss how to compute it.</p>
+<section id="equilibrium-conditions">
+<h3><span class="section-number">27.5.1. </span>Equilibrium conditions<a class="headerlink" href="#equilibrium-conditions" title="Permalink to this heading">#</a></h3>
+<p>Speculators are assumed to be risk neutral, which means that they buy the
+commodity whenever expected profits are positive.</p>
+<p>As a consequence, if expected profits are positive, then the market is not in
+equilibrium.</p>
+<p>Hence, to be in equilibrium, prices must satisfy the “no-arbitrage”
+condition</p>
+<div class="math notranslate nohighlight" id="equation-eq-arbi">
+<span class="eqno">(27.1)<a class="headerlink" href="#equation-eq-arbi" title="Permalink to this equation">#</a></span>\[
+  \alpha \mathbb{E}_t \, p_{t+1}  - p_t \leq 0
+\]</div>
+<p>This means that if the expected price is lower than the current price, there is no room for arbitrage.</p>
+<p>Profit maximization gives the additional condition</p>
+<div class="math notranslate nohighlight" id="equation-eq-pmco">
+<span class="eqno">(27.2)<a class="headerlink" href="#equation-eq-pmco" title="Permalink to this equation">#</a></span>\[
+  \alpha \mathbb{E}_t \, p_{t+1}  - p_t  &lt; 0 \text{ implies } I_t = 0
+\]</div>
+<p>We also require that the market clears, with supply equaling demand in each period.</p>
+<p>We assume that consumers generate demand quantity <span class="math notranslate nohighlight">\(D(p)\)</span> corresponding to
+price <span class="math notranslate nohighlight">\(p\)</span>.</p>
+<p>Let <span class="math notranslate nohighlight">\(P := D^{-1}\)</span> be the inverse demand function.</p>
+<p>Regarding quantities,</p>
+<ul class="simple">
+<li><p>supply is the sum of carryover by speculators and the current harvest, and</p></li>
+<li><p>demand is the sum of purchases by consumers and purchases by speculators.</p></li>
+</ul>
+<p>Mathematically,</p>
+<ul class="simple">
+<li><p>supply is given by <span class="math notranslate nohighlight">\(X_t = \alpha I_{t-1} + Z_t\)</span>, which takes values in <span class="math notranslate nohighlight">\(S := \mathbb R_+\)</span>, while</p></li>
+<li><p>demand <span class="math notranslate nohighlight">\( = D(p_t) + I_t\)</span></p></li>
+</ul>
+<p>Thus, the market equilibrium condition is</p>
+<div class="math notranslate nohighlight" id="equation-eq-mkeq">
+<span class="eqno">(27.3)<a class="headerlink" href="#equation-eq-mkeq" title="Permalink to this equation">#</a></span>\[
+  \alpha I_{t-1} + Z_t =  D(p_t) + I_t
+\]</div>
+<p>The initial condition <span class="math notranslate nohighlight">\(X_0 \in S\)</span> is treated as given.</p>
+</section>
+<section id="an-equilibrium-function">
+<h3><span class="section-number">27.5.2. </span>An equilibrium function<a class="headerlink" href="#an-equilibrium-function" title="Permalink to this heading">#</a></h3>
+<p>How can we find an equilibrium?</p>
+<p>Our path of attack will be to seek a system of prices that depend only on the
+current state.</p>
+<p>(Our solution method involves using an <a class="reference external" href="https://en.wikipedia.org/wiki/Ansatz">ansatz</a>, which is an educated guess — in this case for the price function.)</p>
+<p>In other words, we take a function <span class="math notranslate nohighlight">\(p\)</span> on <span class="math notranslate nohighlight">\(S\)</span> and set <span class="math notranslate nohighlight">\(p_t = p(X_t)\)</span> for every <span class="math notranslate nohighlight">\(t\)</span>.</p>
+<p>Prices and quantities then follow</p>
+<div class="math notranslate nohighlight" id="equation-eq-eosy">
+<span class="eqno">(27.4)<a class="headerlink" href="#equation-eq-eosy" title="Permalink to this equation">#</a></span>\[
+  p_t = p(X_t), \quad I_t = X_t - D(p_t), \quad X_{t+1} = \alpha I_t + Z_{t+1}
+\]</div>
+<p>We choose <span class="math notranslate nohighlight">\(p\)</span> so that these prices and quantities satisfy the equilibrium
+conditions above.</p>
+<p>More precisely, we seek a <span class="math notranslate nohighlight">\(p\)</span> such that <a class="reference internal" href="#equation-eq-arbi">(27.1)</a> and <a class="reference internal" href="#equation-eq-pmco">(27.2)</a> hold for
+the corresponding system <a class="reference internal" href="#equation-eq-eosy">(27.4)</a>.</p>
+<div class="math notranslate nohighlight" id="equation-eq-dopf">
+<span class="eqno">(27.5)<a class="headerlink" href="#equation-eq-dopf" title="Permalink to this equation">#</a></span>\[
+  p^*(x) = \max
+    \left\{
+    \alpha \int_0^\infty p^*(\alpha I(x) + z) \phi(z)dz, P(x)
+    \right\}
+    \qquad (x \in S)
+\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight" id="equation-eq-einvf">
+<span class="eqno">(27.6)<a class="headerlink" href="#equation-eq-einvf" title="Permalink to this equation">#</a></span>\[
+  I(x) := x - D(p^*(x))
+    \qquad (x \in S)
+\]</div>
+<p>It turns out that such a <span class="math notranslate nohighlight">\(p^*\)</span> will suffice, in the sense that <a class="reference internal" href="#equation-eq-arbi">(27.1)</a>
+and <a class="reference internal" href="#equation-eq-pmco">(27.2)</a> hold for the corresponding system <a class="reference internal" href="#equation-eq-eosy">(27.4)</a>.</p>
+<p>To see this, observe first that</p>
+<div class="math notranslate nohighlight">
+\[
+  \mathbb{E}_t \, p_{t+1}
+   = \mathbb{E}_t \, p^*(X_{t+1})
+   = \mathbb{E}_t \, p^*(\alpha I(X_t) + Z_{t+1})
+   = \int_0^\infty p^*(\alpha I(X_t) + z) \phi(z)dz
+\]</div>
+<p>Thus <a class="reference internal" href="#equation-eq-arbi">(27.1)</a> requires that</p>
+<div class="math notranslate nohighlight">
+\[
+   \alpha \int_0^\infty p^*(\alpha I(X_t) + z) \phi(z)dz \leq p^*(X_t)
+\]</div>
+<p>This inequality is immediate from <a class="reference internal" href="#equation-eq-dopf">(27.5)</a>.</p>
+<p>Second, regarding <a class="reference internal" href="#equation-eq-pmco">(27.2)</a>, suppose that</p>
+<div class="math notranslate nohighlight">
+\[
+   \alpha \int_0^\infty p^*(\alpha I(X_t) + z) \phi(z)dz &lt; p^*(X_t)
+\]</div>
+<p>Then by <a class="reference internal" href="#equation-eq-dopf">(27.5)</a> we have <span class="math notranslate nohighlight">\(p^*(X_t) = P(X_t)\)</span></p>
+<p>But then <span class="math notranslate nohighlight">\(D(p^*(X_t)) = X_t\)</span> and <span class="math notranslate nohighlight">\(I_t = I(X_t) = 0\)</span>.</p>
+<p>As a consequence, both <a class="reference internal" href="#equation-eq-arbi">(27.1)</a> and <a class="reference internal" href="#equation-eq-pmco">(27.2)</a> hold.</p>
+<p>We have found an equilibrium, which verifies the ansatz.</p>
+</section>
+<section id="computing-the-equilibrium">
+<h3><span class="section-number">27.5.3. </span>Computing the equilibrium<a class="headerlink" href="#computing-the-equilibrium" title="Permalink to this heading">#</a></h3>
+<p>We now know that an equilibrium can be obtained by finding a function <span class="math notranslate nohighlight">\(p^*\)</span>
+that satisfies <a class="reference internal" href="#equation-eq-dopf">(27.5)</a>.</p>
+<p>It can be shown that, under mild conditions there is exactly one function on
+<span class="math notranslate nohighlight">\(S\)</span> satisfying <a class="reference internal" href="#equation-eq-dopf">(27.5)</a>.</p>
+<p>Moreover, we can compute this function using successive approximation.</p>
+<p>This means that we start with a guess of the function and then update it using
+<a class="reference internal" href="#equation-eq-dopf">(27.5)</a>.</p>
+<p>This generates a sequence of functions <span class="math notranslate nohighlight">\(p_1, p_2, \ldots\)</span></p>
+<p>We continue until this process converges, in the sense that <span class="math notranslate nohighlight">\(p_k\)</span> and
+<span class="math notranslate nohighlight">\(p_{k+1}\)</span> are very close together.</p>
+<p>Then we take the final <span class="math notranslate nohighlight">\(p_k\)</span> that we computed as our approximation of <span class="math notranslate nohighlight">\(p^*\)</span>.</p>
+<p>To implement our update step, it is helpful if we put <a class="reference internal" href="#equation-eq-dopf">(27.5)</a> and
+<a class="reference internal" href="#equation-eq-einvf">(27.6)</a> together.</p>
+<p>This leads us to the update rule</p>
+<div class="math notranslate nohighlight" id="equation-eq-dopf2">
+<span class="eqno">(27.7)<a class="headerlink" href="#equation-eq-dopf2" title="Permalink to this equation">#</a></span>\[
+  p_{k+1}(x) = \max
+    \left\{
+    \alpha \int_0^\infty p_k(\alpha ( x - D(p_{k+1}(x))) + z) \phi(z)dz, P(x)
+    \right\}
+\]</div>
+<p>In other words, we take <span class="math notranslate nohighlight">\(p_k\)</span> as given and, at each <span class="math notranslate nohighlight">\(x\)</span>, solve for <span class="math notranslate nohighlight">\(q\)</span> in</p>
+<div class="math notranslate nohighlight" id="equation-eq-dopf3">
+<span class="eqno">(27.8)<a class="headerlink" href="#equation-eq-dopf3" title="Permalink to this equation">#</a></span>\[
+  q = \max
+    \left\{
+    \alpha \int_0^\infty p_k(\alpha ( x - D(q)) + z) \phi(z)dz, P(x)
+    \right\}
+\]</div>
+<p>Actually we can’t do this at every <span class="math notranslate nohighlight">\(x\)</span>, so instead we do it on a grid of
+points <span class="math notranslate nohighlight">\(x_1, \ldots, x_n\)</span>.</p>
+<p>Then we get the corresponding values <span class="math notranslate nohighlight">\(q_1, \ldots, q_n\)</span>.</p>
+<p>Then we compute <span class="math notranslate nohighlight">\(p_{k+1}\)</span> as the linear interpolation of
+the values <span class="math notranslate nohighlight">\(q_1, \ldots, q_n\)</span> over the grid <span class="math notranslate nohighlight">\(x_1, \ldots, x_n\)</span>.</p>
+<p>Then we repeat, seeking convergence.</p>
+</section>
+</section>
+<section id="code">
+<h2><span class="section-number">27.6. </span>Code<a class="headerlink" href="#code" title="Permalink to this heading">#</a></h2>
+<p>The code below implements this iterative process, starting from <span class="math notranslate nohighlight">\(p_0 = P\)</span>.</p>
+<p>The distribution <span class="math notranslate nohighlight">\(\phi\)</span> is set to a shifted Beta distribution (although many
+other choices are possible).</p>
+<p>The integral in <a class="reference internal" href="#equation-eq-dopf3">(27.8)</a> is computed via <a class="reference internal" href="monte_carlo.html#monte-carlo"><span class="std std-ref">Monte Carlo</span></a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">α</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span>
+<span class="n">beta_a</span><span class="p">,</span> <span class="n">beta_b</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span>
+<span class="n">mc_draw_size</span> <span class="o">=</span> <span class="mi">250</span>
+<span class="n">gridsize</span> <span class="o">=</span> <span class="mi">150</span>
+<span class="n">grid_max</span> <span class="o">=</span> <span class="mi">35</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">grid_max</span><span class="p">,</span> <span class="n">gridsize</span><span class="p">)</span>
+
+<span class="n">beta_dist</span> <span class="o">=</span> <span class="n">beta</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">beta_dist</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">mc_draw_size</span><span class="p">)</span> <span class="o">*</span> <span class="n">c</span>    <span class="c1"># Shock observations</span>
+<span class="n">D</span> <span class="o">=</span> <span class="n">P</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">x</span>
+<span class="n">tol</span> <span class="o">=</span> <span class="mf">1e-4</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">T</span><span class="p">(</span><span class="n">p_array</span><span class="p">):</span>
+
+    <span class="n">new_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">p_array</span><span class="p">)</span>
+
+    <span class="c1"># Interpolate to obtain p as a function.</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span>
+                 <span class="n">p_array</span><span class="p">,</span>
+                 <span class="n">fill_value</span><span class="o">=</span><span class="p">(</span><span class="n">p_array</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p_array</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span>
+                 <span class="n">bounds_error</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1"># Update</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">grid</span><span class="p">):</span>
+
+        <span class="n">h</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">q</span><span class="p">:</span> <span class="n">q</span> <span class="o">-</span> <span class="nb">max</span><span class="p">(</span><span class="n">α</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">p</span><span class="p">(</span><span class="n">α</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">D</span><span class="p">(</span><span class="n">q</span><span class="p">))</span> <span class="o">+</span> <span class="n">Z</span><span class="p">)),</span> <span class="n">P</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">new_p</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">brentq</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mf">1e-8</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">new_p</span>
+
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">price</span> <span class="o">=</span> <span class="n">P</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;inverse demand curve&quot;</span><span class="p">)</span>
+<span class="n">error</span> <span class="o">=</span> <span class="n">tol</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="k">while</span> <span class="n">error</span> <span class="o">&gt;</span> <span class="n">tol</span><span class="p">:</span>
+    <span class="n">new_price</span> <span class="o">=</span> <span class="n">T</span><span class="p">(</span><span class="n">price</span><span class="p">)</span>
+    <span class="n">error</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">new_price</span> <span class="o">-</span> <span class="n">price</span><span class="p">))</span>
+    <span class="n">price</span> <span class="o">=</span> <span class="n">new_price</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="s1">&#39;k-&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$p^*$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;prices&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The figure above shows the inverse demand curve <span class="math notranslate nohighlight">\(P\)</span>, which is also <span class="math notranslate nohighlight">\(p_0\)</span>, as
+well as our approximation of <span class="math notranslate nohighlight">\(p^*\)</span>.</p>
+<p>Once we have an approximation of <span class="math notranslate nohighlight">\(p^*\)</span>, we can simulate a time series of
+prices.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Turn the price array into a price function</span>
+<span class="n">p_star</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span>
+                  <span class="n">price</span><span class="p">,</span>
+                  <span class="n">fill_value</span><span class="o">=</span><span class="p">(</span><span class="n">price</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">price</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span>
+                  <span class="n">bounds_error</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">carry_over</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">α</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">D</span><span class="p">(</span><span class="n">p_star</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_cp_ts</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">init</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">Z</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">c</span> <span class="o">*</span> <span class="n">beta_dist</span><span class="o">.</span><span class="n">rvs</span><span class="p">()</span>
+            <span class="n">X</span><span class="p">[</span><span class="n">t</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">carry_over</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="o">+</span> <span class="n">Z</span>
+    <span class="k">return</span> <span class="n">p_star</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">generate_cp_ts</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;price&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+        <script type="text/x-thebe-config">
+        {
+            "rootPath": "./",
+            "requestKernel": true,
+            "useJupyterLite": true,
+            "useBinder": false,
+            "kernelOptions": {
+                "path": "/"
+            },
+            "codeMirrorConfig": {
+                "theme": "default",
+                "mode": "python"
+            },
+            "mountRestartButton": false,
+            "mountRestartallButton": false
+        }
+        </script>
+        <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="olg.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">26. </span>The Overlapping Generations Model</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="money_inflation.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">28. </span>Money Financed Government Deficits and Price Levels</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outline">27.1. Outline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">27.2. Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-competitive-storage-model">27.3. The competitive storage model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-model">27.4. The model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#equilibrium">27.5. Equilibrium</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#equilibrium-conditions">27.5.1. Equilibrium conditions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#an-equilibrium-function">27.5.2. An equilibrium function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-the-equilibrium">27.5.3. Computing the equilibrium</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code">27.6. Code</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By QuantEcon team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="last-updated">
+  Last updated on February 1, 2025.
+  <br/>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

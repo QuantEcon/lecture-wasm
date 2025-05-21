@@ -1,0 +1,1236 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>2. Long-Run Growth &#8212; My Jupyter Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/code.css" />
+    <link rel="stylesheet" type="text/css" href="_static/image_dark_mode.css" />
+    <link rel="stylesheet" type="text/css" href="_static/exercise.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/fix_admonition_style.css" />
+    <link rel="stylesheet" type="text/css" href="_static/fix_dropdown_style.css" />
+    <link rel="stylesheet" type="text/css" href="_static/fix_code_header_style.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-KZLV7PM9LL"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-KZLV7PM9LL');
+            </script>
+    <script defer="defer" src="_static/refresh.js"></script>
+    <script>const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script defer="defer" src="_static/sphinx-thebe-lite.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'long_run_growth';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="canonical" href="https://quantecon.org/long_run_growth.html" />
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="3. Business Cycles" href="business_cycle.html" />
+    <link rel="prev" title="1. About These Lectures" href="about.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="February 1, 2025"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/qe-logo.png" class="logo__image only-light" alt=""/>
+    <script>document.write(`<img src="_static/qe-logo.png" class="logo__image only-dark" alt=""/>`);</script>
+  
+  
+    <p class="title logo__title">QuantEcon Intro Lectures</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="about.html">1. About These Lectures</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Economic Data</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">2. Long-Run Growth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="business_cycle.html">3. Business Cycles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inflation_history.html">4. Price Level Histories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="french_rev.html">5. Inflation During French Revolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inequality.html">6. Income and Wealth Inequality</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="intro_supply_demand.html">7. Introduction to Supply and Demand</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linear_equations.html">8. Linear Equations and Matrix Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="complex_and_trig.html">9. Complex Numbers and Trigonometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geom_series.html">10. Geometric Series for Elementary Economics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Linear Dynamics: Finite Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="pv.html">11. Present Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cons_smooth.html">12. Consumption Smoothing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="equalizing_difference.html">13. Equalizing Difference Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cagan_ree.html">14. A Monetarist Theory of Price Levels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cagan_adaptive.html">15. Monetarist Theory of Price Levels with Adaptive Expectations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Linear Dynamics: Infinite Horizons</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="eigen_I.html">16. Eigenvalues and Eigenvectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="greek_square.html">17. Computing Square Roots</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Probability and Distributions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="prob_dist.html">18. Distributions and Probabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lln_clt.html">19. LLN and CLT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo.html">20. Monte Carlo and Option Pricing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="heavy_tails.html">21. Heavy-Tailed Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="schelling.html">22. Racial Segregation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Nonlinear Dynamics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="scalar_dynam.html">23. Dynamics in One Dimension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solow.html">24. The Solow-Swan Growth Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cobweb.html">25. The Cobweb Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="olg.html">26. The Overlapping Generations Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commod_price.html">27. Commodity Prices</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Monetary-Fiscal Policy Interactions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="money_inflation.html">28. Money Financed Government Deficits and Price Levels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unpleasant.html">29. Some Unpleasant Monetarist Arithmetic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="money_inflation_nonlinear.html">30. Inflation Rate Laffer Curves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laffer_adaptive.html">31. Laffer Curves  with Adaptive Expectations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Stochastic Dynamics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ar1_processes.html">32. AR(1) Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="markov_chains_I.html">33. Markov Chains: Basic Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="markov_chains_II.html">34. Markov Chains: Irreducibility and Ergodicity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="time_series_with_matrices.html">35. Univariate Time Series with Matrix Algebra</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Optimization</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="lp_intro.html">36. Linear Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="short_path.html">37. Shortest Paths</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modeling in Higher Dimensions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="eigen_II.html">38. The Perron-Frobenius Theorem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="input_output.html">39. Input-Output Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lake_model.html">40. A Lake Model of Employment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="networks.html">41. Networks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Markets and Competitive Equilibrium</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="supply_demand_multiple_goods.html">42. Supply and Demand with Many Goods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="supply_demand_heterogeneity.html">43. Market Equilibrium with Heterogeneity</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Estimation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="simple_linear_regression.html">44. Simple Linear Regression Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mle.html">45. Maximum Likelihood Estimation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Other</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">46. Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zreferences.html">47. References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="status.html">48. Execution Statistics</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/long_run_growth.ipynb" target="_blank"
+   class="btn btn-sm btn-download-notebook-button dropdown-item"
+   title="Download notebook file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="_sources/long_run_growth.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Long-Run Growth</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">2.1. Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up">2.2. Setting up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdp-per-capita">2.3. GDP per capita</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#united-kingdom">2.3.1. United Kingdom</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-the-us-uk-and-china">2.3.2. Comparing the US, UK, and China</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#focusing-on-china">2.3.3. Focusing on China</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#focusing-on-the-us-and-uk">2.3.4. Focusing on the US and UK</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdp-growth">2.4. GDP growth</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#early-industrialization-1820-to-1940">2.4.1. Early industrialization (1820 to 1940)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#constructing-a-plot-similar-to-tooze-s">2.4.1.1. Constructing a plot similar to Tooze’s</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-modern-era-1950-to-2020">2.4.2. The modern era (1950 to 2020)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regional-analysis">2.5. Regional analysis</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="long-run-growth">
+<h1><span class="section-number">2. </span>Long-Run Growth<a class="headerlink" href="#long-run-growth" title="Permalink to this heading">#</a></h1>
+<section id="overview">
+<h2><span class="section-number">2.1. </span>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
+<p>In this lecture we use Python, <span class="xref std std-doc">pandas</span>, and <span class="xref std std-doc">Matplotlib</span> to download, organize, and visualize historical data on economic growth.</p>
+<p>In addition to learning how to deploy these tools more generally, we’ll use them to describe facts about economic growth experiences across many countries over several centuries.</p>
+<p>Such “growth facts” are interesting for a variety of reasons.</p>
+<p>Explaining growth facts is a principal purpose of both “development economics” and “economic history”.</p>
+<p>And growth facts are important inputs into historians’ studies of geopolitical forces and dynamics.</p>
+<p>Thus, Adam Tooze’s account of the geopolitical precedents and antecedents of World War I begins by describing how the Gross Domestic Products (GDP) of European Great Powers had evolved during the 70 years preceding 1914 (see chapter 1 of <span id="id1">[]</span>).</p>
+<p>Using the very same data that Tooze used to construct his figure (with a slightly longer timeline), here is our version of his chapter 1 figure.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/tooze_ch1_graph.png"><img alt="_images/tooze_ch1_graph.png" src="_images/tooze_ch1_graph.png" style="width: 100%;" /></a>
+</figure>
+<p>(This is just a copy of our figure <code class="xref std std-numref docutils literal notranslate"><span class="pre">gdp1</span></code>.  We describe how we constructed it later in this lecture.)</p>
+<p>Chapter 1  of <span id="id2">[]</span> used his graph to show how US GDP started the 19th century way behind the GDP of the British Empire.</p>
+<p>By the end of the nineteenth century, US GDP had caught up with GDP of the British Empire, and how during the first half of the 20th century,
+US GDP surpassed that of the British Empire.</p>
+<p>For Adam Tooze, that fact was a key geopolitical underpinning for the “American century”.</p>
+<p>Looking at this  graph and how it set the geopolitical stage for “the American (20th) century” naturally
+tempts one to want a counterpart to his graph for 2014 or later.</p>
+<p>(An impatient reader seeking a hint at the answer  might now want to jump ahead and look at figure <code class="xref std std-numref docutils literal notranslate"><span class="pre">gdp2</span></code>.)</p>
+<p>As we’ll see, reasoning by analogy, this graph perhaps set the stage for an “XXX (21st) century”, where you are free to fill in your guess for country XXX.</p>
+<p>As we gather data to construct those two graphs, we’ll also study growth experiences for a number of countries for time horizons extending as far back as possible.</p>
+<p>These graphs will portray how the “Industrial Revolution” began in Britain in the late 18th century, then migrated to one country after another.</p>
+<p>In a nutshell, this lecture records growth trajectories of various countries over long time periods.</p>
+<p>While some countries have experienced long-term rapid growth across that has lasted a hundred years, others have not.</p>
+<p>Since populations differ across countries and vary within a country over time, it will
+be interesting to describe both total GDP and GDP per capita as it evolves within a country.</p>
+<p>First let’s import the packages needed to explore what the data says about long-run growth</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.cm</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cm</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">namedtuple</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="setting-up">
+<h2><span class="section-number">2.2. </span>Setting up<a class="headerlink" href="#setting-up" title="Permalink to this heading">#</a></h2>
+<p>A project initiated by <a class="reference external" href="https://en.wikipedia.org/wiki/Angus_Maddison">Angus Maddison</a> has collected many historical time series related to economic growth,
+some dating back to the first century.</p>
+<p>The data can be downloaded from the <a class="reference external" href="https://www.rug.nl/ggdc/historicaldevelopment/maddison/">Maddison Historical Statistics</a> by clicking on the “Latest Maddison Project Release”.</p>
+<p>We are going to read the data from a QuantEcon GitHub repository.</p>
+<p>Our objective in this section is to produce a convenient <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> instance that contains per capita GDP for different countries.</p>
+<p>Here we read the Maddison data into a pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data_url</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/QuantEcon/lecture-python-intro/raw/main/lectures/datasets/mpd2020.xlsx&quot;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">data_url</span><span class="p">,</span> 
+                     <span class="n">sheet_name</span><span class="o">=</span><span class="s1">&#39;Full data&#39;</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can see that this dataset contains GDP per capita (<code class="docutils literal notranslate"><span class="pre">gdppc</span></code>) and population (pop) for many countries and years.</p>
+<p>Let’s look at how many and which countries are available in this dataset</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">countries</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">country</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">countries</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can now explore some of the 169 countries that are available.</p>
+<p>Let’s loop over each country to understand which years are available for each country</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">country_years</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">country</span> <span class="ow">in</span> <span class="n">countries</span><span class="p">:</span>
+    <span class="n">cy_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">country</span> <span class="o">==</span> <span class="n">country</span><span class="p">][</span><span class="s1">&#39;year&#39;</span><span class="p">]</span>
+    <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">cy_data</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">cy_data</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">country_years</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">country</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">))</span>
+<span class="n">country_years</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">country_years</span><span class="p">,</span>
+                    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">,</span> <span class="s1">&#39;min_year&#39;</span><span class="p">,</span> <span class="s1">&#39;max_year&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">)</span>
+<span class="n">country_years</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s now reshape the original data into some convenient variables to enable quicker access to countries’ time series data.</p>
+<p>We can build a useful mapping between country codes and country names in this dataset</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">code_to_name</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span>
+    <span class="p">[</span><span class="s1">&#39;countrycode&#39;</span><span class="p">,</span> <span class="s1">&#39;country&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s1">&#39;countrycode&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can focus on GDP per capita (<code class="docutils literal notranslate"><span class="pre">gdppc</span></code>) and generate a wide data format</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">gdp_pc</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s1">&#39;countrycode&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">])[</span><span class="s1">&#39;gdppc&#39;</span><span class="p">]</span>
+<span class="n">gdp_pc</span> <span class="o">=</span> <span class="n">gdp_pc</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="s1">&#39;countrycode&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">gdp_pc</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We create a variable <code class="docutils literal notranslate"><span class="pre">color_mapping</span></code> to store a map between country codes and colors for consistency</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">country_names</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;countrycode&#39;</span><span class="p">]</span>
+
+<span class="c1"># Generate a colormap with the number of colors matching the number of countries</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">tab20</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">country_names</span><span class="p">)))</span>
+
+<span class="c1"># Create a dictionary to map each country to its corresponding color</span>
+<span class="n">color_mapping</span> <span class="o">=</span> <span class="p">{</span><span class="n">country</span><span class="p">:</span> <span class="n">color</span> <span class="k">for</span> 
+                 <span class="n">country</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">country_names</span><span class="p">,</span> <span class="n">colors</span><span class="p">)}</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+</section>
+<section id="gdp-per-capita">
+<h2><span class="section-number">2.3. </span>GDP per capita<a class="headerlink" href="#gdp-per-capita" title="Permalink to this heading">#</a></h2>
+<p>In this section we examine GDP per capita over the long run for several different countries.</p>
+<section id="united-kingdom">
+<h3><span class="section-number">2.3.1. </span>United Kingdom<a class="headerlink" href="#united-kingdom" title="Permalink to this heading">#</a></h3>
+<p>First we examine UK GDP growth</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">country</span> <span class="o">=</span> <span class="s1">&#39;GBR&#39;</span>
+<span class="n">gdp_pc</span><span class="p">[</span><span class="n">country</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+        <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;international dollars&#39;</span><span class="p">,</span>
+        <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">color_mapping</span><span class="p">[</span><span class="n">country</span><span class="p">]</span>
+    <span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/international_dollar">International dollars</a> are a hypothetical unit of currency that has the same purchasing power parity that the U.S. Dollar has in the United States at a given point in time. They are also known as Geary–Khamis dollars (GK Dollars).</p>
+</div>
+<p>We can see that the data is non-continuous for longer periods in the early 250 years of this millennium, so we could choose to interpolate to get a continuous line plot.</p>
+<p>Here we use dashed lines to indicate interpolated trends</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">country</span> <span class="o">=</span> <span class="s1">&#39;GBR&#39;</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gdp_pc</span><span class="p">[</span><span class="n">country</span><span class="p">]</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(),</span>
+        <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span>
+        <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">color_mapping</span><span class="p">[</span><span class="n">country</span><span class="p">])</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gdp_pc</span><span class="p">[</span><span class="n">country</span><span class="p">],</span>
+        <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">color_mapping</span><span class="p">[</span><span class="n">country</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;international dollars&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="comparing-the-us-uk-and-china">
+<h3><span class="section-number">2.3.2. </span>Comparing the US, UK, and China<a class="headerlink" href="#comparing-the-us-uk-and-china" title="Permalink to this heading">#</a></h3>
+<p>In this section we will compare GDP growth for the US, UK and China.</p>
+<p>As a first step we create a function to generate plots for a list of countries</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">draw_interp_plots</span><span class="p">(</span><span class="n">series</span><span class="p">,</span>        <span class="c1"># pandas series</span>
+                      <span class="n">country</span><span class="p">,</span>       <span class="c1"># list of country codes</span>
+                      <span class="n">ylabel</span><span class="p">,</span>        <span class="c1"># label for y-axis</span>
+                      <span class="n">xlabel</span><span class="p">,</span>        <span class="c1"># label for x-axis</span>
+                      <span class="n">color_mapping</span><span class="p">,</span> <span class="c1"># code-color mapping</span>
+                      <span class="n">code_to_name</span><span class="p">,</span>  <span class="c1"># code-name mapping</span>
+                      <span class="n">lw</span><span class="p">,</span>            <span class="c1"># line width</span>
+                      <span class="n">logscale</span><span class="p">,</span>      <span class="c1"># log scale for y-axis</span>
+                      <span class="n">ax</span>             <span class="c1"># matplolib axis</span>
+                     <span class="p">):</span>
+
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">country</span><span class="p">:</span>
+        <span class="c1"># Get the interpolated data</span>
+        <span class="n">df_interpolated</span> <span class="o">=</span> <span class="n">series</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">limit_area</span><span class="o">=</span><span class="s1">&#39;inside&#39;</span><span class="p">)</span>
+        <span class="n">interpolated_data</span> <span class="o">=</span> <span class="n">df_interpolated</span><span class="p">[</span><span class="n">series</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()]</span>
+
+        <span class="c1"># Plot the interpolated data with dashed lines</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">interpolated_data</span><span class="p">,</span>
+                <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span>
+                <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="n">color_mapping</span><span class="p">[</span><span class="n">c</span><span class="p">])</span>
+
+        <span class="c1"># Plot the non-interpolated data with solid lines</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">series</span><span class="p">[</span><span class="n">c</span><span class="p">],</span>
+                <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="n">color_mapping</span><span class="p">[</span><span class="n">c</span><span class="p">],</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="n">code_to_name</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="s1">&#39;country&#39;</span><span class="p">])</span>
+        
+        <span class="k">if</span> <span class="n">logscale</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># Draw the legend outside the plot</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As you can see from this chart, economic growth started in earnest in the 18th century and continued for the next two hundred years.</p>
+<p>How does this compare with other countries’ growth trajectories?</p>
+<p>Let’s look at the United States (USA), United Kingdom (GBR), and China (CHN)</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the namedtuple for the events</span>
+<span class="n">Event</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Event&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;year_range&#39;</span><span class="p">,</span> <span class="s1">&#39;y_text&#39;</span><span class="p">,</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span><span class="p">,</span> <span class="s1">&#39;ymax&#39;</span><span class="p">])</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">country</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CHN&#39;</span><span class="p">,</span> <span class="s1">&#39;GBR&#39;</span><span class="p">,</span> <span class="s1">&#39;USA&#39;</span><span class="p">]</span>
+<span class="n">draw_interp_plots</span><span class="p">(</span><span class="n">gdp_pc</span><span class="p">[</span><span class="n">country</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1500</span><span class="p">:],</span> 
+                  <span class="n">country</span><span class="p">,</span>
+                  <span class="s1">&#39;international dollars&#39;</span><span class="p">,</span><span class="s1">&#39;year&#39;</span><span class="p">,</span>
+                  <span class="n">color_mapping</span><span class="p">,</span> <span class="n">code_to_name</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">ax</span><span class="p">)</span>
+
+<span class="c1"># Define the parameters for the events and the text</span>
+<span class="n">ylim</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">b_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">}</span>
+<span class="n">t_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;fontsize&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span> 
+            <span class="s1">&#39;va&#39;</span><span class="p">:</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="s1">&#39;ha&#39;</span><span class="p">:</span><span class="s1">&#39;center&#39;</span><span class="p">}</span>
+
+<span class="c1"># Create a list of events to annotate</span>
+<span class="n">events</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">Event</span><span class="p">((</span><span class="mi">1650</span><span class="p">,</span> <span class="mi">1652</span><span class="p">),</span> <span class="n">ylim</span> <span class="o">+</span> <span class="n">ylim</span><span class="o">*</span><span class="mf">0.04</span><span class="p">,</span> 
+          <span class="s1">&#39;the Navigation Act</span><span class="se">\n</span><span class="s1">(1651)&#39;</span><span class="p">,</span>
+          <span class="n">color_mapping</span><span class="p">[</span><span class="s1">&#39;GBR&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="n">Event</span><span class="p">((</span><span class="mi">1655</span><span class="p">,</span> <span class="mi">1684</span><span class="p">),</span> <span class="n">ylim</span> <span class="o">+</span> <span class="n">ylim</span><span class="o">*</span><span class="mf">0.13</span><span class="p">,</span> 
+          <span class="s1">&#39;Closed-door Policy</span><span class="se">\n</span><span class="s1">(1655-1684)&#39;</span><span class="p">,</span> 
+          <span class="n">color_mapping</span><span class="p">[</span><span class="s1">&#39;CHN&#39;</span><span class="p">],</span> <span class="mf">1.1</span><span class="p">),</span>
+    <span class="n">Event</span><span class="p">((</span><span class="mi">1848</span><span class="p">,</span> <span class="mi">1850</span><span class="p">),</span> <span class="n">ylim</span> <span class="o">+</span> <span class="n">ylim</span><span class="o">*</span><span class="mf">0.22</span><span class="p">,</span>
+          <span class="s1">&#39;the Repeal of Navigation Act</span><span class="se">\n</span><span class="s1">(1849)&#39;</span><span class="p">,</span> 
+          <span class="n">color_mapping</span><span class="p">[</span><span class="s1">&#39;GBR&#39;</span><span class="p">],</span> <span class="mf">1.18</span><span class="p">),</span>
+    <span class="n">Event</span><span class="p">((</span><span class="mi">1765</span><span class="p">,</span> <span class="mi">1791</span><span class="p">),</span> <span class="n">ylim</span> <span class="o">+</span> <span class="n">ylim</span><span class="o">*</span><span class="mf">0.04</span><span class="p">,</span> 
+          <span class="s1">&#39;American Revolution</span><span class="se">\n</span><span class="s1">(1765-1791)&#39;</span><span class="p">,</span> 
+          <span class="n">color_mapping</span><span class="p">[</span><span class="s1">&#39;USA&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="n">Event</span><span class="p">((</span><span class="mi">1760</span><span class="p">,</span> <span class="mi">1840</span><span class="p">),</span> <span class="n">ylim</span> <span class="o">+</span> <span class="n">ylim</span><span class="o">*</span><span class="mf">0.13</span><span class="p">,</span> 
+          <span class="s1">&#39;Industrial Revolution</span><span class="se">\n</span><span class="s1">(1760-1840)&#39;</span><span class="p">,</span> 
+          <span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">),</span>
+    <span class="n">Event</span><span class="p">((</span><span class="mi">1929</span><span class="p">,</span> <span class="mi">1939</span><span class="p">),</span> <span class="n">ylim</span> <span class="o">+</span> <span class="n">ylim</span><span class="o">*</span><span class="mf">0.04</span><span class="p">,</span> 
+          <span class="s1">&#39;the Great Depression</span><span class="se">\n</span><span class="s1">(1929–1939)&#39;</span><span class="p">,</span> 
+          <span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="n">Event</span><span class="p">((</span><span class="mi">1978</span><span class="p">,</span> <span class="mi">1979</span><span class="p">),</span> <span class="n">ylim</span> <span class="o">+</span> <span class="n">ylim</span><span class="o">*</span><span class="mf">0.13</span><span class="p">,</span> 
+          <span class="s1">&#39;Reform and Opening-up</span><span class="se">\n</span><span class="s1">(1978-1979)&#39;</span><span class="p">,</span> 
+          <span class="n">color_mapping</span><span class="p">[</span><span class="s1">&#39;CHN&#39;</span><span class="p">],</span> <span class="mf">1.1</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_events</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">ax</span><span class="p">):</span>
+    <span class="c1"># Iterate over events and add annotations and vertical lines</span>
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+        <span class="n">event_mid</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">year_range</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">event_mid</span><span class="p">,</span> 
+                <span class="n">event</span><span class="o">.</span><span class="n">y_text</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> 
+                <span class="n">color</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">color</span><span class="p">,</span> <span class="o">**</span><span class="n">t_params</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="o">*</span><span class="n">event</span><span class="o">.</span><span class="n">year_range</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">event_mid</span><span class="p">,</span> <span class="n">ymin</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">ymax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">color</span><span class="p">,</span>
+                   <span class="n">clip_on</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
+
+<span class="c1"># Draw events</span>
+<span class="n">draw_events</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">ax</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<p>The preceding graph of per capita GDP strikingly reveals how the spread of the Industrial Revolution has over time gradually lifted the living standards of substantial
+groups of people</p>
+<ul class="simple">
+<li><p>most of the growth happened in the past 150 years after the Industrial Revolution.</p></li>
+<li><p>per capita GDP in the US and UK rose and diverged from that of China from 1820 to 1940.</p></li>
+<li><p>the gap has closed rapidly after 1950 and especially after the late 1970s.</p></li>
+<li><p>these outcomes reflect complicated combinations of technological and economic-policy factors that students of economic growth try to understand and quantify.</p></li>
+</ul>
+</section>
+<section id="focusing-on-china">
+<h3><span class="section-number">2.3.3. </span>Focusing on China<a class="headerlink" href="#focusing-on-china" title="Permalink to this heading">#</a></h3>
+<p>It is fascinating to see China’s GDP per capita levels from 1500 through to the 1970s.</p>
+<p>Notice the long period of declining GDP per capital levels from the 1700s until the early 20th century.</p>
+<p>Thus, the graph indicates</p>
+<ul class="simple">
+<li><p>a long economic downturn and stagnation after the Closed-door Policy by the Qing government.</p></li>
+<li><p>China’s very different experience than the UK’s after the onset of the industrial revolution in the UK.</p></li>
+<li><p>how the Self-Strengthening Movement seemed mostly to help China to grow.</p></li>
+<li><p>how stunning have been the growth achievements of modern Chinese economic policies by the PRC that culminated with its late 1970s reform and liberalization.</p></li>
+</ul>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">country</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CHN&#39;</span><span class="p">]</span>
+<span class="n">draw_interp_plots</span><span class="p">(</span><span class="n">gdp_pc</span><span class="p">[</span><span class="n">country</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1600</span><span class="p">:</span><span class="mi">2000</span><span class="p">],</span> 
+                  <span class="n">country</span><span class="p">,</span>
+                  <span class="s1">&#39;international dollars&#39;</span><span class="p">,</span><span class="s1">&#39;year&#39;</span><span class="p">,</span>
+                  <span class="n">color_mapping</span><span class="p">,</span> <span class="n">code_to_name</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="p">)</span>
+
+<span class="n">ylim</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">events</span> <span class="o">=</span> <span class="p">[</span>
+<span class="n">Event</span><span class="p">((</span><span class="mi">1655</span><span class="p">,</span> <span class="mi">1684</span><span class="p">),</span> <span class="n">ylim</span> <span class="o">+</span> <span class="n">ylim</span><span class="o">*</span><span class="mf">0.06</span><span class="p">,</span> 
+      <span class="s1">&#39;Closed-door Policy</span><span class="se">\n</span><span class="s1">(1655-1684)&#39;</span><span class="p">,</span> 
+      <span class="s1">&#39;tab:orange&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<span class="n">Event</span><span class="p">((</span><span class="mi">1760</span><span class="p">,</span> <span class="mi">1840</span><span class="p">),</span> <span class="n">ylim</span> <span class="o">+</span> <span class="n">ylim</span><span class="o">*</span><span class="mf">0.06</span><span class="p">,</span> 
+      <span class="s1">&#39;Industrial Revolution</span><span class="se">\n</span><span class="s1">(1760-1840)&#39;</span><span class="p">,</span> 
+      <span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<span class="n">Event</span><span class="p">((</span><span class="mi">1839</span><span class="p">,</span> <span class="mi">1842</span><span class="p">),</span> <span class="n">ylim</span> <span class="o">+</span> <span class="n">ylim</span><span class="o">*</span><span class="mf">0.2</span><span class="p">,</span> 
+      <span class="s1">&#39;First Opium War</span><span class="se">\n</span><span class="s1">(1839–1842)&#39;</span><span class="p">,</span> 
+      <span class="s1">&#39;tab:red&#39;</span><span class="p">,</span> <span class="mf">1.07</span><span class="p">),</span>
+<span class="n">Event</span><span class="p">((</span><span class="mi">1861</span><span class="p">,</span> <span class="mi">1895</span><span class="p">),</span> <span class="n">ylim</span> <span class="o">+</span> <span class="n">ylim</span><span class="o">*</span><span class="mf">0.4</span><span class="p">,</span> 
+      <span class="s1">&#39;Self-Strengthening Movement</span><span class="se">\n</span><span class="s1">(1861–1895)&#39;</span><span class="p">,</span> 
+      <span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="mf">1.14</span><span class="p">),</span>
+<span class="n">Event</span><span class="p">((</span><span class="mi">1939</span><span class="p">,</span> <span class="mi">1945</span><span class="p">),</span> <span class="n">ylim</span> <span class="o">+</span> <span class="n">ylim</span><span class="o">*</span><span class="mf">0.06</span><span class="p">,</span> 
+      <span class="s1">&#39;WW 2</span><span class="se">\n</span><span class="s1">(1939-1945)&#39;</span><span class="p">,</span> 
+      <span class="s1">&#39;tab:red&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<span class="n">Event</span><span class="p">((</span><span class="mi">1948</span><span class="p">,</span> <span class="mi">1950</span><span class="p">),</span> <span class="n">ylim</span> <span class="o">+</span> <span class="n">ylim</span><span class="o">*</span><span class="mf">0.23</span><span class="p">,</span> 
+      <span class="s1">&#39;Founding of PRC</span><span class="se">\n</span><span class="s1">(1949)&#39;</span><span class="p">,</span> 
+      <span class="n">color_mapping</span><span class="p">[</span><span class="s1">&#39;CHN&#39;</span><span class="p">],</span> <span class="mf">1.08</span><span class="p">),</span>
+<span class="n">Event</span><span class="p">((</span><span class="mi">1958</span><span class="p">,</span> <span class="mi">1962</span><span class="p">),</span> <span class="n">ylim</span> <span class="o">+</span> <span class="n">ylim</span><span class="o">*</span><span class="mf">0.5</span><span class="p">,</span> 
+      <span class="s1">&#39;Great Leap Forward</span><span class="se">\n</span><span class="s1">(1958-1962)&#39;</span><span class="p">,</span> 
+      <span class="s1">&#39;tab:orange&#39;</span><span class="p">,</span> <span class="mf">1.18</span><span class="p">),</span>
+<span class="n">Event</span><span class="p">((</span><span class="mi">1978</span><span class="p">,</span> <span class="mi">1979</span><span class="p">),</span> <span class="n">ylim</span> <span class="o">+</span> <span class="n">ylim</span><span class="o">*</span><span class="mf">0.7</span><span class="p">,</span> 
+      <span class="s1">&#39;Reform and Opening-up</span><span class="se">\n</span><span class="s1">(1978-1979)&#39;</span><span class="p">,</span> 
+      <span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="mf">1.24</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="c1"># Draw events</span>
+<span class="n">draw_events</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">ax</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+</section>
+<section id="focusing-on-the-us-and-uk">
+<h3><span class="section-number">2.3.4. </span>Focusing on the US and UK<a class="headerlink" href="#focusing-on-the-us-and-uk" title="Permalink to this heading">#</a></h3>
+<p>Now we look at the United States (USA) and United Kingdom (GBR) in more detail.</p>
+<p>In the following graph, please watch for</p>
+<ul class="simple">
+<li><p>impact of trade policy (Navigation Act).</p></li>
+<li><p>productivity changes brought by the Industrial Revolution.</p></li>
+<li><p>how the US gradually approaches and then surpasses the UK, setting the stage for the ‘’American Century’’.</p></li>
+<li><p>the often unanticipated consequences of wars.</p></li>
+<li><p>interruptions and scars left by <a class="reference internal" href="business_cycle.html"><span class="doc std std-doc">business cycle</span></a> recessions and depressions.</p></li>
+</ul>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">country</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;GBR&#39;</span><span class="p">,</span> <span class="s1">&#39;USA&#39;</span><span class="p">]</span>
+<span class="n">draw_interp_plots</span><span class="p">(</span><span class="n">gdp_pc</span><span class="p">[</span><span class="n">country</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1500</span><span class="p">:</span><span class="mi">2000</span><span class="p">],</span>
+                  <span class="n">country</span><span class="p">,</span>
+                  <span class="s1">&#39;international dollars&#39;</span><span class="p">,</span><span class="s1">&#39;year&#39;</span><span class="p">,</span>
+                  <span class="n">color_mapping</span><span class="p">,</span> <span class="n">code_to_name</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="p">)</span>
+
+<span class="n">ylim</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Create a list of data points</span>
+<span class="n">events</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">Event</span><span class="p">((</span><span class="mi">1651</span><span class="p">,</span> <span class="mi">1651</span><span class="p">),</span> <span class="n">ylim</span> <span class="o">+</span> <span class="n">ylim</span><span class="o">*</span><span class="mf">0.15</span><span class="p">,</span> 
+          <span class="s1">&#39;Navigation Act (UK)</span><span class="se">\n</span><span class="s1">(1651)&#39;</span><span class="p">,</span> 
+          <span class="s1">&#39;tab:orange&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="n">Event</span><span class="p">((</span><span class="mi">1765</span><span class="p">,</span> <span class="mi">1791</span><span class="p">),</span> <span class="n">ylim</span> <span class="o">+</span> <span class="n">ylim</span><span class="o">*</span><span class="mf">0.15</span><span class="p">,</span> 
+          <span class="s1">&#39;American Revolution</span><span class="se">\n</span><span class="s1">(1765-1791)&#39;</span><span class="p">,</span>
+          <span class="n">color_mapping</span><span class="p">[</span><span class="s1">&#39;USA&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="n">Event</span><span class="p">((</span><span class="mi">1760</span><span class="p">,</span> <span class="mi">1840</span><span class="p">),</span> <span class="n">ylim</span> <span class="o">+</span> <span class="n">ylim</span><span class="o">*</span><span class="mf">0.6</span><span class="p">,</span> 
+          <span class="s1">&#39;Industrial Revolution</span><span class="se">\n</span><span class="s1">(1760-1840)&#39;</span><span class="p">,</span> 
+          <span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="mf">1.08</span><span class="p">),</span>
+    <span class="n">Event</span><span class="p">((</span><span class="mi">1848</span><span class="p">,</span> <span class="mi">1850</span><span class="p">),</span> <span class="n">ylim</span> <span class="o">+</span> <span class="n">ylim</span><span class="o">*</span><span class="mf">1.1</span><span class="p">,</span> 
+          <span class="s1">&#39;Repeal of Navigation Act (UK)</span><span class="se">\n</span><span class="s1">(1849)&#39;</span><span class="p">,</span> 
+          <span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="mf">1.14</span><span class="p">),</span>
+    <span class="n">Event</span><span class="p">((</span><span class="mi">1861</span><span class="p">,</span> <span class="mi">1865</span><span class="p">),</span> <span class="n">ylim</span> <span class="o">+</span> <span class="n">ylim</span><span class="o">*</span><span class="mf">1.8</span><span class="p">,</span> 
+          <span class="s1">&#39;American Civil War</span><span class="se">\n</span><span class="s1">(1861-1865)&#39;</span><span class="p">,</span> 
+          <span class="n">color_mapping</span><span class="p">[</span><span class="s1">&#39;USA&#39;</span><span class="p">],</span> <span class="mf">1.21</span><span class="p">),</span>
+    <span class="n">Event</span><span class="p">((</span><span class="mi">1914</span><span class="p">,</span> <span class="mi">1918</span><span class="p">),</span> <span class="n">ylim</span> <span class="o">+</span> <span class="n">ylim</span><span class="o">*</span><span class="mf">0.15</span><span class="p">,</span> 
+          <span class="s1">&#39;WW 1</span><span class="se">\n</span><span class="s1">(1914-1918)&#39;</span><span class="p">,</span> 
+          <span class="s1">&#39;tab:red&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="n">Event</span><span class="p">((</span><span class="mi">1929</span><span class="p">,</span> <span class="mi">1939</span><span class="p">),</span> <span class="n">ylim</span> <span class="o">+</span> <span class="n">ylim</span><span class="o">*</span><span class="mf">0.6</span><span class="p">,</span> 
+          <span class="s1">&#39;the Great Depression</span><span class="se">\n</span><span class="s1">(1929–1939)&#39;</span><span class="p">,</span> 
+          <span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="mf">1.08</span><span class="p">),</span>
+    <span class="n">Event</span><span class="p">((</span><span class="mi">1939</span><span class="p">,</span> <span class="mi">1945</span><span class="p">),</span> <span class="n">ylim</span> <span class="o">+</span> <span class="n">ylim</span><span class="o">*</span><span class="mf">1.1</span><span class="p">,</span> 
+          <span class="s1">&#39;WW 2</span><span class="se">\n</span><span class="s1">(1939-1945)&#39;</span><span class="p">,</span> 
+          <span class="s1">&#39;tab:red&#39;</span><span class="p">,</span> <span class="mf">1.14</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="c1"># Draw events</span>
+<span class="n">draw_events</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">ax</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+</section>
+</section>
+<section id="gdp-growth">
+<h2><span class="section-number">2.4. </span>GDP growth<a class="headerlink" href="#gdp-growth" title="Permalink to this heading">#</a></h2>
+<p>Now we’ll construct some graphs of interest to geopolitical historians like Adam Tooze.</p>
+<p>We’ll focus on total Gross Domestic Product (GDP) (as a proxy for ‘’national geopolitical-military power’’) rather than focusing on GDP per capita (as a proxy for living standards).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">data_url</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s1">&#39;Full data&#39;</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s1">&#39;countrycode&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;gdppc&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;pop&#39;</span><span class="p">]</span>
+<span class="n">gdp</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="s1">&#39;countrycode&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="early-industrialization-1820-to-1940">
+<h3><span class="section-number">2.4.1. </span>Early industrialization (1820 to 1940)<a class="headerlink" href="#early-industrialization-1820-to-1940" title="Permalink to this heading">#</a></h3>
+<p>We first visualize the trend of China, the Former Soviet Union, Japan, the UK and the US.</p>
+<p>The most notable trend is the rise of the US, surpassing the UK in the 1860s and China in the 1880s.</p>
+<p>The growth continued until the large dip in the 1930s when the Great Depression hit.</p>
+<p>Meanwhile, Russia experienced significant setbacks during World War I and recovered significantly after the February Revolution.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">country</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CHN&#39;</span><span class="p">,</span> <span class="s1">&#39;SUN&#39;</span><span class="p">,</span> <span class="s1">&#39;JPN&#39;</span><span class="p">,</span> <span class="s1">&#39;GBR&#39;</span><span class="p">,</span> <span class="s1">&#39;USA&#39;</span><span class="p">]</span>
+<span class="n">start_year</span><span class="p">,</span> <span class="n">end_year</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1820</span><span class="p">,</span> <span class="mi">1945</span><span class="p">)</span>
+<span class="n">draw_interp_plots</span><span class="p">(</span><span class="n">gdp</span><span class="p">[</span><span class="n">country</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start_year</span><span class="p">:</span><span class="n">end_year</span><span class="p">],</span> 
+                  <span class="n">country</span><span class="p">,</span>
+                  <span class="s1">&#39;international dollars&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span>
+                  <span class="n">color_mapping</span><span class="p">,</span> <span class="n">code_to_name</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">ax</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="constructing-a-plot-similar-to-tooze-s">
+<h4><span class="section-number">2.4.1.1. </span>Constructing a plot similar to Tooze’s<a class="headerlink" href="#constructing-a-plot-similar-to-tooze-s" title="Permalink to this heading">#</a></h4>
+<p>In this section we describe how we have constructed a version of the striking figure from chapter 1 of <span id="id3">[]</span> that we discussed at the start of this lecture.</p>
+<p>Let’s first define a collection of countries that consist of the British Empire (BEM) so we can replicate that series in  Tooze’s chart.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">BEM</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;GBR&#39;</span><span class="p">,</span> <span class="s1">&#39;IND&#39;</span><span class="p">,</span> <span class="s1">&#39;AUS&#39;</span><span class="p">,</span> <span class="s1">&#39;NZL&#39;</span><span class="p">,</span> <span class="s1">&#39;CAN&#39;</span><span class="p">,</span> <span class="s1">&#39;ZAF&#39;</span><span class="p">]</span>
+<span class="c1"># Interpolate incomplete time-series</span>
+<span class="n">gdp</span><span class="p">[</span><span class="s1">&#39;BEM&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gdp</span><span class="p">[</span><span class="n">BEM</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start_year</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="n">end_year</span><span class="p">]</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now let’s assemble our series and get ready to plot them.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define colour mapping and name for BEM</span>
+<span class="n">color_mapping</span><span class="p">[</span><span class="s1">&#39;BEM&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">color_mapping</span><span class="p">[</span><span class="s1">&#39;GBR&#39;</span><span class="p">]</span>  <span class="c1"># Set the color to be the same as Great Britain</span>
+<span class="c1"># Add British Empire to code_to_name</span>
+<span class="n">bem</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="s2">&quot;British Empire&quot;</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;BEM&quot;</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">])</span>
+<span class="n">bem</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;countrycode&#39;</span>
+<span class="n">code_to_name</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">code_to_name</span><span class="p">,</span> <span class="n">bem</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">country</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;DEU&#39;</span><span class="p">,</span> <span class="s1">&#39;USA&#39;</span><span class="p">,</span> <span class="s1">&#39;SUN&#39;</span><span class="p">,</span> <span class="s1">&#39;BEM&#39;</span><span class="p">,</span> <span class="s1">&#39;FRA&#39;</span><span class="p">,</span> <span class="s1">&#39;JPN&#39;</span><span class="p">]</span>
+<span class="n">start_year</span><span class="p">,</span> <span class="n">end_year</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1821</span><span class="p">,</span> <span class="mi">1945</span><span class="p">)</span>
+<span class="n">draw_interp_plots</span><span class="p">(</span><span class="n">gdp</span><span class="p">[</span><span class="n">country</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start_year</span><span class="p">:</span><span class="n">end_year</span><span class="p">],</span> 
+                  <span class="n">country</span><span class="p">,</span>
+                  <span class="s1">&#39;international dollars&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span>
+                  <span class="n">color_mapping</span><span class="p">,</span> <span class="n">code_to_name</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">ax</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;./_static/lecture_specific/long_run_growth/tooze_ch1_graph.png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+            <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>At the start of this lecture, we noted  how US GDP came from “nowhere” at the start of the 19th century to rival and then overtake the GDP of the British Empire
+by the end of the 19th century, setting the geopolitical stage for the “American (twentieth) century”.</p>
+<p>Let’s move forward in time and start roughly where Tooze’s graph stopped after World War II.</p>
+<p>In the spirit of Tooze’s chapter 1 analysis, doing this will provide some information about geopolitical realities today.</p>
+</section>
+</section>
+<section id="the-modern-era-1950-to-2020">
+<h3><span class="section-number">2.4.2. </span>The modern era (1950 to 2020)<a class="headerlink" href="#the-modern-era-1950-to-2020" title="Permalink to this heading">#</a></h3>
+<p>The following graph displays how quickly China has grown, especially since the late 1970s.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">country</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CHN&#39;</span><span class="p">,</span> <span class="s1">&#39;SUN&#39;</span><span class="p">,</span> <span class="s1">&#39;JPN&#39;</span><span class="p">,</span> <span class="s1">&#39;GBR&#39;</span><span class="p">,</span> <span class="s1">&#39;USA&#39;</span><span class="p">]</span>
+<span class="n">start_year</span><span class="p">,</span> <span class="n">end_year</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1950</span><span class="p">,</span> <span class="mi">2020</span><span class="p">)</span>
+<span class="n">draw_interp_plots</span><span class="p">(</span><span class="n">gdp</span><span class="p">[</span><span class="n">country</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start_year</span><span class="p">:</span><span class="n">end_year</span><span class="p">],</span> 
+                  <span class="n">country</span><span class="p">,</span>
+                  <span class="s1">&#39;international dollars&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span>
+                  <span class="n">color_mapping</span><span class="p">,</span> <span class="n">code_to_name</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">ax</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>It is tempting to compare this graph with figure <code class="xref std std-numref docutils literal notranslate"><span class="pre">gdp1</span></code> that showed the US overtaking the UK near the start of the “American Century”, a version of the graph featured in chapter 1 of  <span id="id4">[]</span>.</p>
+</section>
+</section>
+<section id="regional-analysis">
+<h2><span class="section-number">2.5. </span>Regional analysis<a class="headerlink" href="#regional-analysis" title="Permalink to this heading">#</a></h2>
+<p>We often want to study the historical experiences of countries outside the club of “World Powers”.</p>
+<p>The <a class="reference external" href="https://www.rug.nl/ggdc/historicaldevelopment/maddison/">Maddison Historical Statistics</a> dataset also includes regional aggregations</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">data_url</span><span class="p">,</span> 
+                     <span class="n">sheet_name</span><span class="o">=</span><span class="s1">&#39;Regional data&#39;</span><span class="p">,</span> 
+                     <span class="n">header</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+                     <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">droplevel</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can save the raw data in a more convenient format to build a single table of regional GDP per capita</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">regionalgdp_pc</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;gdppc_2011&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">regionalgdp_pc</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">regionalgdp_pc</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%Y&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s interpolate based on time to fill in any gaps in the dataset for the purpose of plotting</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">regionalgdp_pc</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Looking more closely, let’s compare the time series for <code class="docutils literal notranslate"><span class="pre">Western</span> <span class="pre">Offshoots</span></code> and <code class="docutils literal notranslate"><span class="pre">Sub-Saharan</span> <span class="pre">Africa</span></code> with a number of different regions around the world.</p>
+<p>Again we see the divergence of the West from the rest of the world after the Industrial Revolution and the convergence of the world after the 1950s</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">regionalgdp_pc</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span>
+                    <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                    <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;international dollars&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower center&#39;</span><span class="p">,</span>
+           <span class="n">ncol</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+        <script type="text/x-thebe-config">
+        {
+            "rootPath": "./",
+            "requestKernel": true,
+            "useJupyterLite": true,
+            "useBinder": false,
+            "kernelOptions": {
+                "path": "/"
+            },
+            "codeMirrorConfig": {
+                "theme": "default",
+                "mode": "python"
+            },
+            "mountRestartButton": false,
+            "mountRestartallButton": false
+        }
+        </script>
+        <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="about.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">1. </span>About These Lectures</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="business_cycle.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Business Cycles</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">2.1. Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up">2.2. Setting up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdp-per-capita">2.3. GDP per capita</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#united-kingdom">2.3.1. United Kingdom</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-the-us-uk-and-china">2.3.2. Comparing the US, UK, and China</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#focusing-on-china">2.3.3. Focusing on China</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#focusing-on-the-us-and-uk">2.3.4. Focusing on the US and UK</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdp-growth">2.4. GDP growth</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#early-industrialization-1820-to-1940">2.4.1. Early industrialization (1820 to 1940)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#constructing-a-plot-similar-to-tooze-s">2.4.1.1. Constructing a plot similar to Tooze’s</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-modern-era-1950-to-2020">2.4.2. The modern era (1950 to 2020)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regional-analysis">2.5. Regional analysis</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By QuantEcon team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="last-updated">
+  Last updated on February 1, 2025.
+  <br/>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
