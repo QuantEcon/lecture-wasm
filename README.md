@@ -15,6 +15,11 @@ In order to build and test the project locally, please install the required libr
 pip install -r requirements.txt
 ```
 
+The first step is to build the lecture series. To do so, use the following:
+```
+teachbooks build book
+```
+
 And run a local server using
 ```
 teachbooks serve
