@@ -3,7 +3,7 @@
 This repository contains a subset of the [lecture-python-intro](https://intro.quantecon.org/intro.html).
 
 This project is powered by Pyodide kernel which allows us to run the lectures in the browser without
-any installaion.
+any installation.
 
 ## Development
 
