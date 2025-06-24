@@ -14,10 +14,8 @@ kernelspec:
 (heavy_tail)=
 # Heavy-Tailed Distributions
 
-```{admonition} WASM Compatibility
-:class: warning
-
 ```{include} _admonition/wasm-compat.md
+```
 
 In addition to what's in Anaconda, this lecture will need the following libraries:
 
