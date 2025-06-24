@@ -13,6 +13,9 @@ kernelspec:
 
 # Business Cycles
 
+```{include} _admonition/wasm-compat.md
+```
+
 ## Overview
 
 In this lecture we review some empirical aspects of business cycles.

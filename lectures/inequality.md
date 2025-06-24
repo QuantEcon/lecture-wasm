@@ -13,6 +13,9 @@ kernelspec:
 
 # Income and Wealth Inequality
 
+```{include} _admonition/wasm-compat.md
+```
+
 ## Overview
 
 In the lecture {doc}`long_run_growth` we studied how GDP per capita has changed

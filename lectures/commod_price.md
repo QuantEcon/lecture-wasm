@@ -14,6 +14,9 @@ kernelspec:
 
 # Commodity Prices
 
+```{include} _admonition/wasm-compat.md
+```
+
 ## Outline
 
 For more than half of all countries around the globe, [commodities](https://en.wikipedia.org/wiki/Commodity) account for [the majority of total exports](https://unctad.org/publication/commodities-and-development-report-2019).
