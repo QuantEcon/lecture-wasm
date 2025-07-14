@@ -11,19 +11,31 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
+  build:
+    uses: TeachBooks/deploy-book-workflow/.github/workflows/deploy-book.yml@main
+    secrets: inherit
     permissions:
       contents: read
       pages: write
       id-token: write
+
+  netlify-deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
       pull-requests: write
     
     steps:
-    - name: Call build workflow
-      uses: TeachBooks/deploy-book-workflow/.github/workflows/deploy-book.yml@main
-      secrets: inherit
+    - name: Checkout
+      uses: actions/checkout@v4
     
+    - name: Download build artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: book-build
+        path: book/_build/html/
+
     - name: Preview Deploy to Netlify
       uses: nwtgck/actions-netlify@v3
       with:
