@@ -8,6 +8,7 @@ on:
     - book/**
     - requirements.txt
     - .github/workflows/deploy.yml
+    - .github/workflows/ci_pr.yml
   workflow_dispatch:
 
 jobs:
