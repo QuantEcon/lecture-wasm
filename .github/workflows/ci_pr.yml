@@ -1,0 +1,209 @@
+name: Build and Netlify Deploy
+
+on:
+  pull_request:
+    branches:
+    - main
+    paths:
+    - book/**
+    - requirements.txt
+    - .github/workflows/deploy.yml
+    - .github/workflows/ci_pr.yml
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GH_TOKEN: ${{ secrets.GH_PAT != '' && secrets.GH_PAT || secrets.GITHUB_TOKEN }}
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    
+    steps:
+    - name: Checkout current branch
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ github.head_ref }}
+        token: ${{ env.GH_TOKEN }}
+        submodules: 'true'
+
+    - name: Display branch information
+      run: |
+        echo "Running on branch: ${{ github.head_ref }}"
+        echo "Target branch: ${{ github.base_ref }}"
+        echo "PR number: ${{ github.event.number }}"
+        echo "Commit SHA: ${{ github.sha }}"
+
+    - name: Record extra cache info
+      run: |
+        # Record filenames listing -- this updates the cache on filename change
+        find book/ -type f >> EXTRA_CACHE_VARS.txt
+        # For PR builds, we don't preprocess or archive
+        echo false >> EXTRA_CACHE_VARS.txt  # preprocess
+        echo false >> EXTRA_CACHE_VARS.txt  # archive
+        cat EXTRA_CACHE_VARS.txt
+
+    - name: Cache page build
+      id: cache-html
+      uses: actions/cache@v4
+      with:
+        path: "book/_build/html"
+        key: html-build-${{ github.head_ref }}-${{ hashFiles('book/**', 'requirements.txt', 'EXTRA_CACHE_VARS.txt') }}
+
+    - if: ${{ steps.cache-html.outputs.cache-hit != 'true' }}
+      name: Set up Python 3.11
+      uses: actions/setup-python@v5
+      id: setup-python
+      with:
+        python-version: 3.11
+
+    - if: ${{ steps.cache-html.outputs.cache-hit != 'true' }}
+      name: Record current date for cache
+      run: |
+        echo "WEEK=$(date +%V)" >> $GITHUB_ENV
+
+    - if: ${{ steps.cache-html.outputs.cache-hit != 'true' }}
+      name: Cache virtualenv
+      uses: actions/cache@v4
+      with:
+        key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('requirements.txt') }}-week${{ env.WEEK }}-${{ github.repository }}
+        path: .venv
+
+    - if: ${{ steps.cache-html.outputs.cache-hit != 'true' }}
+      name: Install dependencies
+      run: |
+        python -m venv .venv
+        source .venv/bin/activate
+        python -m pip install -r requirements.txt
+        echo "$VIRTUAL_ENV/bin" >> $GITHUB_PATH
+        echo "VIRTUAL_ENV=$VIRTUAL_ENV" >> $GITHUB_ENV
+
+    - if: ${{ steps.cache-html.outputs.cache-hit != 'true' }}
+      name: Build the book with TeachBooks
+      run: |
+        set -o pipefail
+        # Build without preprocessing for PR preview
+        teachbooks build book/ > >(tee stdout.log) 2> >(tee stderr.log >&2)
+        set +o pipefail
+
+    - name: If build failed, attempt to restore from cache
+      if: failure()
+      id: attempt-restore
+      uses: actions/cache/restore@v4
+      with:
+        key: none
+        path: "book/_build/html"
+        restore-keys: html-build-${{ github.head_ref }}
+
+    - name: Check build output
+      run: |
+        echo "Build completed. Contents of book/_build/html/:"
+        ls -la book/_build/html/ || echo "No build output found"
+        echo "Checking for index.html:"
+        ls -la book/_build/html/index.html || echo "No index.html found"
+
+    - name: Create build status summary
+      if: always()
+      run: |
+        if [ ${{ job.status }} == 'success' ]; then
+          echo "✅ **Build Status**: Success" >> build_summary.md
+          echo "Book built successfully from branch \`${{ github.head_ref }}\`" >> build_summary.md
+        else
+          echo "**Build Status**: Failed" >> build_summary.md
+          if [ -n "${{ steps.attempt-restore.outputs.cache-matched-key }}" ]; then
+            echo "Using cached version from previous successful build" >> build_summary.md
+          else
+            echo " No cached version available" >> build_summary.md
+          fi
+        fi
+        
+        if [ -s stderr.log ]; then
+          echo "" >> build_summary.md
+          echo " **Build Warnings/Errors**:" >> build_summary.md
+          echo '```' >> build_summary.md
+          cat stderr.log >> build_summary.md
+          echo '```' >> build_summary.md
+        fi
+
+    - name: Deploy to Netlify
+      if: always() && hashFiles('book/_build/html/**') != ''
+      uses: nwtgck/actions-netlify@v3
+      with:
+        publish-dir: 'book/_build/html/'
+        production-branch: main
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        deploy-message: "Preview Deploy from ${{ github.head_ref }} (PR #${{ github.event.number }})"
+        alias: pr-${{ github.event.number }}
+        enable-pull-request-comment: true
+        enable-commit-comment: false
+        overwrites-pull-request-comment: true
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+    - name: Comment build summary on PR
+      if: always()
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          let summary = '';
+          try {
+            summary = fs.readFileSync('build_summary.md', 'utf8');
+          } catch (error) {
+            summary = '📋 Build summary not available';
+          }
+          
+          const body = `## 🚀 TeachBooks Build & Deploy Summary
+
+          ${summary}
+
+          ---
+          <details>
+          <summary>📖 TeachBooks Configuration</summary>
+          
+          - **Branch**: \`${{ github.head_ref }}\`
+          - **Build Command**: \`teachbooks build book/\`
+          - **Preprocessing**: Disabled (PR preview)
+          - **Archive Banner**: Disabled (PR preview)
+          - **Cache**: ${{ steps.cache-html.outputs.cache-hit == 'true' && 'Hit ✅' || 'Miss ❌' }}
+          
+          </details>`;
+
+          // Get existing comments
+          const { data: comments } = await github.rest.issues.listComments({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+          });
+
+          // Find existing bot comment
+          const botComment = comments.find(comment => 
+            comment.user.type === 'Bot' && 
+            comment.body.includes('🚀 TeachBooks Build & Deploy Summary')
+          );
+
+          if (botComment) {
+            // Update existing comment
+            await github.rest.issues.updateComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: botComment.id,
+              body: body
+            });
+          } else {
+            // Create new comment
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: body
+            });
+          }
