@@ -13,6 +13,9 @@ kernelspec:
 
 # Distributions and Probabilities
 
+```{include} _admonition/wasm-compat.md
+```
+
 ```{index} single: Distributions and Probabilities
 ```
 

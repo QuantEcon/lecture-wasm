@@ -1,0 +1,7 @@
+```{admonition} WASM Compatibility
+:class: warning
+
+Some libraries like yfinance or ortools in this lecture series might not be compatible with Web Assemblies (WASM). This warning has been included above each of the lecture series, where the particular lecture series is not compatible with WASM.
+
+To run the lectures, above each lecture, there is a 'rocket' icon and it makes the particular lecture file ready to run, which would help you run the codes in the lecture in the browser itself, just like you'd run a native app on your desktop.
+```
