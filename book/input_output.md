@@ -13,6 +13,9 @@ kernelspec:
 
 # Input-Output Models
 
+```{include} _admonition/wasm-compat.md
+```
+
 ## Overview
 
 This lecture requires the following imports and installs before we proceed.
