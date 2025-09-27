@@ -118,3 +118,4 @@ _output
 # build
 **/*/_build
 **/*/.teachbooks
+_build/
