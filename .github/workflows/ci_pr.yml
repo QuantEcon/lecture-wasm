@@ -39,14 +39,6 @@ jobs:
         echo "PR number: ${{ github.event.number }}"
         echo "Commit SHA: ${{ github.sha }}"
 
-    - name: Record extra cache info
-      run: |
-        # Record filenames listing -- this updates the cache on filename change
-        find book/ -type f >> EXTRA_CACHE_VARS.txt
-        # For PR builds, we don't preprocess or archive
-        echo false >> EXTRA_CACHE_VARS.txt  # preprocess
-        echo false >> EXTRA_CACHE_VARS.txt  # archive
-        cat EXTRA_CACHE_VARS.txt
 
     - uses: actions/setup-node@v4
       with:
