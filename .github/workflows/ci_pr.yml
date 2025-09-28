@@ -51,7 +51,7 @@ jobs:
     - name: Build HTML
       working-directory: ./lectures
       run: |
-        myst build
+        myst build --html
 
     - name: Upload build output
       uses: actions/upload-pages-artifact@v3
