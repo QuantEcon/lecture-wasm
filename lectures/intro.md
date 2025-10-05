@@ -9,9 +9,7 @@ kernelspec:
   name: python3
 ---
 
-# A First Course in Quantitative Economics with Python (WASM backend)
-
-Authored by [Thomas J. Sargent](http://www.tomsargent.com/) and [John Stachurski](https://johnstachurski.net/).
+# A First Course in Quantitative Economics with Python
 
 This lecture series provides an introduction to quantitative economics using Python. 
 

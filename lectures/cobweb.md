@@ -11,7 +11,6 @@ kernelspec:
   name: python3
 ---
 
-
 (cobweb)=
 # The Cobweb Model
 
@@ -483,7 +482,7 @@ Show, in particular, that supply also cycles.
 ```{exercise-end}
 ```
 
-```{solution-start} cobweb_ex1
+```{solution} cobweb_ex1
 :class: dropdown
 ```
 
@@ -522,7 +521,7 @@ m = Market()
 ts_plot_supply(m, 5, 15)
 ```
 
-```{solution-end}
+```{solution}
 ```
 
 ```{exercise-start}
@@ -547,7 +546,7 @@ Simulate and plot the price dynamics for $\alpha \in \{0.1, 0.3, 0.5, 0.8\}$ whe
 ```{exercise-end}
 ```
 
-```{solution-start} cobweb_ex2
+```{solution} cobweb_ex2
 :class: dropdown
 ```
 
@@ -595,5 +594,5 @@ ts_plot_price_blae(m,
                    ts_length=20)
 ```
 
-```{solution-end}
+```{solution}
 ```
