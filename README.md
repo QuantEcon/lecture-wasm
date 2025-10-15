@@ -41,3 +41,14 @@ python update_lectures.py
 
 This allows us the keep all the lectures up-to-date in a single place and keep this repository a mirror of the 
 main repository.
+
+### Lectures unsupported
+
+- business_cycle
+- inequality
+- prob-dist
+- heavy-tails
+- commod-price
+- lp-intro
+- short_path
+- input-output

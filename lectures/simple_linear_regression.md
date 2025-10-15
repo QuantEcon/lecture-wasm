@@ -401,14 +401,12 @@ Let's consider two economic variables GDP per capita and Life Expectancy.
 
 :::
 
-:::{solution-start} slr-ex1
+:::{solution} slr-ex1
 :::
 
 **Q2:** Gather some data [from our world in data](https://ourworldindata.org)
 
-:::{raw} html
-<iframe src="https://ourworldindata.org/grapher/life-expectancy-vs-gdp-per-capita" loading="lazy" style="width: 100%; height: 600px; border: 0px none;"></iframe>
-:::
+
 
 You can download {download}`a copy of the data here <https://github.com/QuantEcon/lecture-python-intro/raw/main/lectures/_static/lecture_specific/simple_linear_regression/life-expectancy-vs-gdp-per-capita.csv>` if you get stuck
 
@@ -565,7 +563,7 @@ data.plot(x='log_gdppc',y='life_expectancy_hat', kind='line', ax=ax, color='g')
 plt.vlines(data['log_gdppc'], data['life_expectancy_hat'], data['life_expectancy'], color='r')
 ```
 
-:::{solution-end}
+:::{solution}
 :::
 
 :::{exercise}

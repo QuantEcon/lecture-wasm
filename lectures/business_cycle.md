@@ -28,7 +28,7 @@ In addition to the packages already installed by Anaconda, this lecture requires
 ```{code-cell} ipython3
 :tags: [hide-output]
 
-%pip install wbgapi
+%pip install wbgapi distutils
 %pip install pandas-datareader
 ```
 

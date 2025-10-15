@@ -300,7 +300,7 @@ Each distribution in the violin plot represents the distribution of $X_n$ for so
 ```{code-cell} ipython3
 def means_violin_plot(distribution,  
                       ns = [1_000, 10_000, 100_000],
-                      m = 10_000):
+                      m = 1000):
 
     data = []
     for n in ns:

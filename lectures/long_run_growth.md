@@ -537,8 +537,6 @@ draw_interp_plots(gdp[country].loc[start_year:end_year],
                   'international dollars', 'year',
                   color_mapping, code_to_name, 2, False, ax)
 
-plt.savefig("./_static/lecture_specific/long_run_growth/tooze_ch1_graph.png", dpi=300,
-            bbox_inches='tight')
 plt.show()
 ```
 

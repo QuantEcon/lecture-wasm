@@ -38,10 +38,10 @@ project:
     - title: Economic Data 
       children:
         - file: long_run_growth
-        - file: business_cycle
+        # - file: business_cycle
         - file: inflation_history
         - file: french_rev 
-        - file: inequality
+        # - file: inequality
     - title: Foundations
       children:
         - file: intro_supply_demand
@@ -62,10 +62,10 @@ project:
         - file: greek_square 
     - title: Probability and Distributions
       children:
-        - file: prob_dist
+        # - file: prob_dist
         - file: lln_clt
         - file: monte_carlo
-        - file: heavy_tails
+        # - file: heavy_tails
         - file: schelling
     - title: Nonlinear Dynamics
       children:
@@ -73,7 +73,7 @@ project:
         - file: solow
         - file: cobweb
         - file: olg
-        - file: commod_price
+        # - file: commod_price
     - title: Monetary-Fiscal Policy Interactions
       children:
         - file: money_inflation
@@ -88,12 +88,12 @@ project:
         - file: time_series_with_matrices
     - title: Optimization
       children:
-        - file: lp_intro
+        # - file: lp_intro
         - file: short_path
     - title: Modeling in Higher Dimensions
       children:
         - file: eigen_II
-        - file: input_output
+        # - file: input_output
         - file: lake_model
         - file: networks
     - title: Markets and Competitive Equilibrium

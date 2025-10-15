@@ -11,14 +11,6 @@ kernelspec:
   name: python3
 ---
 
-(geom_series)=
-```{raw} jupyter
-<div id="qe-notebook-header" style="text-align:right;">
-        <a href="https://quantecon.org/" title="quantecon.org">
-                <img style="width:250px;display:inline;" src="https://assets.quantecon.org/img/qe-menubar-logo.svg" alt="QuantEcon">
-        </a>
-</div>
-```
 
 ```{index} single: python
 ```
