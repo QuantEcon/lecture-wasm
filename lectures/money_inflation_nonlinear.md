@@ -171,6 +171,7 @@ mystnb:
     name: laffer_curve_nonlinear
     width: 500px
 ---
+:label: min-plot-fig-1
 
 def compute_seign(x, α):
     return np.exp(-α * x) - np.exp(-(1 + α) * x) 
@@ -202,6 +203,12 @@ def plot_laffer(model, πs):
 # Steady state Laffer curve
 plot_laffer(model, (π_l, π_u))
 ```
+
+:::{figure} #min-plot-fig-1
+:label: laffer_curve_nonlinear
+:width: 500px
+Seigniorage as function of steady state inflation. The dashed brown lines indicate $\pi_l$ and $\pi_u$.
+:::
 
 ## Initial Price Levels
 
@@ -401,6 +408,7 @@ mystnb:
     name: p0_path_nonlin
     width: 500px
 ---
+:label: min-plot-fig-2
 
 # Generate a sequence from p0_l to p0_u
 p0s = np.arange(p0_l, p0_u, 0.1) 
@@ -413,6 +421,12 @@ p0_bars = (p0_l, p0_u)
               
 draw_iterations(p0s, model, line_params, p0_bars, num_steps=20)
 ```
+
+:::{figure} #min-plot-fig-2
+:label: p0_path_nonlin
+:width: 500px
+Starting from different initial values of $p_0$, paths of $m_t$ (top panel, log scale for $m$), $p_t$ (second panel, log scale for $p$), $\pi_t$ (third panel), and $\mu_t$ (bottom panel)
+:::
 
 Staring at the paths of price levels in  {numref}`p0_path_nonlin` reveals that almost all paths converge to the *higher* inflation tax rate displayed in the stationary state Laffer curve. displayed in figure  {numref}`laffer_curve_nonlinear`.  
 

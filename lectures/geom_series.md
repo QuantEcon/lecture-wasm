@@ -677,6 +677,8 @@ mystnb:
     caption: "Finite lease present value $T$ periods ahead"
     name: finite_lease_present_value
 ---
+:label: gm-plot-fig-1
+
 def plot_function(axes, x_vals, func, args):
     axes.plot(x_vals, func(*args), label=func.__name__)
 
@@ -702,6 +704,11 @@ ax.set_ylabel('Present Value, $p_0$')
 plt.show()
 ```
 
+:::{figure} #gm-plot-fig-1
+:label: finite_lease_present_value
+Finite lease present value $T$ periods ahead
+:::
+
 Evidently our approximations perform well for small values of $T$.
 
 However, holding $g$ and r fixed, our approximations deteriorate as $T$ increases.
@@ -716,6 +723,8 @@ mystnb:
     caption: "Infinite and finite lease present value $T$ periods ahead"
     name: infinite_and_finite_lease_present_value
 ---
+:label: gm-plot-fig-2
+
 # Convergence of infinite and finite
 T_max = 1000
 T = np.arange(0, T_max+1)
@@ -729,6 +738,11 @@ ax.set_ylabel('Present Value, $p_0$')
 ax.legend()
 plt.show()
 ```
+
+:::{figure} #gm-plot-fig-2
+:label: infinite_and_finite_lease_present_value
+Infinite and finite lease present value $T$ periods ahead
+:::
 
 The graph above shows how as duration $T \rightarrow +\infty$,
 the value of a lease of duration $T$ approaches the value of a
@@ -744,6 +758,8 @@ mystnb:
     caption: "Value of lease of length $T$"
     name: value_of_lease
 ---
+:label: gm-plot-fig-3
+
 # First view
 # Changing r and g
 fig, ax = plt.subplots()
@@ -760,6 +776,11 @@ for r, g, comp in zip(rs, gs, comparisons):
 ax.legend()
 plt.show()
 ```
+
+:::{figure} #gm-plot-fig-3
+:label: value_of_lease
+Value of lease of length $T$
+:::
 
 This graph gives a big hint for why the condition $r > g$ is
 necessary if a lease of length $T = +\infty$ is to have finite
@@ -778,6 +799,8 @@ mystnb:
     caption: "Three period lease PV with varying $g$ and $r$"
     name: three_period_lease_PV
 ---
+:label: gm-plot-fig-4
+
 # Second view
 fig = plt.figure(figsize = [16, 5])
 T = 3
@@ -800,6 +823,11 @@ ax.set_zlabel('Present Value, $p_0$')
 ax.view_init(20, 8)
 plt.show()
 ```
+
+:::{figure} #gm-plot-fig-4
+:label: three_period_lease_PV
+Three period lease PV with varying $g$ and $r$
+:::
 
 We can use a little calculus to study how the present value $p_0$
 of a lease varies with $r$ and $g$.
@@ -857,6 +885,8 @@ mystnb:
     caption: "Path of aggregate output tver time"
     name: path_of_aggregate_output_over_time
 ---
+:label: gm-plot-fig-5
+
 # Function that calculates a path of y
 def calculate_y(i, b, g, T, y_init):
     y = np.zeros(T+1)
@@ -882,6 +912,11 @@ ax.hlines(i_0 / (1 - b) + g_0 / (1 - b), xmin=-1, xmax=101, linestyles='--')
 plt.show()
 ```
 
+:::{figure} #gm-plot-fig-5
+:label: path_of_aggregate_output_over_time
+Path of aggregate output over time
+:::
+
 In this model, income grows over time, until it gradually converges to
 the infinite geometric series sum of income.
 
@@ -896,6 +931,8 @@ mystnb:
     caption: "Changing consumption as a fraction of income"
     name: changing_consumption_as_fraction_of_income
 ---
+:label: gm-plot-fig-6
+
 bs = (1/3, 2/3, 5/6, 0.9)
 
 fig,ax = plt.subplots()
@@ -909,6 +946,11 @@ ax.legend()
 plt.show()
 ```
 
+:::{figure} #gm-plot-fig-6
+:label: changing_consumption_as_fraction_of_income
+Changing consumption as a fraction of income
+:::
+
 Increasing the marginal propensity to consume $b$ increases the
 path of output over time.
 
@@ -921,6 +963,8 @@ mystnb:
     caption: "Different increase on output"
     name: different_increase_on_output
 ---
+:label: gm-plot-fig-7
+
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(6, 10))
 fig.subplots_adjust(hspace=0.3)
 
@@ -943,6 +987,11 @@ for ax, param in zip(axes, param_labels):
     ax.set_xlabel('$t$')
 plt.show()
 ```
+
+:::{figure} #gm-plot-fig-7
+:label: different_increase_on_output
+Different increase on output
+:::
 
 Notice here, whether government spending increases from 0.3 to 0.4 or
 investment increases from 0.3 to 0.4, the shifts in the graphs are

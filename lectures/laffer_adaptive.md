@@ -226,6 +226,8 @@ mystnb:
     name: laffer_curve_adaptive
     width: 500px
 ---
+:label: la-plot-fig-1
+
 def compute_seign(x, α):
     return np.exp(-α * x) - np.exp(-(1 + α) * x) 
 
@@ -257,6 +259,11 @@ def plot_laffer(model, πs):
 # Steady state Laffer curve
 plot_laffer(model, (π_l, π_u))
 ```
+
+:::{figure} #la-plot-fig-1
+:label: laffer_curve_adaptive
+Seigniorage as function of steady-state inflation. The dashed brown lines indicate $\pi_l$ and $\pi_u$.
+:::
 
 ## Associated initial price levels
 
@@ -407,6 +414,7 @@ mystnb:
     name: pi0_path
     width: 500px
 ---
+:label: la-plot-fig-2
 πs = np.linspace(π_l, π_u, 10)
 
 line_params = {'lw': 1.5, 
@@ -416,3 +424,9 @@ line_params = {'lw': 1.5,
 π_bars = (π_l, π_u)
 draw_iterations(πs, model, line_params, π_bars, num_steps=80)
 ```
+
+:::{figure} #la-plot-fig-2
+:label: pi0_path
+:width: 500px
+Starting from different initial values of $\pi_0$, paths of $m_t$ (top panel, log scale for $m$), $p_t$ (second panel, log scale for $p$), $\pi_t$ (third panel), and $\mu_t$ (bottom panel)
+:::

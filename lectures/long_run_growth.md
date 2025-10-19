@@ -175,6 +175,7 @@ mystnb:
     name: gdppc_gbr1
     width: 500px
 ---
+:label: lrg-plot-fig-1
 fig, ax = plt.subplots(dpi=300)
 country = 'GBR'
 gdp_pc[country].plot(
@@ -184,6 +185,13 @@ gdp_pc[country].plot(
         color=color_mapping[country]
     );
 ```
+
+
+:::{figure} #lrg-plot-fig-1
+:label: gdppc_gbr1
+:width: 500px
+GDP per Capita (GBR)
+:::
 
 :::{note}
 [International dollars](https://en.wikipedia.org/wiki/international_dollar) are a hypothetical unit of currency that has the same purchasing power parity that the U.S. Dollar has in the United States at a given point in time. They are also known as Geary–Khamis dollars (GK Dollars).
@@ -200,6 +208,8 @@ mystnb:
     caption: GDP per Capita (GBR)
     name: gdppc_gbr2
 ---
+:label: lrg-plot-fig-2
+
 fig, ax = plt.subplots(dpi=300)
 country = 'GBR'
 ax.plot(gdp_pc[country].interpolate(),
@@ -214,6 +224,11 @@ ax.set_ylabel('international dollars')
 ax.set_xlabel('year')
 plt.show()
 ```
+
+:::{figure} #lrg-plot-fig-2
+:label: gdppc_gbr2
+GDP per Capita (GBR)
+:::
 
 ### Comparing the US, UK, and China
 
@@ -275,6 +290,8 @@ mystnb:
     name: gdppc_comparison
 tags: [hide-input]
 ---
+:label: lrg-plot-fig-3
+
 # Define the namedtuple for the events
 Event = namedtuple('Event', ['year_range', 'y_text', 'text', 'color', 'ymax'])
 
@@ -333,6 +350,11 @@ draw_events(events, ax)
 plt.show()
 ```
 
+:::{figure} #lrg-plot-fig-3
+:label: gdppc_comparison
+GDP per Capita, 1500- (China, UK, USA)
+:::
+
 The preceding graph of per capita GDP strikingly reveals how the spread of the Industrial Revolution has over time gradually lifted the living standards of substantial
 groups of people  
 
@@ -362,6 +384,8 @@ mystnb:
     name: gdppc_china
 tags: [hide-input]
 ---
+:label: lrg-plot-fig-4
+
 fig, ax = plt.subplots(dpi=300, figsize=(10, 6))
 
 country = ['CHN']
@@ -404,6 +428,11 @@ draw_events(events, ax)
 plt.show()
 ```
 
+:::{figure} #lrg-plot-fig-4
+:label: gdppc_china
+GDP per Capita, 1500-2000 (China)
+:::
+
 ### Focusing on the US and UK
 
 Now we look at the United States (USA) and United Kingdom (GBR) in more detail.
@@ -423,6 +452,8 @@ mystnb:
     name: gdppc_ukus
 tags: [hide-input]
 ---
+:label: lrg-plot-fig-5
+
 fig, ax = plt.subplots(dpi=300, figsize=(10, 6))
 
 country = ['GBR', 'USA']
@@ -466,6 +497,11 @@ draw_events(events, ax)
 plt.show()
 ```
 
+:::{figure} #lrg-plot-fig-5
+:label: gdppc_ukus
+GDP per Capita, 1500-2000 (UK and US)
+:::
+
 ## GDP growth
 
 Now we'll construct some graphs of interest to geopolitical historians like Adam Tooze.
@@ -496,6 +532,8 @@ mystnb:
     caption: GDP in the early industrialization era
     name: gdp1
 ---
+:label: lrg-plot-fig-6
+
 fig, ax = plt.subplots(dpi=300)
 country = ['CHN', 'SUN', 'JPN', 'GBR', 'USA']
 start_year, end_year = (1820, 1945)
@@ -504,6 +542,10 @@ draw_interp_plots(gdp[country].loc[start_year:end_year],
                   'international dollars', 'year',
                   color_mapping, code_to_name, 2, False, ax)
 ```
+:::{figure} #lrg-plot-fig-6
+:label: gdp1
+GDP in the early industrialization era
+:::
 
 #### Constructing a plot similar to Tooze's
 
@@ -558,6 +600,8 @@ mystnb:
     caption: GDP in the modern era
     name: gdp2
 ---
+:label: lrg-plot-fig-7
+
 fig, ax = plt.subplots(dpi=300)
 country = ['CHN', 'SUN', 'JPN', 'GBR', 'USA']
 start_year, end_year = (1950, 2020)
@@ -566,6 +610,12 @@ draw_interp_plots(gdp[country].loc[start_year:end_year],
                   'international dollars', 'year',
                   color_mapping, code_to_name, 2, False, ax)
 ```
+
+
+:::{figure} #lrg-plot-fig-7
+:label: gdp2
+GDP in the modern era
+:::
 
 It is tempting to compare this graph with figure {numref}`gdp1` that showed the US overtaking the UK near the start of the "American Century", a version of the graph featured in chapter 1 of  {cite}`Tooze_2014`.
 
@@ -607,6 +657,8 @@ mystnb:
     caption: Regional GDP per capita
     name: region_gdppc
 ---
+:label: lrg-plot-fig-8
+
 fig, ax = plt.subplots(dpi=300)
 regionalgdp_pc.plot(ax=ax, xlabel='year',
                     lw=2,
@@ -616,3 +668,8 @@ plt.legend(loc='lower center',
            ncol=3, bbox_to_anchor=[0.5, -0.5])
 plt.show()
 ```
+
+:::{figure} #lrg-plot-fig-8
+:label: region_gdppc
+Regional GDP per capita
+:::

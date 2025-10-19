@@ -184,12 +184,7 @@ t_params = {'color':'grey', 'fontsize': 9,
 Let's start with the United States.
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: United States (GDP growth rate %)
-    name: us_gdp
----
+:label: bc-plot-fig-1
 fig, ax = plt.subplots()
 
 country = 'United States'
@@ -200,7 +195,11 @@ plot_series(gdp_growth, country,
 plt.show()
 ```
 
-+++ {"user_expressions": []}
+:::{figure} #bc-plot-fig-1
+:label: us_gdp
+United States (GDP growth rate %)
+:::
+
 
 GDP growth is positive on average and trending slightly downward over time.
 
@@ -216,12 +215,7 @@ in the growth rate and significant fluctuations.
 Notice the very large dip during the Covid-19 pandemic.
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: United Kingdom (GDP growth rate %)
-    name: uk_gdp
----
+:label: bc-plot-fig-2
 fig, ax = plt.subplots()
 
 country = 'United Kingdom'
@@ -231,7 +225,10 @@ plot_series(gdp_growth, country,
 plt.show()
 ```
 
-+++ {"user_expressions": []}
+:::{figure} #bc-plot-fig-2
+:label: uk_gdp
+United Kingdom (GDP growth rate %)
+:::
 
 Now let's consider Japan, which experienced rapid growth in the 1960s and
 1970s, followed by slowed expansion in the past two decades.
@@ -240,12 +237,7 @@ Major dips in the growth rate coincided with the Oil Crisis of the 1970s, the
 Global Financial Crisis (GFC) and the Covid-19 pandemic.
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Japan (GDP growth rate %)
-    name: jp_gdp
----
+:label: bc-plot-fig-3
 fig, ax = plt.subplots()
 
 country = 'Japan'
@@ -255,15 +247,15 @@ plot_series(gdp_growth, country,
 plt.show()
 ```
 
+:::{figure} #bc-plot-fig-3
+:label: jp_gdp
+Japan (GDP growth rate %)
+:::
+
 Now let's study Greece.
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Greece (GDP growth rate %)
-    name: gc_gdp
----
+:label: bc-plot-fig-4
 fig, ax = plt.subplots()
 
 country = 'Greece'
@@ -273,18 +265,18 @@ plot_series(gdp_growth, country,
 plt.show()
 ```
 
+:::{figure} #bc-plot-fig-4
+:label: gc_gdp
+Greece (GDP growth rate %)
+:::
+
 Greece experienced a very large drop in GDP growth around 2010-2011, during the peak
 of the Greek debt crisis.
 
 Next let's consider Argentina.
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Argentina (GDP growth rate %)
-    name: arg_gdp
----
+:label: bc-plot-fig-5
 fig, ax = plt.subplots()
 
 country = 'Argentina'
@@ -293,6 +285,11 @@ plot_series(gdp_growth, country,
             g_params, b_params, t_params)
 plt.show()
 ```
+
+:::{figure} #bc-plot-fig-5
+:label: arg_gdp
+Argentina (GDP growth rate %)
+:::
 
 Notice that Argentina has experienced far more volatile cycles than
 the economies examined above.
@@ -329,13 +326,8 @@ Let's plot the unemployment rate in the US from 1929 to 2022 with recessions
 defined by the NBER.
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Long-run unemployment rate, US (%)
-    name: lrunrate
-tags: [hide-input]
----
+:label: bc-plot-fig-6
+:tags: [hide-input]
 # We use the census bureau's estimate for the unemployment rate 
 # between 1942 and 1948
 years = [datetime.datetime(year, 6, 1) for year in range(1942, 1948)]
@@ -377,6 +369,11 @@ ax.set_ylabel('unemployment rate (%)')
 
 plt.show()
 ```
+
+:::{figure} #bc-plot-fig-6
+:label: lrunrate
+Long-run unemployment rate, US (%)
+:::
 
 The plot shows that 
 
@@ -495,13 +492,8 @@ gdp_growth.columns = gdp_growth.columns.str.replace('YR', '').astype(int)
 We use the United Kingdom, United States, Germany, and Japan as examples of developed economies.
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Developed economies (GDP growth rate %)
-    name: adv_gdp
-tags: [hide-input]
----
+:label: bc-plot-fig-7
+:tags: [hide-input]
 fig, ax = plt.subplots()
 countries = ['United Kingdom', 'United States', 'Germany', 'Japan']
 ylabel = 'GDP growth rate (%)'
@@ -512,16 +504,16 @@ plot_comparison(gdp_growth.loc[countries, 1962:],
 plt.show()
 ```
 
+:::{figure} #bc-plot-fig-7
+:label: adv_gdp
+Developed economies (GDP growth rate %)
+:::
+
 We choose Brazil, China, Argentina, and Mexico as representative developing economies.
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Developing economies (GDP growth rate %)
-    name: deve_gdp
-tags: [hide-input]
----
+:label: bc-plot-fig-8
+:tags: [hide-input]
 fig, ax = plt.subplots()
 countries = ['Brazil', 'China', 'Argentina', 'Mexico']
 plot_comparison(gdp_growth.loc[countries, 1962:], 
@@ -530,6 +522,11 @@ plot_comparison(gdp_growth.loc[countries, 1962:],
                 g_params, b_params, t_params)
 plt.show()
 ```
+
+:::{figure} #bc-plot-fig-8
+:label: deve_gdp
+Developing economies (GDP growth rate %)
+:::
 
 The comparison of GDP growth rates above suggests that 
 business cycles are becoming more synchronized in 21st-century recessions.
@@ -547,13 +544,8 @@ Here we compare the unemployment rate of the United States,
 the United Kingdom, Japan, and France.
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Developed economies (unemployment rate %)
-    name: adv_unemp
-tags: [hide-input]
----
+:label: bc-plot-fig-9
+:tags: [hide-input]
 unempl_rate = wb.data.DataFrame('SL.UEM.TOTL.NE.ZS',
     ['USA', 'FRA', 'GBR', 'JPN'], labels=True)
 unempl_rate = unempl_rate.set_index('Country')
@@ -568,6 +560,11 @@ plot_comparison(unempl_rate, countries,
                 b_params, t_params, baseline=None)
 plt.show()
 ```
+
+:::{figure} #bc-plot-fig-9
+:label: adv_unemp
+Developed economies (unemployment rate %)
+:::
 
 We see that France, with its strong labor unions, typically experiences
 relatively slow labor market recoveries after negative shocks.
@@ -598,13 +595,8 @@ year-on-year
 (CPI) change from 1978-2022 in the US.
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Consumer sentiment index and YoY CPI change, US
-    name: csicpi
-tags: [hide-input]
----
+:label: bc-plot-fig-10
+:tags: [hide-input]
 start_date = datetime.datetime(1978, 1, 1)
 end_date = datetime.datetime(2022, 12, 31)
 
@@ -656,6 +648,11 @@ ax_t.set_ylabel('CPI YoY change (%)')
 plt.show()
 ```
 
+:::{figure} #bc-plot-fig-10
+:label: csicpi
+Consumer sentiment index and YoY CPI change, US
+:::
+
 We see that 
 
 * consumer sentiment often remains high during expansions and
@@ -679,13 +676,8 @@ We plot the real industrial output change from the previous year
 from 1919 to 2022 in the US to show this trend.
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: YoY real output change, US (%)
-    name: roc
-tags: [hide-input]
----
+:label: bc-plot-fig-11
+:tags: [hide-input]
 start_date = datetime.datetime(1919, 1, 1)
 end_date = datetime.datetime(2022, 12, 31)
 
@@ -709,6 +701,11 @@ ax.set_ylabel('YoY real output change (%)')
 plt.show()
 ```
 
+:::{figure} #bc-plot-fig-11
+:label: roc
+YoY real output change, US (%)
+:::
+
 We observe the delayed contraction in the plot across recessions.
 
 
@@ -726,13 +723,8 @@ The following graph shows the domestic credit to the private sector as a
 percentage of GDP by banks from 1970 to 2022 in the UK.
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Domestic credit to private sector by banks (% of GDP)
-    name: dcpc
-tags: [hide-input]
----
+:label: bc-plot-fig-12
+:tags: [hide-input]
 private_credit = wb.data.DataFrame('FS.AST.PRVT.GD.ZS', 
                 ['GBR'], labels=True)
 private_credit = private_credit.set_index('Country')
@@ -747,6 +739,11 @@ ax = plot_series(private_credit, countries,
                  t_params, ylim=None, baseline=None)
 plt.show()
 ```
+
+:::{figure} #bc-plot-fig-12
+:label: dcpc
+Domestic credit to private sector by banks (% of GDP)
+:::
 
 Note that the credit rises during economic expansions
 and stagnates or even contracts after recessions.

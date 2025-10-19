@@ -25,19 +25,6 @@ The `xlrd` package is used by `pandas` to perform operations on Excel files.
 %pip install xlrd openpyxl
 ```
 
-<!-- Check for pandas>=2.1.4 for Google Collab Compat -->
-<!-- 
-```{code-cell} ipython3
-:tags: [hide-cell]
-
-from importlib.metadata import version
-from packaging.version import Version
-
-if Version(version("pandas")) < Version('2.1.4'):
-    %pip install "pandas>=2.1.4"
-    pass
-``` -->
-
 We can then import the Python modules we will use.
 
 ```{code-cell} ipython3
@@ -105,6 +92,8 @@ mystnb:
     caption: Long run time series of the price level
     name: lrpl
 ---
+:label: ih-plot-fig-1
+
 df_fig5_befe1914 = df_fig5[df_fig5.index <= 1914]
 
 # Create plot
@@ -123,6 +112,11 @@ ax.set_xlim(xmin=1600)
 plt.tight_layout()
 plt.show()
 ```
+
+:::{figure} #ih-plot-fig-1
+:label: lrpl
+Long run time series of the price level
+:::
 
 We say "most years" because there were temporary lapses from the gold or silver standard.
 
@@ -181,6 +175,8 @@ mystnb:
     caption: Long run time series of the price level (log)
     name: lrpl_lg
 ---
+:label: ih-plot-fig-2
+
 fig, ax = plt.subplots(dpi=200)
 
 for col in cols:
@@ -196,6 +192,11 @@ ax.set_xlim(xmin=1600)
 plt.tight_layout()
 plt.show()
 ```
+
+:::{figure} #ih-plot-fig-2
+:label: lrpl_lg
+Long run time series of the price level (log)
+:::
 
 {numref}`lrpl_lg` shows that paper-money-printing central banks didn't do as well as the gold and standard silver standard in anchoring price levels.
 
@@ -419,6 +420,8 @@ mystnb:
     caption: Price index and exchange rate (Austria)
     name: pi_xrate_austria
 ---
+:label: ih-plot-fig-3
+
 p_seq = df_aus['Retail price index, 52 commodities']
 e_seq = df_aus['Exchange Rate']
 
@@ -431,6 +434,10 @@ _ = pe_plot(p_seq, e_seq, df_aus.index, lab, ax)
 
 plt.show()
 ```
+:::{figure} #ih-plot-fig-3
+:label: pi_xrate_austria
+Price index and exchange rate (Austria)
+:::
 
 ```{code-cell} ipython3
 ---
@@ -439,12 +446,19 @@ mystnb:
     caption: Monthly inflation rate (Austria)
     name: inflationrate_austria
 ---
+:label: ih-plot-fig-4
+
 # Plot moving average
 fig, ax = plt.subplots(dpi=200)
 _ = pr_plot(p_seq, df_aus.index, ax)
 
 plt.show()
 ```
+
+:::{figure} #ih-plot-fig-4
+:label: inflationrate_austria
+Monthly inflation rate (Austria)
+:::
 
 Staring at {numref}`pi_xrate_austria` and {numref}`inflationrate_austria` conveys the following impressions to the authors of this lecture at QuantEcon.
 
@@ -467,6 +481,8 @@ mystnb:
     caption: Price index and exchange rate (Hungary)
     name: pi_xrate_hungary
 ---
+:label: ih-plot-fig-5
+
 p_seq = df_hun['Hungarian index of prices']
 e_seq = 1 / df_hun['Cents per crown in New York']
 
@@ -479,6 +495,10 @@ _ = pe_plot(p_seq, e_seq, df_hun.index, lab, ax)
 
 plt.show()
 ```
+:::{figure} #ih-plot-fig-5
+:label: pi_xrate_hungary
+Price index and exchange rate (Hungary)
+:::
 
 ```{code-cell} ipython3
 ---
@@ -487,12 +507,20 @@ mystnb:
     caption: Monthly inflation rate (Hungary)
     name: inflationrate_hungary
 ---
+:label: ih-plot-fig-6
+
 # Plot moving average
 fig, ax = plt.subplots(dpi=200)
 _ = pr_plot(p_seq, df_hun.index, ax)
 
 plt.show()
 ```
+
+
+:::{figure} #ih-plot-fig-6
+:label: inflationrate_hungary
+Monthly inflation rate (Hungary)
+:::
 
 ### Poland
 
@@ -513,6 +541,8 @@ mystnb:
     caption: Price index and exchange rate (Poland)
     name: pi_xrate_poland
 ---
+:label: ih-plot-fig-7
+
 # Splice three price series in different units
 p_seq1 = df_pol['Wholesale price index'].copy()
 p_seq2 = df_pol['Wholesale Price Index: '
@@ -538,6 +568,11 @@ e_seq = 1/df_pol['Cents per Polish mark (zloty after May 1924)']
 e_seq[e_seq.index > '05-01-1924'] = np.nan
 ```
 
+:::{figure} #ih-plot-fig-7
+:label: pi_xrate_poland
+Price index and exchange rate (Poland)
+:::
+
 ```{code-cell} ipython3
 lab = ['Wholesale price index', 
        'Polish marks per US cent']
@@ -556,12 +591,20 @@ mystnb:
     caption: Monthly inflation rate (Poland)
     name: inflationrate_poland
 ---
+:label: ih-plot-fig-8
+
 # Plot moving average
 fig, ax = plt.subplots(dpi=200)
 _ = pr_plot(p_seq, df_pol.index, ax)
 
 plt.show()
 ```
+
+
+:::{figure} #ih-plot-fig-8
+:label: inflationrate_poland
+Monthly inflation rate (Poland)
+:::
 
 ### Germany
 
@@ -577,6 +620,8 @@ mystnb:
     caption: Price index and exchange rate (Germany)
     name: pi_xrate_germany
 ---
+:label: ih-plot-fig-9
+
 p_seq = df_deu['Price index (on basis of marks before July 1924,'
                 '  reichsmarks after)'].copy()
 e_seq = 1/df_deu['Cents per mark']
@@ -591,6 +636,11 @@ ax1 = pe_plot(p_seq, e_seq, df_deu.index, lab, ax)
 plt.show()
 ```
 
+:::{figure} #ih-plot-fig-9
+:label: pi_xrate_germany
+Price index and exchange rate (Germany)
+:::
+
 ```{code-cell} ipython3
 ---
 mystnb:
@@ -598,6 +648,8 @@ mystnb:
     caption: Price index (adjusted) and exchange rate (Germany)
     name: piadj_xrate_germany
 ---
+:label: ih-plot-fig-10
+
 p_seq = df_deu['Price index (on basis of marks before July 1924,'
                 '  reichsmarks after)'].copy()
 e_seq = 1/df_deu['Cents per mark'].copy()
@@ -618,6 +670,11 @@ ax1 = pe_plot(p_seq, e_seq, df_deu.index, lab, ax)
 plt.show()
 ```
 
+:::{figure} #ih-plot-fig-10
+:label: piadj_xrate_germany
+Price index (adjusted) and exchange rate (Germany)
+:::
+
 ```{code-cell} ipython3
 ---
 mystnb:
@@ -625,12 +682,19 @@ mystnb:
     caption: Monthly inflation rate (Germany)
     name: inflationrate_germany
 ---
+:label: ih-plot-fig-11
+
 # Plot moving average
 fig, ax = plt.subplots(dpi=200)
 _ = pr_plot(p_seq, df_deu.index, ax)
 
 plt.show()
 ```
+
+:::{figure} #ih-plot-fig-11
+:label: inflationrate_germany
+Monthly inflation rate (Germany)
+:::
 
 ## Starting and stopping big inflations
 

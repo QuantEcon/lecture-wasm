@@ -318,6 +318,8 @@ mystnb:
     name: infl_tax
     width: 500px
 ---
+:label: mi-plot-fig-1
+
 # Generate values for R
 R_values = np.linspace(msm.γ2/msm.γ1, 1, 250)
 
@@ -334,6 +336,12 @@ plt.ylabel('seigniorage')
 plt.legend()
 plt.show()
 ```
+
+:::{figure} #mi-plot-fig-1
+:label: infl_tax
+:width: 500px
+Steady state revenue from inflation tax as function of steady state gross return on currency (solid blue curve) and real government expenditures (dotted red line) plotted against steady-state rate of return currency
+:::
 
 Let's print the two steady-state rates of return $\bar R$ and the associated seigniorage revenues that the government collects.
 
@@ -556,11 +564,19 @@ mystnb:
     name: R0_path
     width: 500px
 ---
+:label: mi-plot-fig-2
+
 # Create a grid of R_0s
 R0s = np.linspace(msm.γ2/msm.γ1, msm.R_u, 9)
 R0s = np.append(msm.R_l, R0s)
 draw_paths(R0s, msm, line_params, num_steps=20)
 ```
+
+:::{figure} #mi-plot-fig-2
+:label: R0_path
+:width: 500px
+Paths of $R_t$ (top panel) and $b_t$ (bottom panel) starting from different initial condition $R_0$
+:::
 
 Notice how sequences that  start from $R_0$ in the half-open interval $[R_\ell, R_u)$ converge to the steady state  associated with  to $ R_\ell$.
 
@@ -930,10 +946,18 @@ mystnb:
     name: p0_path
     width: 500px
 ---
+:label: mi-plot-fig-3
 p0s = [p0_bar, 2.34, 2.5, 3, 4, 7, 30, 100_000]
 
 draw_iterations(p0s, msm, line_params, num_steps=20)
 ```
+:::{figure} #mi-plot-fig-3
+:label: p0_path
+:width: 500px
+Starting from different initial values of  $p_0$, paths of $m_t$ (top
+panel, log scale for $m$), $p_t$ (middle panel, log scale for $m$), $R_t$ (bottom panel)
+:::
+
 
 Please notice that for $m_t$ and $p_t$, we have used  log scales for the coordinate (i.e., vertical) axes.  
 

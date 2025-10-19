@@ -94,6 +94,8 @@ mystnb:
     name: aircraft_network
 tags: [hide-input]
 ---
+:label: nt-plot-fig-1
+
 ch1_data = qbn_data.introduction()
 export_figures = False
 
@@ -143,6 +145,11 @@ nx.draw_networkx_edges(DG,
 
 plt.show()
 ```
+
+:::{figure} #nt-plot-fig-1
+:label: aircraft_network
+Commercial Aircraft Network
+:::
 
 The circles in the figure are called **nodes** or **vertices** -- in this case they represent countries.
 
@@ -406,6 +413,8 @@ mystnb:
     name: financial_network
 tags: [hide-input]
 ---
+:label: nt-plot-fig-2
+
 Z = ch1_data["adjacency_matrix"]["Z"]
 Z_visual= ch1_data["adjacency_matrix"]["Z_visual"]
 countries = ch1_data["adjacency_matrix"]["countries"]
@@ -459,6 +468,11 @@ nx.draw_networkx_edges(G,
 
 plt.show()
 ```
+
+:::{figure} #nt-plot-fig-2
+:label: financial_network
+International Credit Network
+:::
 
 The country codes are given in the following table
 
@@ -790,6 +804,8 @@ mystnb:
     caption: Sample Graph
     name: sample_gph_1
 ---
+:label: nt-plot-fig-3
+
 G7 = nx.DiGraph()
 
 G7.add_nodes_from(['1','2','3','4','5','6','7'])
@@ -809,6 +825,12 @@ nx.draw_networkx_nodes(G7, pos, linewidths=0.5, edgecolors='black',
 
 plt.show()
 ```
+
+
+:::{figure} #nt-plot-fig-3
+:label: sample_gph_1
+Sample Graph
+:::
 
 The following code displays the in-degree centrality of all nodes.
 
@@ -983,6 +1005,8 @@ mystnb:
     caption: Eigenvector centrality
     name: eigenvctr_centrality
 ---
+:label: nt-plot-fig-4
+
 fig, ax = plt.subplots()
 
 df = centrality_plot_data(countries, eig_central)
@@ -994,6 +1018,11 @@ ax.legend(handles=[patch], fontsize=12, loc="upper left", handlelength=0, frameo
 
 plt.show()
 ```
+
+:::{figure} #nt-plot-fig-4
+:label: eigenvctr_centrality
+Eigenvector centrality
+:::
 
 Countries that are rated highly according to this rank tend to be important
 players in terms of supply of credit.
@@ -1119,6 +1148,8 @@ mystnb:
     caption: Eigenvector authority
     name: eigenvector_centrality
 ---
+:label: nt-plot-fig-5
+
 fig, ax = plt.subplots()
 
 df = centrality_plot_data(countries, ecentral_authority)
@@ -1130,6 +1161,11 @@ ax.legend(handles=[patch], fontsize=12, loc="upper left", handlelength=0, frameo
 
 plt.show()
 ```
+
+:::{figure} #nt-plot-fig-5
+:label: eigenvector_centrality
+Eigenvector authority
+:::
 
 Highly ranked countries are those that attract large inflows of credit, or
 credit inflows from other major players.

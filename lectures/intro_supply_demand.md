@@ -110,6 +110,8 @@ mystnb:
     caption: "Willingness to pay (discrete)"
     name: wpdisc
 ---
+:label: isd-plot-fig-1
+
 fig, ax = plt.subplots()
 consumers = range(1, 11) # consumers 1,..., 10
 # willingness to pay for each consumer
@@ -125,6 +127,11 @@ ax.set_xlabel("consumer, quantity")
 ax.legend()
 plt.show()
 ```
+
+:::{figure} #isd-plot-fig-1
+:label: wpdisc
+Willingness to pay (discrete)
+:::
 
 The total consumer surplus in this market is 
 
@@ -170,6 +177,8 @@ mystnb:
     caption: "Willingness to pay (continuous)"
     name: wpcont
 ---
+:label: isd-plot-fig-2
+
 def inverse_demand(q):
     return 100 * np.exp(- q)
 
@@ -190,6 +199,11 @@ ax.legend()
 plt.show()
 ```
 
+:::{figure} #isd-plot-fig-2
+:label: wpcont
+Willingness to pay (continuous)
+:::
+
 Reasoning by analogy with the discrete case, the area under the demand curve and above the price is called the **consumer surplus**, and is a measure of total gains from trade on the part of consumers.
 
 The consumer surplus is shaded in the figure below.
@@ -201,6 +215,8 @@ mystnb:
     caption: "Willingness to pay (continuous) with consumer surplus"
     name: wpcont_cs
 ---
+:label: isd-plot-fig-3
+
 # solve for the value of q where demand meets price
 q_star = np.log(100) - np.log(price)
 
@@ -222,6 +238,11 @@ ax.legend()
 plt.show()
 ```
 
+:::{figure} #isd-plot-fig-3
+:label: wpcont_cs
+Willingness to pay (continuous) with consumer surplus
+:::
+
 The value $q^*$ is where the inverse demand curve meets price.
 
 ## Producer surplus
@@ -239,6 +260,8 @@ mystnb:
     caption: "Willingness to sell (discrete)"
     name: wsdisc
 ---
+:label: isd-plot-fig-4
+
 fig, ax = plt.subplots()
 producers = range(1, 11) # producers 1,..., 10
 # willingness to sell for each producer
@@ -252,6 +275,10 @@ ax.set_xlabel("producer")
 ax.legend()
 plt.show()
 ```
+:::{figure} #isd-plot-fig-4
+:label: wsdisc
+Willingness to sell (discrete)
+:::
 
 Let $v_i$ be the price at which producer $i$ is willing to sell the good.
 
@@ -289,6 +316,8 @@ mystnb:
     caption: "Willingness to sell (continuous) with producer surplus"
     name: wscont
 ---
+:label: isd-plot-fig-5
+
 def inverse_supply(q):
     return 2 * q**2
 
@@ -315,6 +344,11 @@ ax.legend()
 plt.show()
 ```
 
+:::{figure} #isd-plot-fig-5
+:label: wscont
+Willingness to sell (continuous) with producer surplus
+:::
+
 (integration)=
 ## Integration
 
@@ -337,6 +371,8 @@ mystnb:
     caption: "Area under the curve"
     name: integrate
 ---
+:label: isd-plot-fig-6
+
 def f(x):
     return np.cos(x/2) + 1
 
@@ -352,6 +388,12 @@ ax.fill_between(ab_grid, [0] * len(ab_grid), f(ab_grid),
 ax.legend()
 plt.show()
 ```
+
+
+:::{figure} #isd-plot-fig-6
+:label: integrate
+Area under the curve
+:::
 
 There are many rules for calculating integrals, with different rules applying to different choices of $f$.
 
@@ -437,6 +479,8 @@ mystnb:
     caption: "Supply and demand"
     name: supply_demand
 ---
+:label: isd-plot-fig-7
+
 market = create_market()
 
 grid_min, grid_max, grid_size = 0, 1.5, 200
@@ -455,6 +499,11 @@ ax.set_xlabel('quantity')
 ax.set_ylabel('price')
 plt.show()
 ```
+
+:::{figure} #isd-plot-fig-7
+:label: supply_demand
+Supply and demand
+:::
 
 In the above graph, an **equilibrium** price-quantity pair occurs at the intersection of the supply and demand curves. 
 
@@ -481,6 +530,7 @@ mystnb:
     name: supply_demand_cs
 tags: [hide-input]
 ---
+:label: isd-plot-fig-8
 
 q = 1.25
 p = inverse_demand(q, market)
@@ -507,6 +557,11 @@ ax.set_xlabel('quantity')
 ax.set_ylabel('price')
 plt.show()
 ```
+
+:::{figure} #isd-plot-fig-8
+:label: supply_demand_cs
+Supply and demand (consumer surplus)
+:::
 
 Consumer surplus provides a measure of total consumer welfare at quantity $q$.
 
@@ -547,6 +602,7 @@ mystnb:
     name: supply_demand_ps
 tags: [hide-input]
 ---
+:label: isd-plot-fig-9
 
 q = 0.75
 p = inverse_supply(q, market)
@@ -573,6 +629,10 @@ ax.set_xlabel('quantity')
 ax.set_ylabel('price')
 plt.show()
 ```
+:::{figure} #isd-plot-fig-9
+:label: supply_demand_ps
+Supply and demand (producer surplus)
+:::
 
 Producer surplus measures total producer welfare at quantity $q$ 
 
@@ -628,6 +688,7 @@ mystnb:
     name: wf
 tags: [hide-input]
 ---
+:label: isd-plot-fig-10
 
 q_vals = np.linspace(0, 1.78, 200)
 fig, ax = plt.subplots()
@@ -636,6 +697,11 @@ ax.legend(frameon=False)
 ax.set_xlabel('quantity')
 plt.show()
 ```
+
+:::{figure} #isd-plot-fig-10
+:label: wf
+Welfare
+:::
 
 Let's now give a social planner the task of maximizing social welfare.
 

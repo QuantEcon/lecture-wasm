@@ -65,6 +65,8 @@ mystnb:
     caption: Scatter plot
     name: sales-v-temp1
 ---
+:label: slr-plot-fig-1
+
 ax = df.plot(
     x='X', 
     y='Y', 
@@ -73,6 +75,11 @@ ax = df.plot(
     xlabel='Degrees celcius'
 )
 ```
+
+:::{figure} #slr-plot-fig-1
+:label: sales-v-temp1
+Scatter plot
+:::
 
 as you can see the data suggests that more ice-cream is typically sold on hotter days. 
 
@@ -97,11 +104,18 @@ mystnb:
     caption: Scatter plot with a line of fit
     name: sales-v-temp2
 ---
+:label: slr-plot-fig-2
+
 fig, ax = plt.subplots()
 ax = df.plot(x='X',y='Y', kind='scatter', ax=ax)
 ax = df.plot(x='X',y='Y_hat', kind='line', ax=ax)
 plt.show()
 ```
+
+:::{figure} #slr-plot-fig-2
+:label: sales-v-temp2
+Scatter plot with a line of fit
+:::
 
 We can see that this model does a poor job of estimating the relationship.
 
@@ -119,11 +133,18 @@ mystnb:
     caption: 'Scatter plot with a line of fit #2'
     name: sales-v-temp3
 ---
+:label: slr-plot-fig-3
+
 fig, ax = plt.subplots()
 ax = df.plot(x='X',y='Y', kind='scatter', ax=ax)
 ax = df.plot(x='X',y='Y_hat', kind='line', ax=ax)
 plt.show()
 ```
+
+:::{figure} #slr-plot-fig-3
+:label: sales-v-temp3
+Scatter plot with a line of fit #2
+:::
 
 ```{code-cell} ipython3
 β = 65
@@ -137,11 +158,19 @@ mystnb:
     caption: 'Scatter plot with a line of fit #3'
     name: sales-v-temp4
 ---
+:label: slr-plot-fig-4
+
 fig, ax = plt.subplots()
 ax = df.plot(x='X',y='Y', kind='scatter', ax=ax)
 ax = df.plot(x='X',y='Y_hat', kind='line', ax=ax, color='g')
 plt.show()
 ```
+
+
+:::{figure} #slr-plot-fig-4
+:label: sales-v-temp4
+Scatter plot with a line of fit #3
+:::
 
 However we need to think about formalizing this guessing process by thinking of this problem as an optimization problem. 
 
@@ -169,12 +198,19 @@ mystnb:
     caption: Plot of the residuals
     name: plt-residuals
 ---
+:label: slr-plot-fig-5
+
 fig, ax = plt.subplots()
 ax = df.plot(x='X',y='Y', kind='scatter', ax=ax)
 ax = df.plot(x='X',y='Y_hat', kind='line', ax=ax, color='g')
 plt.vlines(df['X'], df['Y_hat'], df['Y'], color='r')
 plt.show()
 ```
+
+:::{figure} #slr-plot-fig-5
+:label: plt-residuals
+Plot of the residuals
+:::
 
 The Ordinary Least Squares (OLS) method chooses $\alpha$ and $\beta$ in such a way that **minimizes** the sum of the squared residuals (SSR). 
 
@@ -218,9 +254,16 @@ mystnb:
     caption: Plotting the error
     name: plt-errors
 ---
+:label: slr-plot-fig-6
+
 ax = pd.Series(errors).plot(xlabel='β', ylabel='error')
 plt.axvline(β_optimal, color='r');
 ```
+
+:::{figure} #slr-plot-fig-6
+:label: plt-errors
+Plotting the error
+:::
 
 Now let us vary $\alpha$ (holding $\beta$ constant)
 
@@ -239,9 +282,16 @@ mystnb:
     caption: Plotting the error (2)
     name: plt-errors-2
 ---
+:label: slr-plot-fig-7
+
 ax = pd.Series(errors).plot(xlabel='α', ylabel='error')
 plt.axvline(α_optimal, color='r');
 ```
+
+:::{figure} #slr-plot-fig-7
+:label: plt-errors-2
+Plotting the error (2)
+:::
 
 (slr:optimal-values)=
 ## Calculating optimal values
@@ -376,6 +426,8 @@ mystnb:
     caption: OLS line of best fit
     name: plt-ols
 ---
+:label: slr-plot-fig-8
+
 df['Y_hat'] = α + β * df['X']
 df['error'] = df['Y_hat'] - df['Y']
 
@@ -384,6 +436,12 @@ ax = df.plot(x='X',y='Y', kind='scatter', ax=ax)
 ax = df.plot(x='X',y='Y_hat', kind='line', ax=ax, color='g')
 plt.vlines(df['X'], df['Y_hat'], df['Y'], color='r');
 ```
+
+:::{figure} #slr-plot-fig-8
+:label: plt-ols
+OLS line of best fit
+:::
+
 
 :::{exercise}
 :label: slr-ex1

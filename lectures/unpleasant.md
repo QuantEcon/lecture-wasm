@@ -486,16 +486,15 @@ def plot_path(m0_arr, model, length=15):
 ```
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: "Unpleasant Arithmetic"
-    name: fig:unpl1
----
+:label: plot-fig
 plot_path([80, 100], msm)
 ```
+:::{figure} #plot-fig
+:label: unpl1
+Unpleasant Arithmetic
+:::
 
-{numref}`fig:unpl1` summarizes outcomes of two experiments that convey messages of Sargent and Wallace {cite}`sargent1981`.
+{numref}`unpl1` summarizes outcomes of two experiments that convey messages of Sargent and Wallace {cite}`sargent1981`.
 
 * An open market operation that reduces the supply of money at time $t=0$ reduces  the price level at time $t=0$
 

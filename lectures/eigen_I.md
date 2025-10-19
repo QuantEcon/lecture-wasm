@@ -997,12 +997,7 @@ Here is one solution.
 We start by looking into the distance between the eigenvector approximation and the true eigenvector.
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Power iteration
-    name: pow-dist
----
+:label: en-plot-fig-2
 # Define a matrix A
 A = np.array([[1, 0, 3],
               [0, 2, 0],
@@ -1043,17 +1038,18 @@ plt.ylabel('error')
 _ = plt.plot(errors)
 ```
 
+:::{figure} #en-plot-fig-2
+:label: pow-dist
+Power iteration
+:::
+
 +++ {"user_expressions": []}
 
 Then we can look at the trajectory of the eigenvector approximation.
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Power iteration trajectory
-    name: pow-trajectory
----
+:label: en-plot-fig-3
+
 # Set up the figure and axis for 3D plot
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
@@ -1084,7 +1080,10 @@ ax.set_box_aspect(aspect=None, zoom=0.8)
 plt.show()
 ```
 
-+++ {"user_expressions": []}
+:::{figure} #en-plot-fig-3
+:label: pow-trajectory
+Power iteration trajectory
+:::
 
 ```{solution}
 ```
@@ -1128,12 +1127,7 @@ Let's use a [vector field](https://en.wikipedia.org/wiki/Vector_field) to visual
 (This is a more advanced topic in linear algebra, please step ahead if you are comfortable with the math.)
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Convergence towards eigenvectors
-    name: eigen-conv
----
+:label: en-plot-fig-4
 # Create a grid of points
 x, y = np.meshgrid(np.linspace(-5, 5, 15),
                    np.linspace(-5, 5, 20))
@@ -1170,7 +1164,11 @@ plt.gca().set_aspect('equal', adjustable='box')
 plt.show()
 ```
 
-+++ {"user_expressions": []}
+:::{figure} #en-plot-fig-4
+:label: eigen-conv
+Convergence towards eigenvectors
+:::
+
 
 Note that the vector field converges to the eigenvector of $A$ with the largest eigenvalue and diverges from the eigenvector of $A$ with the smallest eigenvalue.
 
@@ -1200,12 +1198,7 @@ Use the visualization in the previous exercise to explain the trajectory of the 
 Here is one solution
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Vector fields of the three matrices
-    name: vector-field
----
+:label: en-plot-fig-5
 figure, ax = plt.subplots(1, 3, figsize=(15, 5))
 A = np.array([[sqrt(3) + 1, -2],
               [1, sqrt(3) - 1]])
@@ -1267,6 +1260,11 @@ for i, example in enumerate(examples):
 plt.show()
 ```
 
+:::{figure} #en-plot-fig-5
+:label: vector-field
+Vector fields of the three matrices
+:::
+
 +++ {"user_expressions": []}
 
 The vector fields explain why we observed the trajectories of the vector $v$ multiplied by $A$ iteratively before.
@@ -1276,12 +1274,8 @@ The pattern demonstrated here is because we have complex eigenvalues and eigenve
 We can plot the complex plane for one of the matrices using `Arrow3D` class retrieved from [stackoverflow](https://stackoverflow.com/questions/22867620/putting-arrowheads-on-vectors-in-a-3d-plot).
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: 3D plot of the vector field
-    name: 3d-vector-field
----
+:label: en-plot-fig-6
+
 class Arrow3D(FancyArrowPatch):
     def __init__(self, xs, ys, zs, *args, **kwargs):
         super().__init__((0, 0), (0, 0), *args, **kwargs)
@@ -1337,8 +1331,11 @@ ax.set_box_aspect(aspect=None, zoom=0.8)
 plt.draw()
 plt.show()
 ```
+:::{figure} #en-plot-fig-6
+:label: 3d-vector-field
+3D plot of the vector field
+:::
 
-+++ {"user_expressions": []}
 
 ```{solution}
 ```
