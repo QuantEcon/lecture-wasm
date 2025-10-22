@@ -2,13 +2,16 @@ name: Build and Netlify Deploy
 
 on:
   pull_request:
-    branches:
-    - main
-    - theme_updates
+    types: [opened, synchronize, reopened]
   push:
     branches:
     - theme_updates
   workflow_dispatch:
+    inputs:
+      preview_page:
+        description: 'Specific page to preview (e.g., intro.html)'
+        required: false
+        type: string
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -75,6 +78,7 @@ jobs:
             --dir lectures/_build/html/ \
             --site ${{ secrets.NETLIFY_SITE_ID }} \
             --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} \
+            --context pr-preview \
             --alias pr-${{ github.event.pull_request.number }} \
             --message "${deploy_message}" \
             --json)
@@ -88,6 +92,12 @@ jobs:
           echo "deploy_url=$deploy_url" >> $GITHUB_OUTPUT
           echo "✅ Deployment completed!"
           echo "🌐 Deploy URL: $deploy_url"
+          
+          # Display manual preview page if specified
+          if [ ! -z "${{ github.event.inputs.preview_page }}" ]; then
+            echo ""
+            echo "🎯 Manual preview page: ${deploy_url}/${{ github.event.inputs.preview_page }}"
+          fi
         else
           # Handle push to branch
           deploy_message="Deploy from GitHub Actions (commit: ${{ github.sha }})"
@@ -96,6 +106,7 @@ jobs:
             --dir lectures/_build/html/ \
             --site ${{ secrets.NETLIFY_SITE_ID }} \
             --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} \
+            --context dev \
             --alias ${{ github.ref_name }} \
             --message "${deploy_message}" \
             --json)
@@ -120,11 +131,13 @@ jobs:
       with:
         script: |
           const deployUrl = `${{ steps.netlify-deploy.outputs.deploy_url }}`;
+          const manualPage = `${{ github.event.inputs.preview_page }}`;
           const prNumber = ${{ github.event.pull_request.number }};
           const commitSha = `${{ github.event.pull_request.head.sha }}`;
           const shortSha = commitSha.substring(0, 7);
           
           console.log(`Deploy URL: ${deployUrl}`);
+          console.log(`Manual preview page: ${manualPage}`);
           console.log(`PR Number: ${prNumber}`);
           console.log(`Commit SHA: ${shortSha}`);
           
@@ -157,6 +170,12 @@ jobs:
           
           let comment = `**📖 Netlify Preview Ready!**\n\n`;
           comment += `**Preview URL:** ${deployUrl} ([${shortSha}](${commitUrl}))\n\n`;
+          
+          // Add manual preview page if specified
+          if (manualPage) {
+            comment += `🎯 **Manual Preview:** [${manualPage}](${deployUrl}/${manualPage})\n\n`;
+          }
+          
           comment += `✨ Browse the preview at the URL above.\n`;
           
           // Post the comment
