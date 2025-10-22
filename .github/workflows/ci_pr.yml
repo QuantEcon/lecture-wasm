@@ -58,13 +58,23 @@ jobs:
       with:
         path: './lectures/_build/html'
 
-    - name: Preview Deploy to Netlify
+    - name: Deploy Preview to Netlify
       uses: nwtgck/actions-netlify@v3
       with:
         publish-dir: './lectures/_build/html'
         production-branch: main
+        production-deploy: false
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        deploy-message: "Preview Deploy from GitHub Actions"
+        deploy-message: |
+          Deploy from PR #${{ github.event.number }}
+          Branch: ${{ github.head_ref }}
+          Commit: ${{ github.sha }}
+        alias: pr-${{ github.event.number }}
+        enable-pull-request-comment: true
+        enable-commit-comment: false
+        enable-commit-status: true
+        overwrites-pull-request-comment: true
       env:
         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      timeout-minutes: 10
