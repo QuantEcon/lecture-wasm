@@ -60,9 +60,8 @@ jobs:
 
     - name: Install Netlify CLI
       run: |
-        sudo apt-get update
-        sudo apt-get install -y nodejs npm
-        sudo npm install -g netlify-cli
+        npm install -g netlify-cli
+        mkdir -p ~/.config/netlify
 
     - name: Deploy Preview to Netlify
       id: netlify-deploy
