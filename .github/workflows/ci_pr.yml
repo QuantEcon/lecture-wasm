@@ -3,6 +3,7 @@ name: Build and Netlify Deploy
 on:
   pull_request:
     branches:
+    - main
     - theme_updates
   push:
     branches:
