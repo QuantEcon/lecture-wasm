@@ -2,14 +2,16 @@ name: Build and Netlify Deploy
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened]
+  push:
     branches:
-    - main
-    paths:
-    - book/**
-    - requirements.txt
-    - .github/workflows/deploy.yml
-    - .github/workflows/ci_pr.yml
+    - theme_updates
   workflow_dispatch:
+    inputs:
+      preview_page:
+        description: 'Specific page to preview (e.g., intro.html)'
+        required: false
+        type: string
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -25,7 +27,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
-    
+
     steps:
     - name: Checkout current branch
       uses: actions/checkout@v4
@@ -41,169 +43,148 @@ jobs:
         echo "PR number: ${{ github.event.number }}"
         echo "Commit SHA: ${{ github.sha }}"
 
-    - name: Record extra cache info
-      run: |
-        # Record filenames listing -- this updates the cache on filename change
-        find book/ -type f >> EXTRA_CACHE_VARS.txt
-        # For PR builds, we don't preprocess or archive
-        echo false >> EXTRA_CACHE_VARS.txt  # preprocess
-        echo false >> EXTRA_CACHE_VARS.txt  # archive
-        cat EXTRA_CACHE_VARS.txt
 
-    - name: Cache page build
-      id: cache-html
-      uses: actions/cache@v4
+    - uses: actions/setup-node@v4
       with:
-        path: "book/_build/html"
-        key: html-build-${{ github.head_ref }}-${{ hashFiles('book/**', 'requirements.txt', 'EXTRA_CACHE_VARS.txt') }}
+        node-version: 18.x
 
-    - if: ${{ steps.cache-html.outputs.cache-hit != 'true' }}
-      name: Set up Python 3.11
-      uses: actions/setup-python@v5
-      id: setup-python
+    - name: Install MyST Markdown CLI
+      run: |
+        npm install -g mystmd thebe-core thebe thebe-lite
+
+    - name: Build HTML
+      working-directory: ./lectures
+      run: |
+        myst build --html
+
+    - name: Upload build output
+      uses: actions/upload-pages-artifact@v3
       with:
-        python-version: 3.11
+        path: './lectures/_build/html'
 
-    - if: ${{ steps.cache-html.outputs.cache-hit != 'true' }}
-      name: Record current date for cache
+    - name: Install Netlify CLI
       run: |
-        echo "WEEK=$(date +%V)" >> $GITHUB_ENV
+        npm install -g netlify-cli
+        mkdir -p ~/.config/netlify
 
-    - if: ${{ steps.cache-html.outputs.cache-hit != 'true' }}
-      name: Cache virtualenv
-      uses: actions/cache@v4
-      with:
-        key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('requirements.txt') }}-week${{ env.WEEK }}-${{ github.repository }}
-        path: .venv
-
-    - if: ${{ steps.cache-html.outputs.cache-hit != 'true' }}
-      name: Install dependencies
+    - name: Deploy Preview to Netlify
+      id: netlify-deploy
       run: |
-        python -m venv .venv
-        source .venv/bin/activate
-        python -m pip install -r requirements.txt
-        echo "$VIRTUAL_ENV/bin" >> $GITHUB_PATH
-        echo "VIRTUAL_ENV=$VIRTUAL_ENV" >> $GITHUB_ENV
-
-    - if: ${{ steps.cache-html.outputs.cache-hit != 'true' }}
-      name: Build the book with TeachBooks
-      run: |
-        set -o pipefail
-        # Build without preprocessing for PR preview
-        teachbooks build book/ > >(tee stdout.log) 2> >(tee stderr.log >&2)
-        set +o pipefail
-
-    - name: If build failed, attempt to restore from cache
-      if: failure()
-      id: attempt-restore
-      uses: actions/cache/restore@v4
-      with:
-        key: none
-        path: "book/_build/html"
-        restore-keys: html-build-${{ github.head_ref }}
-
-    - name: Check build output
-      run: |
-        echo "Build completed. Contents of book/_build/html/:"
-        ls -la book/_build/html/ || echo "No build output found"
-        echo "Checking for index.html:"
-        ls -la book/_build/html/index.html || echo "No index.html found"
-
-    - name: Create build status summary
-      if: always()
-      run: |
-        if [ ${{ job.status }} == 'success' ]; then
-          echo "✅ **Build Status**: Success" >> build_summary.md
-          echo "Book built successfully from branch \`${{ github.head_ref }}\`" >> build_summary.md
-        else
-          echo "**Build Status**: Failed" >> build_summary.md
-          if [ -n "${{ steps.attempt-restore.outputs.cache-matched-key }}" ]; then
-            echo "Using cached version from previous successful build" >> build_summary.md
-          else
-            echo " No cached version available" >> build_summary.md
+        if [ "${{ github.event_name }}" = "pull_request" ]; then
+          # Deploy to Netlify and capture the response
+          deploy_message="Preview Deploy from GitHub Actions PR #${{ github.event.pull_request.number }} (commit: ${{ github.event.pull_request.head.sha }})"
+          
+          netlify_output=$(netlify deploy \
+            --dir lectures/_build/html/ \
+            --site ${{ secrets.NETLIFY_SITE_ID }} \
+            --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} \
+            --context pr-preview \
+            --alias pr-${{ github.event.pull_request.number }} \
+            --message "${deploy_message}" \
+            --json)
+          
+          echo "Netlify deployment output:"
+          echo "$netlify_output"
+          
+          # Extract the actual deploy URL from the JSON response
+          deploy_url=$(echo "$netlify_output" | jq -r '.deploy_url')
+          
+          echo "deploy_url=$deploy_url" >> $GITHUB_OUTPUT
+          echo "✅ Deployment completed!"
+          echo "🌐 Deploy URL: $deploy_url"
+          
+          # Display manual preview page if specified
+          if [ ! -z "${{ github.event.inputs.preview_page }}" ]; then
+            echo ""
+            echo "🎯 Manual preview page: ${deploy_url}/${{ github.event.inputs.preview_page }}"
           fi
+        else
+          # Handle push to branch
+          deploy_message="Deploy from GitHub Actions (commit: ${{ github.sha }})"
+          
+          netlify_output=$(netlify deploy \
+            --dir lectures/_build/html/ \
+            --site ${{ secrets.NETLIFY_SITE_ID }} \
+            --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} \
+            --context dev \
+            --alias ${{ github.ref_name }} \
+            --message "${deploy_message}" \
+            --json)
+          
+          echo "Netlify deployment output:"
+          echo "$netlify_output"
+          
+          # Extract the actual deploy URL from the JSON response
+          deploy_url=$(echo "$netlify_output" | jq -r '.deploy_url')
+          
+          echo "deploy_url=$deploy_url" >> $GITHUB_OUTPUT
+          echo "✅ Deployment completed!"
+          echo "🌐 Deploy URL: $deploy_url"
         fi
-        
-        if [ -s stderr.log ]; then
-          echo "" >> build_summary.md
-          echo " **Build Warnings/Errors**:" >> build_summary.md
-          echo '```' >> build_summary.md
-          cat stderr.log >> build_summary.md
-          echo '```' >> build_summary.md
-        fi
-
-    - name: Deploy to Netlify
-      if: always() && hashFiles('book/_build/html/**') != ''
-      uses: nwtgck/actions-netlify@v3
-      with:
-        publish-dir: 'book/_build/html/'
-        production-branch: main
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        deploy-message: "Preview Deploy from ${{ github.head_ref }} (PR #${{ github.event.number }})"
-        alias: pr-${{ github.event.number }}
-        enable-pull-request-comment: true
-        enable-commit-comment: false
-        overwrites-pull-request-comment: true
       env:
         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
-    - name: Comment build summary on PR
-      if: always()
+    - name: Post PR Comment with Preview Link
+      if: github.event_name == 'pull_request'
       uses: actions/github-script@v7
       with:
         script: |
-          const fs = require('fs');
-          let summary = '';
-          try {
-            summary = fs.readFileSync('build_summary.md', 'utf8');
-          } catch (error) {
-            summary = '📋 Build summary not available';
-          }
+          const deployUrl = `${{ steps.netlify-deploy.outputs.deploy_url }}`;
+          const manualPage = `${{ github.event.inputs.preview_page }}`;
+          const prNumber = ${{ github.event.pull_request.number }};
+          const commitSha = `${{ github.event.pull_request.head.sha }}`;
+          const shortSha = commitSha.substring(0, 7);
           
-          const body = `## 🚀 TeachBooks Build & Deploy Summary
-
-          ${summary}
-
-          ---
-          <details>
-          <summary>📖 TeachBooks Configuration</summary>
+          console.log(`Deploy URL: ${deployUrl}`);
+          console.log(`Manual preview page: ${manualPage}`);
+          console.log(`PR Number: ${prNumber}`);
+          console.log(`Commit SHA: ${shortSha}`);
           
-          - **Branch**: \`${{ github.head_ref }}\`
-          - **Build Command**: \`teachbooks build book/\`
-          - **Preprocessing**: Disabled (PR preview)
-          - **Archive Banner**: Disabled (PR preview)
-          - **Cache**: ${{ steps.cache-html.outputs.cache-hit == 'true' && 'Hit ✅' || 'Miss ❌' }}
-          
-          </details>`;
-
-          // Get existing comments
-          const { data: comments } = await github.rest.issues.listComments({
+          // Get all comments on this PR to check for duplicates
+          const comments = await github.rest.issues.listComments({
+            issue_number: prNumber,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            issue_number: context.issue.number,
           });
-
-          // Find existing bot comment
-          const botComment = comments.find(comment => 
-            comment.user.type === 'Bot' && 
-            comment.body.includes('🚀 TeachBooks Build & Deploy Summary')
-          );
-
-          if (botComment) {
-            // Update existing comment
-            await github.rest.issues.updateComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              comment_id: botComment.id,
-              body: body
-            });
-          } else {
-            // Create new comment
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              body: body
-            });
+          
+          console.log(`Found ${comments.data.length} comments on PR`);
+          
+          // Look for existing comment with this exact commit SHA and deploy URL
+          const duplicateComment = comments.data.find(comment => {
+            const hasMarker = comment.body.includes('**📖 Netlify Preview Ready!**');
+            const hasCommitSha = comment.body.includes(`([${shortSha}]`);
+            const hasDeployUrl = comment.body.includes(deployUrl);
+            
+            return hasMarker && hasCommitSha && hasDeployUrl;
+          });
+          
+          if (duplicateComment) {
+            console.log(`Duplicate comment found (${duplicateComment.id}), skipping...`);
+            return;
           }
+          
+          console.log(`No duplicate found, creating new comment for commit ${shortSha}`);
+          
+          const commitUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/commit/${commitSha}`;
+          
+          let comment = `**📖 Netlify Preview Ready!**\n\n`;
+          comment += `**Preview URL:** ${deployUrl} ([${shortSha}](${commitUrl}))\n\n`;
+          
+          // Add manual preview page if specified
+          if (manualPage) {
+            comment += `🎯 **Manual Preview:** [${manualPage}](${deployUrl}/${manualPage})\n\n`;
+          }
+          
+          comment += `✨ Browse the preview at the URL above.\n`;
+          
+          // Post the comment
+          await github.rest.issues.createComment({
+            issue_number: prNumber,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: comment
+          });
+          
+          console.log('Comment posted successfully');
+      timeout-minutes: 10

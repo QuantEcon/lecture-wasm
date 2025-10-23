@@ -66,6 +66,15 @@ def update_pip_line(line):
     if ("!pip" in line_) and ("install" in line_):
         line_ = line_.replace("!", "").replace("pip", "%pip")
         line_ = line_.replace("--upgrade", "")
+
+    # Hack for handling solution and exercise note execution
+    # ```{solution-end}
+    if "```{solution-end}" or "```{solution-start}" in line_:
+        line_ = line_.replace("```{solution-end}", "```{solution}")
+        line_ = line_.replace("```{solution-start}", "```{solution}")
+    elif "```{exercise-end}" or "```{exercise-start}" in line_:
+        line_ = line_.replace("```{exercise-end}", "```{exercise}")
+        line_ = line_.replace("```{exercise-start}", "```{exercise}")
     return line_
 
 
@@ -75,7 +84,7 @@ def update_lectures():
 
     in_dir_1 = os.path.abspath(os.path.join(ROOT_DIR, 'lecture-python-intro-wasm'))
     in_dir_2 = os.path.abspath(os.path.join(in_dir_1, 'lectures'))
-    out_dir = os.path.abspath(os.path.join(ROOT_DIR, 'book'))
+    out_dir = os.path.abspath(os.path.join(ROOT_DIR, 'lectures'))
 
     shutil.copytree(in_dir_2, out_dir, dirs_exist_ok=True)
     cwd = os.getcwd()
@@ -99,9 +108,9 @@ def update_lectures():
             f.writelines(out_lines)
 
     # Update _config.yml file
-    source_config = os.path.abspath(os.path.join(ROOT_DIR, '_config_copy.yml'))
-    destination_config = os.path.abspath(os.path.join(out_dir, '_config.yml'))
-    shutil.copyfile(source_config, destination_config)
+    # source_config = os.path.abspath(os.path.join(ROOT_DIR, '_config_copy.yml'))
+    # destination_config = os.path.abspath(os.path.join(out_dir, '_config.yml'))
+    # shutil.copyfile(source_config, destination_config)
 
     # Remove downloaded folder
     shutil.rmtree('lecture-python-intro-wasm')
