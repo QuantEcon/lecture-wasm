@@ -3,10 +3,10 @@ name: Build and Netlify Deploy
 on:
   pull_request:
     branches:
-    - theme_updates
+    - main
   push:
     branches:
-    - theme_updates
+    - main
   workflow_dispatch:
 
 concurrency:
