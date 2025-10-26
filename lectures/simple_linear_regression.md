@@ -59,12 +59,6 @@ df
 We can use a scatter plot of the data to see the relationship between $y_i$ (ice-cream sales in dollars (\$\'s)) and $x_i$ (degrees Celsius).
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Scatter plot
-    name: sales-v-temp1
----
 :label: slr-plot-fig-1
 
 ax = df.plot(
@@ -98,12 +92,6 @@ df['Y_hat'] = α + β * df['X']
 ```
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Scatter plot with a line of fit
-    name: sales-v-temp2
----
 :label: slr-plot-fig-2
 
 fig, ax = plt.subplots()
@@ -127,12 +115,6 @@ df['Y_hat'] = α + β * df['X']
 ```
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: 'Scatter plot with a line of fit #2'
-    name: sales-v-temp3
----
 :label: slr-plot-fig-3
 
 fig, ax = plt.subplots()
@@ -152,12 +134,6 @@ df['Y_hat'] = α + β * df['X']
 ```
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: 'Scatter plot with a line of fit #3'
-    name: sales-v-temp4
----
 :label: slr-plot-fig-4
 
 fig, ax = plt.subplots()
@@ -192,12 +168,6 @@ df
 ```
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Plot of the residuals
-    name: plt-residuals
----
 :label: slr-plot-fig-5
 
 fig, ax = plt.subplots()
@@ -248,12 +218,6 @@ for β in np.arange(20,100,0.5):
 Plotting the error
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Plotting the error
-    name: plt-errors
----
 :label: slr-plot-fig-6
 
 ax = pd.Series(errors).plot(xlabel='β', ylabel='error')
@@ -276,12 +240,6 @@ for α in np.arange(-500,500,5):
 Plotting the error
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Plotting the error (2)
-    name: plt-errors-2
----
 :label: slr-plot-fig-7
 
 ax = pd.Series(errors).plot(xlabel='α', ylabel='error')
@@ -420,12 +378,6 @@ print(α)
 Now we can plot the OLS solution
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: OLS line of best fit
-    name: plt-ols
----
 :label: slr-plot-fig-8
 
 df['Y_hat'] = α + β * df['X']

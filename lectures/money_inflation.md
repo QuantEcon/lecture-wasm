@@ -311,13 +311,6 @@ They satisfy $R_\ell < R_u$ and are affiliated with a higher inflation tax rate 
 inflation tax rate $1 - R_u$.
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Steady state revenue from inflation tax as function of steady state gross return on currency (solid blue curve) and  real government expenditures (dotted red line) plotted against steady-state rate of return currency
-    name: infl_tax
-    width: 500px
----
 :label: mi-plot-fig-1
 
 # Generate values for R
@@ -556,14 +549,6 @@ Let's plot  distinct outcomes  associated with several  $R_0 \in [\frac{\gamma_2
 Each line below shows a path associated with a different $R_0$.
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Paths of $R_t$ (top panel) and $b_t$ (bottom panel) starting from different
-      initial condition $R_0$
-    name: R0_path
-    width: 500px
----
 :label: mi-plot-fig-2
 
 # Create a grid of R_0s
@@ -937,15 +922,6 @@ def draw_iterations(p0s, model, line_params, num_steps):
 ```
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Starting from different initial values of  $p_0$, paths of $m_t$ (top
-      panel, log scale for $m$), $p_t$ (middle panel, log scale for $m$), $R_t$ (bottom
-      panel)
-    name: p0_path
-    width: 500px
----
 :label: mi-plot-fig-3
 p0s = [p0_bar, 2.34, 2.5, 3, 4, 7, 30, 100_000]
 

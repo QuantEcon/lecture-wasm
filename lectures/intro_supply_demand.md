@@ -104,12 +104,6 @@ The total height of each bar $i$ is willingness to pay by consumer $i$.
 The orange portion of some of the bars shows consumer surplus.
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: "Willingness to pay (discrete)"
-    name: wpdisc
----
 :label: isd-plot-fig-1
 
 fig, ax = plt.subplots()
@@ -171,12 +165,6 @@ p = 100 e^{-q}
 $$
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: "Willingness to pay (continuous)"
-    name: wpcont
----
 :label: isd-plot-fig-2
 
 def inverse_demand(q):
@@ -209,12 +197,6 @@ Reasoning by analogy with the discrete case, the area under the demand curve and
 The consumer surplus is shaded in the figure below.
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: "Willingness to pay (continuous) with consumer surplus"
-    name: wpcont_cs
----
 :label: isd-plot-fig-3
 
 # solve for the value of q where demand meets price
@@ -254,12 +236,6 @@ Having discussed demand, let's now switch over to the supply side of the market.
 The figure below shows the price at which a collection of producers, also numbered 1 to 10, are willing to sell one unit of the good in question
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: "Willingness to sell (discrete)"
-    name: wsdisc
----
 :label: isd-plot-fig-4
 
 fig, ax = plt.subplots()
@@ -310,12 +286,6 @@ The shaded area is the total producer surplus in this continuous model.
 ```
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: "Willingness to sell (continuous) with producer surplus"
-    name: wscont
----
 :label: isd-plot-fig-5
 
 def inverse_supply(q):
@@ -365,12 +335,6 @@ In general, for a function $f$, the **integral** of $f$ over the interval $[a, b
 This value is written as $\int_a^b f(x) \mathrm{d} x$ and illustrated in the figure below when $f(x) = \cos(x/2) + 1$.
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: "Area under the curve"
-    name: integrate
----
 :label: isd-plot-fig-6
 
 def f(x):
@@ -473,12 +437,6 @@ def inverse_supply(q, model):
 Here is a plot of these two functions using `market`.
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: "Supply and demand"
-    name: supply_demand
----
 :label: isd-plot-fig-7
 
 market = create_market()
@@ -524,13 +482,9 @@ The next figure illustrates
 
 ```{code-cell} ipython3
 ---
-mystnb:
-  figure:
-    caption: "Supply and demand (consumer surplus)"
-    name: supply_demand_cs
+label: isd-plot-fig-8
 tags: [hide-input]
 ---
-:label: isd-plot-fig-8
 
 q = 1.25
 p = inverse_demand(q, market)
@@ -596,13 +550,9 @@ The next figure illustrates
 
 ```{code-cell} ipython3
 ---
-mystnb:
-  figure:
-    caption: "Supply and demand (producer surplus)"
-    name: supply_demand_ps
+label: isd-plot-fig-9
 tags: [hide-input]
 ---
-:label: isd-plot-fig-9
 
 q = 0.75
 p = inverse_supply(q, market)
@@ -682,13 +632,9 @@ The next figure plots welfare as a function of $q$.
 
 ```{code-cell} ipython3
 ---
-mystnb:
-  figure:
-    caption: "Welfare"
-    name: wf
+label: isd-plot-fig-10
 tags: [hide-input]
 ---
-:label: isd-plot-fig-10
 
 q_vals = np.linspace(0, 1.78, 200)
 fig, ax = plt.subplots()
