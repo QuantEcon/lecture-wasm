@@ -168,14 +168,8 @@ In this section we examine GDP per capita over the long run for several differen
 First we examine UK GDP growth
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: GDP per Capita (GBR)
-    name: gdppc_gbr1
-    width: 500px
----
 :label: lrg-plot-fig-1
+
 fig, ax = plt.subplots(dpi=300)
 country = 'GBR'
 gdp_pc[country].plot(
@@ -202,12 +196,6 @@ We can see that the data is non-continuous for longer periods in the early 250 y
 Here we use dashed lines to indicate interpolated trends
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: GDP per Capita (GBR)
-    name: gdppc_gbr2
----
 :label: lrg-plot-fig-2
 
 fig, ax = plt.subplots(dpi=300)
@@ -284,13 +272,9 @@ Let's look at the United States (USA), United Kingdom (GBR), and China (CHN)
 
 ```{code-cell} ipython3
 ---
-mystnb:
-  figure:
-    caption: GDP per Capita, 1500- (China, UK, USA)
-    name: gdppc_comparison
+label: lrg-plot-fig-3
 tags: [hide-input]
 ---
-:label: lrg-plot-fig-3
 
 # Define the namedtuple for the events
 Event = namedtuple('Event', ['year_range', 'y_text', 'text', 'color', 'ymax'])
@@ -378,13 +362,9 @@ Thus, the graph indicates
 
 ```{code-cell} ipython3
 ---
-mystnb:
-  figure:
-    caption: GDP per Capita, 1500-2000 (China)
-    name: gdppc_china
+label: lrg-plot-fig-4
 tags: [hide-input]
 ---
-:label: lrg-plot-fig-4
 
 fig, ax = plt.subplots(dpi=300, figsize=(10, 6))
 
@@ -446,13 +426,9 @@ In the following graph, please watch for
 
 ```{code-cell} ipython3
 ---
-mystnb:
-  figure:
-    caption: GDP per Capita, 1500-2000 (UK and US)
-    name: gdppc_ukus
+label: lrg-plot-fig-5
 tags: [hide-input]
 ---
-:label: lrg-plot-fig-5
 
 fig, ax = plt.subplots(dpi=300, figsize=(10, 6))
 
@@ -526,12 +502,6 @@ The growth continued until the large dip in the 1930s when the Great Depression 
 Meanwhile, Russia experienced significant setbacks during World War I and recovered significantly after the February Revolution.
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: GDP in the early industrialization era
-    name: gdp1
----
 :label: lrg-plot-fig-6
 
 fig, ax = plt.subplots(dpi=300)
@@ -594,12 +564,6 @@ In the spirit of Tooze's chapter 1 analysis, doing this will provide some inform
 The following graph displays how quickly China has grown, especially since the late 1970s.
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: GDP in the modern era
-    name: gdp2
----
 :label: lrg-plot-fig-7
 
 fig, ax = plt.subplots(dpi=300)
@@ -651,12 +615,6 @@ Looking more closely, let's compare the time series for `Western Offshoots` and 
 Again we see the divergence of the West from the rest of the world after the Industrial Revolution and the convergence of the world after the 1950s
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Regional GDP per capita
-    name: region_gdppc
----
 :label: lrg-plot-fig-8
 
 fig, ax = plt.subplots(dpi=300)

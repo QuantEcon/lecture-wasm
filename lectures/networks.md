@@ -88,13 +88,9 @@ The following figure shows international trade in large commercial aircraft in 2
 
 ```{code-cell} ipython3
 ---
-mystnb:
-  figure:
-    caption: "Commercial Aircraft Network \n"
-    name: aircraft_network
+label: nt-plot-fig-1
 tags: [hide-input]
 ---
-:label: nt-plot-fig-1
 
 ch1_data = qbn_data.introduction()
 export_figures = False
@@ -407,13 +403,9 @@ loans) between private banks, grouped by country of origin.
 
 ```{code-cell} ipython3
 ---
-mystnb:
-  figure:
-    caption: "International Credit Network \n"
-    name: financial_network
+label: nt-plot-fig-2
 tags: [hide-input]
 ---
-:label: nt-plot-fig-2
 
 Z = ch1_data["adjacency_matrix"]["Z"]
 Z_visual= ch1_data["adjacency_matrix"]["Z_visual"]
@@ -798,12 +790,6 @@ the graph.
 Consider the following simple example.
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Sample Graph
-    name: sample_gph_1
----
 :label: nt-plot-fig-3
 
 G7 = nx.DiGraph()
@@ -999,12 +985,6 @@ eig_central = eigenvector_centrality(Z)
 ```
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Eigenvector centrality
-    name: eigenvctr_centrality
----
 :label: nt-plot-fig-4
 
 fig, ax = plt.subplots()
@@ -1142,12 +1122,6 @@ ecentral_authority = eigenvector_centrality(Z, authority=True)
 ```
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Eigenvector authority
-    name: eigenvector_centrality
----
 :label: nt-plot-fig-5
 
 fig, ax = plt.subplots()

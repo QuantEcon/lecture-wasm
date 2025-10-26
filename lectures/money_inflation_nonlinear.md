@@ -164,13 +164,6 @@ We find two steady state $\overline \pi$ values.
 The following figure plots the steady state Laffer curve together with the two stationary inflation rates.
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Seigniorage as function of steady state inflation. The dashed brown lines indicate $\pi_l$ and $\pi_u$.
-    name: laffer_curve_nonlinear
-    width: 500px
----
 :label: min-plot-fig-1
 
 def compute_seign(x, α):
@@ -399,15 +392,6 @@ def draw_iterations(p0s, model, line_params, p0_bars, num_steps):
 ```
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Starting from different initial values of $p_0$, paths of $m_t$ (top
-      panel, log scale for $m$), $p_t$ (second panel, log scale for $p$),  $\pi_t$ (third panel), and $\mu_t$ (bottom
-      panel)
-    name: p0_path_nonlin
-    width: 500px
----
 :label: min-plot-fig-2
 
 # Generate a sequence from p0_l to p0_u
