@@ -86,12 +86,6 @@ We first plot price levels over the period 1600-1914.
 During most years in this time interval, the countries were on a gold or silver standard.
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Long run time series of the price level
-    name: lrpl
----
 :label: ih-plot-fig-1
 
 df_fig5_befe1914 = df_fig5[df_fig5.index <= 1914]
@@ -169,12 +163,6 @@ Although we didn't have to use logarithms in our earlier graphs that had stopped
 After the outbreak of the Great War in 1914, the four countries left the gold standard and in so doing acquired the ability to print money to finance government expenditures.
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Long run time series of the price level (log)
-    name: lrpl_lg
----
 :label: ih-plot-fig-2
 
 fig, ax = plt.subplots(dpi=200)
@@ -414,12 +402,6 @@ The sources of our data are:
 * Table 3.4, exchange rate with US
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Price index and exchange rate (Austria)
-    name: pi_xrate_austria
----
 :label: ih-plot-fig-3
 
 p_seq = df_aus['Retail price index, 52 commodities']
@@ -440,12 +422,6 @@ Price index and exchange rate (Austria)
 :::
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Monthly inflation rate (Austria)
-    name: inflationrate_austria
----
 :label: ih-plot-fig-4
 
 # Plot moving average
@@ -475,12 +451,6 @@ The source of our data for Hungary is:
 * Table 3.10, price level $\exp p$ and exchange rate
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Price index and exchange rate (Hungary)
-    name: pi_xrate_hungary
----
 :label: ih-plot-fig-5
 
 p_seq = df_hun['Hungarian index of prices']
@@ -501,12 +471,6 @@ Price index and exchange rate (Hungary)
 :::
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Monthly inflation rate (Hungary)
-    name: inflationrate_hungary
----
 :label: ih-plot-fig-6
 
 # Plot moving average
@@ -535,12 +499,6 @@ We dropped the exchange rate after June 1924, when the zloty was adopted. We did
 ```
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Price index and exchange rate (Poland)
-    name: pi_xrate_poland
----
 :label: ih-plot-fig-7
 
 # Splice three price series in different units
@@ -585,12 +543,6 @@ plt.show()
 ```
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Monthly inflation rate (Poland)
-    name: inflationrate_poland
----
 :label: ih-plot-fig-8
 
 # Plot moving average
@@ -614,12 +566,6 @@ The sources of our data for Germany are the following tables from chapter 3 of {
 * Table 3.19, exchange rate
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Price index and exchange rate (Germany)
-    name: pi_xrate_germany
----
 :label: ih-plot-fig-9
 
 p_seq = df_deu['Price index (on basis of marks before July 1924,'
@@ -642,12 +588,6 @@ Price index and exchange rate (Germany)
 :::
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Price index (adjusted) and exchange rate (Germany)
-    name: piadj_xrate_germany
----
 :label: ih-plot-fig-10
 
 p_seq = df_deu['Price index (on basis of marks before July 1924,'
@@ -676,12 +616,6 @@ Price index (adjusted) and exchange rate (Germany)
 :::
 
 ```{code-cell} ipython3
----
-mystnb:
-  figure:
-    caption: Monthly inflation rate (Germany)
-    name: inflationrate_germany
----
 :label: ih-plot-fig-11
 
 # Plot moving average
