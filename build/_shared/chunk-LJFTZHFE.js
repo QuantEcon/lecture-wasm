@@ -1,0 +1,1 @@
+import{a as g}from"/build/_shared/chunk-A4AU4Y27.js";import{a as s}from"/build/_shared/chunk-IPQCPZKE.js";import{c as t}from"/build/_shared/chunk-2NH4LW52.js";var n=t((u,r)=>{var c=g(),l=s();r.exports=a;a.displayName="t4Cs";a.aliases=[];function a(e){e.register(c),e.register(l),e.languages.t4=e.languages["t4-cs"]=e.languages["t4-templating"].createT4("csharp")}});export{n as a};
