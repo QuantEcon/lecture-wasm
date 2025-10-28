@@ -25,7 +25,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
       pull-requests: write
       pages: write
       id-token: write
@@ -34,13 +34,13 @@ jobs:
     - name: Checkout current branch
       uses: actions/checkout@v4
       with:
-        ref: ${{ github.head_ref || github.ref }}
+        ref: ${{ github.head_ref }}
         token: ${{ env.GH_TOKEN }}
         submodules: 'true'
 
     - name: Display branch information
       run: |
-        echo "Running on branch: ${{ github.head_ref || github.ref_name }}"
+        echo "Running on branch: ${{ github.head_ref }}"
         echo "Target branch: ${{ github.base_ref }}"
         echo "PR number: ${{ github.event.number }}"
         echo "Commit SHA: ${{ github.sha }}"
@@ -63,17 +63,12 @@ jobs:
       with:
         path: './lectures/_build/html'
 
-    # Deploy to GitHub Pages on main branch push
+    # Deploy to GitHub Pages when pushing to main
     - name: Deploy to GitHub Pages
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./lectures/_build/html
-        publish_branch: gh-pages
-        force_orphan: true
+      id: deployment
+      uses: actions/deploy-pages@v4
 
-    # Netlify preview for PRs (optional - keep if you want PR previews)
     - name: Install Netlify CLI
       if: github.event_name == 'pull_request'
       run: |
@@ -84,6 +79,7 @@ jobs:
       if: github.event_name == 'pull_request'
       id: netlify-deploy
       run: |
+        # Deploy to Netlify and capture the response
         deploy_message="Preview Deploy from GitHub Actions PR #${{ github.event.pull_request.number }} (commit: ${{ github.event.pull_request.head.sha }})"
         
         netlify_output=$(netlify deploy \
@@ -98,12 +94,14 @@ jobs:
         echo "Netlify deployment output:"
         echo "$netlify_output"
         
+        # Extract the actual deploy URL from the JSON response
         deploy_url=$(echo "$netlify_output" | jq -r '.deploy_url')
         
         echo "deploy_url=$deploy_url" >> $GITHUB_OUTPUT
         echo "✅ Deployment completed!"
         echo "🌐 Deploy URL: $deploy_url"
         
+        # Display manual preview page if specified
         if [ ! -z "${{ github.event.inputs.preview_page }}" ]; then
           echo ""
           echo "🎯 Manual preview page: ${deploy_url}/${{ github.event.inputs.preview_page }}"
@@ -123,39 +121,55 @@ jobs:
           const commitSha = `${{ github.event.pull_request.head.sha }}`;
           const shortSha = commitSha.substring(0, 7);
           
+          console.log(`Deploy URL: ${deployUrl}`);
+          console.log(`Manual preview page: ${manualPage}`);
+          console.log(`PR Number: ${prNumber}`);
+          console.log(`Commit SHA: ${shortSha}`);
+          
+          // Get all comments on this PR to check for duplicates
           const comments = await github.rest.issues.listComments({
             issue_number: prNumber,
             owner: context.repo.owner,
             repo: context.repo.repo,
           });
           
+          console.log(`Found ${comments.data.length} comments on PR`);
+          
+          // Look for existing comment with this exact commit SHA and deploy URL
           const duplicateComment = comments.data.find(comment => {
             const hasMarker = comment.body.includes('**📖 Netlify Preview Ready!**');
             const hasCommitSha = comment.body.includes(`([${shortSha}]`);
             const hasDeployUrl = comment.body.includes(deployUrl);
+            
             return hasMarker && hasCommitSha && hasDeployUrl;
           });
           
           if (duplicateComment) {
-            console.log(`Duplicate comment found, skipping...`);
+            console.log(`Duplicate comment found (${duplicateComment.id}), skipping...`);
             return;
           }
+          
+          console.log(`No duplicate found, creating new comment for commit ${shortSha}`);
           
           const commitUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/commit/${commitSha}`;
           
           let comment = `**📖 Netlify Preview Ready!**\n\n`;
           comment += `**Preview URL:** ${deployUrl} ([${shortSha}](${commitUrl}))\n\n`;
           
+          // Add manual preview page if specified
           if (manualPage) {
             comment += `🎯 **Manual Preview:** [${manualPage}](${deployUrl}/${manualPage})\n\n`;
           }
           
           comment += `✨ Browse the preview at the URL above.\n`;
           
+          // Post the comment
           await github.rest.issues.createComment({
             issue_number: prNumber,
             owner: context.repo.owner,
             repo: context.repo.repo,
             body: comment
           });
+          
+          console.log('Comment posted successfully');
       timeout-minutes: 10
