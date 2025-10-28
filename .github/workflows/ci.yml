@@ -53,7 +53,16 @@ jobs:
       run: |
         npm install -g mystmd thebe-core thebe thebe-lite
 
-    - name: Build HTML
+    - name: Build HTML for GitHub Pages
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      working-directory: ./lectures
+      run: |
+        myst build --html
+      env:
+        BASE_URL: /${{ github.event.repository.name }}
+
+    - name: Build HTML for PR Preview
+      if: github.event_name == 'pull_request'
       working-directory: ./lectures
       run: |
         myst build --html
