@@ -6,14 +6,43 @@
 
 **Issue:** Content sync from `lecture-python-intro/wasm` is currently manual via `update_lectures.py`
 
-**Goal:** Create a GitHub Actions workflow to automatically sync content when changes are pushed to the source repository
+# TODO
 
-**Requirements:**
-- Monitor `lecture-python-intro` repository's `wasm` branch for changes
-- Trigger sync workflow when lectures are updated
-- Run `update_lectures.py` script automatically
-- Create PR with synced changes (or auto-commit to main)
-- Include validation checks (build succeeds, no broken links)
+## High Priority
+
+### Automate Content Synchronization
+
+**Current:** Manual sync via `python update_lectures.py`
+
+**Goal:** Automatic sync when source repository updates
+
+**Simple Implementation:**
+- Add scheduled workflow (runs daily or weekly)
+- Check for changes in `lecture-python-intro/wasm` branch
+- Run `update_lectures.py` if changes detected
+- Create PR with synced content for review
+
+**Why:** Reduces manual maintenance, keeps content current
+
+---
+
+## Medium Priority
+
+- Add issue templates (bug report, feature request)
+- Create pull request template with checklist
+- Test update_lectures.py with error handling improvements
+
+---
+
+## Low Priority
+
+- Add FAQ section to docs
+- Improve browser compatibility testing
+- Document common WASM compatibility issues
+
+---
+
+*Last Updated: November 1, 2025*
 
 **Implementation Options:**
 
