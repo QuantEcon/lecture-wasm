@@ -12,7 +12,7 @@ This repository contains a WASM-compatible subset of the QuantEcon lecture serie
 - 🌐 **Browser-based execution** - No installation required
 - 🚀 **Powered by Pyodide** - Full Python environment in WebAssembly
 - 📚 **Interactive learning** - Execute code cells directly in the browser
-- 🔄 **Auto-synced** - Content synchronized from the main lecture repository
+- 🔄 **Synchronized content** - Maintained in sync with the main lecture repository
 
 ## Getting Started
 
