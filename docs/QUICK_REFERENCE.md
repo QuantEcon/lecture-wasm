@@ -8,11 +8,14 @@ Quick commands and solutions for common tasks in the QuantEcon WASM Lectures pro
 # Clone and setup
 git clone https://github.com/QuantEcon/lecture-wasm.git
 cd lecture-wasm
-pip install -r requirements.txt
+
+# Install Node.js dependencies
+npm install -g mystmd thebe-core thebe thebe-lite
 
 # Build and serve
-teachbooks build book
-teachbooks serve
+cd lectures
+myst build --html
+myst start
 ```
 
 ## 📝 Common Commands
@@ -21,30 +24,29 @@ teachbooks serve
 
 ```bash
 # Full build
-teachbooks build book
-
-# Build with MyST directly
 cd lectures
 myst build --html
 
 # Clean build (remove cache)
 rm -rf lectures/_build
-teachbooks build book
+cd lectures
+myst build --html
 ```
 
 ### Local Development
 
 ```bash
 # Start server
-teachbooks serve
+cd lectures
+myst start
 
-# Server will typically run on http://localhost:8000
+# Server will typically run on http://localhost:3000
 
 # Stop server
-teachbooks serve stop
+# Press Ctrl+C in the terminal
 
 # Check if server is running
-ps aux | grep teachbooks
+lsof -i :3000
 ```
 
 ### Content Sync
@@ -75,24 +77,24 @@ myst build filename.md --html
 **Problem:** Missing dependencies
 
 ```bash
-# Reinstall all dependencies
-pip install -r requirements.txt --force-reinstall
-
-# Update npm packages
+# Reinstall Node.js dependencies
 npm install -g mystmd@latest thebe-core thebe thebe-lite
+
+# Note: requirements.txt is legacy and not used
 ```
 
 **Problem:** Port already in use
 
 ```bash
-# Find process using port
-lsof -i :8000
+# Find process using port 3000
+lsof -i :3000
 
 # Kill the process
 kill -9 <PID>
 
-# Or use a different port (if supported)
-teachbooks serve --port 8080
+# Or start on different port
+cd lectures
+myst start --port 3001
 ```
 
 ### Runtime Issues
@@ -279,10 +281,11 @@ myst build intro.md --html 2>&1 | grep -i error
 
 ```bash
 # 1. Build and serve
-teachbooks build book
-teachbooks serve
+cd lectures
+myst build --html
+myst start
 
-# 2. Open in browser
+# 2. Open in browser (http://localhost:3000)
 # 3. Open DevTools Console (F12)
 # 4. Try running code cells
 # 5. Check console for errors
@@ -291,9 +294,14 @@ teachbooks serve
 ### Validate Links
 
 ```bash
-# Check for broken internal links (requires linkchecker)
+# Check for broken internal links
+# First, build and start server
+cd lectures
+myst start
+
+# In another terminal, check links (requires linkchecker)
 pip install linkchecker
-linkchecker http://localhost:8000
+linkchecker http://localhost:3000
 ```
 
 ## 📦 Package Management
@@ -329,8 +337,9 @@ print(pyodide_js.loadedPackages)
 python update_lectures.py
 
 # 3. Test locally
-teachbooks build book
-teachbooks serve
+cd lectures
+myst build --html
+myst start
 
 # 4. Commit and push
 git add lectures/
@@ -345,8 +354,9 @@ git push
 # Edit files in lectures/
 
 # Build and test
-teachbooks build book
-teachbooks serve
+cd lectures
+myst build --html
+myst start
 
 # Commit
 git add lectures/modified-file.md
@@ -377,15 +387,14 @@ git push --force
 ```bash
 # Remove all build outputs
 rm -rf lectures/_build
-rm -rf lectures/.teachbooks
-rm -f lectures/*.doit.db
 
 # Clean Python cache
 find . -type d -name "__pycache__" -exec rm -rf {} +
 find . -type f -name "*.pyc" -delete
 
 # Rebuild from scratch
-teachbooks build book
+cd lectures
+myst build --html
 ```
 
 ### Fix Corrupted Sync
@@ -415,7 +424,8 @@ du -h lectures/_build/html/ | sort -rh | head -20
 
 ```bash
 # Time the build
-time teachbooks build book
+cd lectures
+time myst build --html
 ```
 
 ### Monitor CI/CD
@@ -459,13 +469,7 @@ npm install -g markdownlint-cli # Markdown linting
 
 ### Speed Up Builds
 
-```bash
-# Build only changed files (if supported)
-teachbooks build book --incremental
-
-# Use parallel builds (if available)
-teachbooks build book --jobs 4
-```
+MyST automatically does incremental builds when possible - only changed files are rebuilt.
 
 ### Preview on Mobile
 
@@ -475,10 +479,11 @@ ipconfig getifaddr en0  # macOS
 hostname -I             # Linux
 
 # Start server
-teachbooks serve
+cd lectures
+myst start
 
 # Access from mobile
-# http://YOUR_IP:8000
+# http://YOUR_IP:3000
 ```
 
 ### Debug MyST Rendering

@@ -34,34 +34,30 @@ Visit the live site: [QuantEcon WASM Lectures](https://quantecon.github.io/lectu
    cd lecture-wasm
    ```
 
-2. Install Python dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. Install Node.js dependencies (if needed):
+2. Install Node.js dependencies:
    ```bash
    npm install -g mystmd thebe-core thebe thebe-lite
    ```
+
+   **Note:** Python dependencies in `requirements.txt` are legacy from the old build system and not required for `mystmd` builds.
 
 #### Build and Serve
 
 Build the lecture series:
 ```bash
-teachbooks build book
+cd lectures
+myst build --html
 ```
 
 Start the local development server:
 ```bash
-teachbooks serve
+cd lectures
+myst start
 ```
 
-The lectures will be available at `http://localhost:8000` (or the port specified by teachbooks).
+The lectures will be available at `http://localhost:3000` by default.
 
-Stop the server:
-```bash
-teachbooks serve stop
-```
+To stop the server, press `Ctrl+C` in the terminal.
 
 ## Content Management
 
@@ -125,10 +121,10 @@ lecture-wasm/
 
 ## Technology Stack
 
-- **[MyST Markdown](https://mystmd.org/)** - Markdown flavor for technical documentation
-- **[teachbooks](https://teachbooks.io/)** - Build and serve MyST content
-- **[JupyterLite](https://jupyterlite.readthedocs.io/)** - Browser-based Jupyter
-- **[Pyodide](https://pyodide.org/)** - Python in WebAssembly
+- **[MyST Markdown](https://mystmd.org/)** - Markdown flavor for technical documentation and build system
+- **[JupyterLite](https://jupyterlite.readthedocs.io/)** - Browser-based Jupyter environment
+- **[Pyodide](https://pyodide.org/)** - Python runtime in WebAssembly
+- **[Thebe](https://thebe.readthedocs.io/)** - Executable code cells
 - **GitHub Actions** - Automated builds and deployment
 - **Netlify** - PR preview deployments
 

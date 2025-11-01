@@ -105,27 +105,26 @@ Once your changes are merged into `lecture-python-intro/wasm`:
    cd lecture-wasm
    ```
 
-2. Install Python dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. Install Node.js dependencies (global):
+2. Install Node.js dependencies (global):
    ```bash
    npm install -g mystmd thebe-core thebe thebe-lite
    ```
 
-4. Build the lectures:
+   **Note:** The `requirements.txt` file contains legacy dependencies from the old `teachbooks` build system and is not required for `mystmd` builds.
+
+3. Build the lectures:
    ```bash
-   teachbooks build book
+   cd lectures
+   myst build --html
    ```
 
-5. Serve locally:
+4. Serve locally:
    ```bash
-   teachbooks serve
+   cd lectures
+   myst start
    ```
 
-6. Open your browser to the URL shown (typically `http://localhost:8000`)
+5. Open your browser to the URL shown (typically `http://localhost:3000`)
 
 ## Style Guidelines
 
@@ -248,12 +247,15 @@ Never use `--upgrade` flag:
 %pip install quantecon
 ```
 
+## Testing
+
 ### Testing WASM Compatibility
 
 1. Build and serve locally:
    ```bash
-   teachbooks build book
-   teachbooks serve
+   cd lectures
+   myst build --html
+   myst start
    ```
 
 2. Open the lecture in your browser
@@ -273,6 +275,20 @@ Never use `--upgrade` flag:
 3. **Review changes**: Use `git diff` to verify your changes
 4. **Update documentation**: If you change functionality
 5. **WASM compatibility**: Verify all packages work in Pyodide
+
+### Testing Locally
+
+```bash
+# Build the project
+cd lectures
+myst build --html
+
+# Start local server
+myst start
+
+# Open browser to http://localhost:3000
+# Test code execution in browser
+```
 
 ### PR Description Template
 

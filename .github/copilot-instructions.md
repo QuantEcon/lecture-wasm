@@ -6,10 +6,13 @@ This repository contains a WASM-enabled subset of the QuantEcon lecture series "
 
 **Key Technologies:**
 - **MyST Markdown**: All lectures are written in MyST (Markedly Structured Text) format
+- **mystmd**: MyST Markdown build system and CLI
 - **JupyterLite**: Browser-based Jupyter notebooks using Pyodide
-- **teachbooks**: Build and serve tool for MyST-based educational content
 - **Pyodide**: Python runtime for WebAssembly, enabling in-browser Python execution
+- **Thebe**: JavaScript library for executable code cells in static HTML
 - **GitHub Actions**: CI/CD for building and deploying to GitHub Pages and Netlify
+
+**Note:** The project migrated from `teachbooks`/`jupyter-book` to native `mystmd` in October 2025 (PR #31).
 
 ## Project Structure
 
@@ -94,18 +97,20 @@ When editing lectures, ensure they only use WASM-compatible packages available i
 
 ### Building the Project
 ```bash
-# Install dependencies
-pip install -r requirements.txt
+# Install Node.js dependencies
+npm install -g mystmd thebe-core thebe thebe-lite
 
 # Build the lecture series
-teachbooks build book
+cd lectures
+myst build --html
 
 # Serve locally
-teachbooks serve
+myst start
 
-# Stop server
-teachbooks serve stop
+# Stop server (Ctrl+C in terminal)
 ```
+
+**Note:** The `requirements.txt` file is legacy from the old `teachbooks` build system and is not required for the current `mystmd` build process.
 
 ### Updating Lectures
 **IMPORTANT**: Do not edit lectures directly in this repository. Instead:
@@ -152,11 +157,18 @@ Main MyST configuration file containing:
 - Theme configuration (quantecon-theme)
 
 ### `requirements.txt`
-Python packages needed for **building** (not runtime):
-- `teachbooks`: Main build tool (depends on jupyter-book)
+**Note:** This file contains legacy Python dependencies from the old `teachbooks`/`jupyter-book` build system (pre-October 2025). The project now uses `mystmd` which only requires Node.js dependencies. This file is kept for historical reference but is **not used** in the current build process.
+
+**Legacy contents:**
+- `teachbooks`: Old build tool (replaced by mystmd CLI)
 - `jupyterbook-patches`: QuantEcon-specific patches
 - `sphinx-*` extensions: Various Sphinx extensions
 - Packages from TU Delft GitLab registry for specialized features
+
+**Current dependencies:** Only Node.js packages:
+```bash
+npm install -g mystmd thebe-core thebe thebe-lite
+```
 
 ### `update_lectures.py`
 Synchronization script that:
@@ -206,9 +218,10 @@ Synchronization script that:
 
 ### Debugging Build Issues
 1. Check GitHub Actions logs for specific errors
-2. Test locally: `teachbooks build book`
+2. Test locally: `cd lectures && myst build --html`
 3. Common issues:
    - Invalid MyST syntax
+   - Node.js version (must be 18.x)
    - Missing dependencies
    - WASM-incompatible packages
    - Broken cross-references
@@ -220,6 +233,14 @@ Synchronization script that:
 4. Test code execution in cells
 5. Check for packages not available in Pyodide
 
+```bash
+cd lectures
+myst build --html
+myst start
+# Open http://localhost:3000 in browser
+# Test code cells and check console
+```
+
 ## Resources and References
 
 - **Main Project**: https://intro.quantecon.org/
@@ -227,7 +248,7 @@ Synchronization script that:
 - **MyST Documentation**: https://mystmd.org/
 - **Pyodide Documentation**: https://pyodide.org/
 - **JupyterLite**: https://jupyterlite.readthedocs.io/
-- **teachbooks**: https://teachbooks.io/
+- **Thebe Documentation**: https://thebe.readthedocs.io/
 
 ## Authors and Credits
 
@@ -250,6 +271,7 @@ When assisting with this project:
 1. **Never edit lecture content directly** - always sync from `lecture-python-intro/wasm`
 2. **All lectures use MyST Markdown** - not regular Markdown or Jupyter notebooks
 3. **WASM compatibility is critical** - check Pyodide package availability
-4. **Build tool is teachbooks** - not standard jupyter-book
+4. **Build tool is mystmd** - not teachbooks or jupyter-book (migrated October 2025)
 5. **CI deploys to both GitHub Pages and Netlify** - different contexts
 6. **Configuration is in myst.yml** - not _config.yml or conf.py
+7. **requirements.txt is legacy** - only Node.js dependencies are needed for builds

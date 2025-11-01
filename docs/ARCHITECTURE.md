@@ -108,22 +108,11 @@ print("Hello from WASM!")
 - Process cross-references and citations
 - Handle static assets
 
-**Command:** `myst build --html`
-
-#### Teachbooks
-
-**Purpose:** Higher-level build and serve tool wrapping Jupyter Book
-
-**Key Responsibilities:**
-- Simplified build commands
-- Local development server
-- QuantEcon-specific configurations
-- Integration with specialized Sphinx extensions
-
 **Commands:**
-- `teachbooks build book`
-- `teachbooks serve`
-- `teachbooks serve stop`
+- `myst build --html` - Build HTML output
+- `myst start` - Start local development server
+
+**Note:** The project previously used `teachbooks` (a wrapper around Jupyter Book) but migrated to native `mystmd` in October 2025 for better MyST integration and performance.
 
 ### 3. Runtime Layer
 
@@ -305,15 +294,19 @@ toc:
 
 ### `requirements.txt`
 
-**Purpose:** Python build dependencies
+**Purpose:** Legacy Python dependencies (no longer required for builds)
 
-**Important:** These are NOT runtime dependencies!
+**Note:** This file contains dependencies from the old `teachbooks`/`jupyter-book` build system. The project now uses `mystmd` which only requires Node.js dependencies. This file is kept for historical reference but is not used in the current build process.
 
-**Contents:**
-- teachbooks (build tool)
-- jupyterbook-patches
-- sphinx-* extensions
-- Custom theme packages
+**Historical Contents:**
+- `teachbooks` - Old build tool (replaced by mystmd)
+- `jupyterbook-patches` - QuantEcon-specific patches
+- `sphinx-*` extensions - Various Sphinx extensions
+
+**Current Build Dependencies:** Only Node.js packages are required:
+```bash
+npm install -g mystmd thebe-core thebe thebe-lite
+```
 
 ### `.gitignore`
 
@@ -351,13 +344,15 @@ npm install -g mystmd thebe-core thebe thebe-lite
 
 **Purpose:** Build tools and frontend libraries
 
-### Build-time (Python)
+**Components:**
+- `mystmd` - MyST Markdown build system
+- `thebe-core` - Core Thebe functionality
+- `thebe` - Executable code cells
+- `thebe-lite` - JupyterLite integration
 
-```bash
-pip install -r requirements.txt
-```
+### Build-time (Python) - DEPRECATED
 
-**Purpose:** Sphinx extensions and build tools
+The `requirements.txt` file is legacy from the old `teachbooks` build system and is no longer required. All build dependencies are now Node.js-based.
 
 ### Runtime (Pyodide)
 
@@ -420,20 +415,23 @@ Packages are loaded from Pyodide CDN when needed:
 ### Local Development Cycle
 
 ```bash
-# 1. Sync content
+# 1. Sync content (if needed)
 python update_lectures.py
 
-# 2. Build
-teachbooks build book
+# 2. Navigate to lectures directory
+cd lectures
 
-# 3. Serve
-teachbooks serve
+# 3. Build
+myst build --html
 
-# 4. Test in browser
-# Visit http://localhost:8000
+# 4. Serve
+myst start
 
-# 5. Make changes (in source repo)
-# 6. Repeat from step 1
+# 5. Test in browser
+# Visit http://localhost:3000
+
+# 6. Make changes (in source repo)
+# 7. Repeat from step 1
 ```
 
 ### CI/CD Cycle

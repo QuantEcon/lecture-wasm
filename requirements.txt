@@ -1,3 +1,14 @@
+# DEPRECATED: This file is not used in the current build process
+#
+# The project migrated from teachbooks/jupyter-book to mystmd in October 2025.
+# All build dependencies are now Node.js packages installed via npm:
+#
+#   npm install -g mystmd thebe-core thebe thebe-lite
+#
+# This file is kept for historical reference only.
+#
+# Original teachbooks dependencies (no longer used):
+
 # first list the packages you wish to download from PyPI
 teachbooks # depends on jupyter-book
 jupyterbook-patches
