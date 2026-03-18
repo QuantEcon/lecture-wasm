@@ -67,6 +67,9 @@ jobs:
       run: |
         myst build --html
 
+    - name: Build local PyPI warehouse for piplite
+      run: python build_pypi.py
+
     - name: Upload build output
       uses: actions/upload-pages-artifact@v3
       with:
