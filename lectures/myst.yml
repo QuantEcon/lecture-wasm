@@ -13,7 +13,7 @@ project:
         - Instructor for Ph.D. Advanced Macroeconomics, University of Minnesota.
       url: https://johnstachurski.net
       email: john.stachurski@gmail.com
-  github: https://github.com/QuantEcon/project.lecture-wasm
+  github: https://github.com/QuantEcon/lecture-wasm
   
   # Thebe configuration
   # thebe:
