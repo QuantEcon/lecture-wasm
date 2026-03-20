@@ -51,7 +51,8 @@ jobs:
 
     - name: Install MyST Markdown CLI
       run: |
-        npm install -g mystmd thebe-core thebe thebe-lite
+        # TODO: Pin myst version to fix the breaking change.
+        npm install -g mystmd@1.6.2 thebe-core thebe thebe-lite
 
     - name: Build HTML for GitHub Pages
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
