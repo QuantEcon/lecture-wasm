@@ -10,13 +10,13 @@ This repository contains a WASM-compatible subset of the QuantEcon lecture serie
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) 18.x or higher
+- [Node.js](https://nodejs.org/) 20.x or higher
 
 ### Build and serve locally
 
 ```bash
 # Install dependencies
-npm install -g mystmd thebe-core thebe thebe-lite
+npm install -g mystmd@1.9.1 thebe-core thebe thebe-lite
 
 # Build
 cd lectures

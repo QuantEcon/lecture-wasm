@@ -47,12 +47,14 @@ jobs:
 
     - uses: actions/setup-node@v4
       with:
-        node-version: 18.x
+        node-version: 20.x
 
     - name: Install MyST Markdown CLI
       run: |
-        # TODO: Pin myst version to fix the breaking change.
-        npm install -g mystmd@1.6.2 thebe-core thebe thebe-lite
+        # mystmd 1.9.x emits the notebook output-node AST expected by the
+        # quantecon-theme v2.0.0 bundle (@myst-theme 1.x); Node >=20 is required
+        # to run that theme during `myst build`. See QuantEcon/quantecon-theme-src.
+        npm install -g mystmd@1.9.1 thebe-core thebe thebe-lite
 
     - name: Build HTML for GitHub Pages
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
