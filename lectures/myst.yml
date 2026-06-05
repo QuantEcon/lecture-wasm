@@ -117,4 +117,7 @@ project:
       template: Fig. %s
   
 site:
-  template: https://github.com/QuantEcon/quantecon-theme/archive/refs/heads/main.zip
+  # Pinned to quantecon-theme v2.0.0 (commit 2ca0a12d) for reproducible builds.
+  # The bare main.zip tracks the branch HEAD, so theme changes land with no version
+  # bump here; bump this SHA deliberately when adopting a new theme release.
+  template: https://github.com/QuantEcon/quantecon-theme/archive/2ca0a12d062c051f6236cfdc1d320158fbc3d69c.zip
