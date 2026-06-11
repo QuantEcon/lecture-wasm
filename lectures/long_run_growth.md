@@ -65,6 +65,8 @@ be interesting to describe both total GDP and GDP per capita as it evolves withi
 First we will need to install the following package
 
 ```{code-cell} ipython3
+:tags: [hide-output]
+
 %pip install openpyxl
 ```
 
