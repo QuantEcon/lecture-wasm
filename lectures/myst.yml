@@ -117,4 +117,6 @@ project:
       template: Fig. %s
   
 site:
-  template: https://github.com/QuantEcon/quantecon-theme/archive/refs/heads/main.zip
+  # Pinned theme release (see https://github.com/QuantEcon/quantecon-theme.mystmd/releases);
+  # bump the vX.Y.Z in this URL to take a new theme version.
+  template: https://github.com/QuantEcon/quantecon-theme.mystmd/releases/download/v2.1.0/quantecon-theme.zip
