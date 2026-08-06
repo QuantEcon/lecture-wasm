@@ -73,7 +73,7 @@ Let us bring the data into pandas from a spreadsheet that is [hosted on GitHub](
 ```{code-cell} ipython3
 # Import data and clean up the index
 pyodide_http.patch_all()
-data_url = "https://github.com/QuantEcon/data-lectures/raw/main/lectures/longprices.xls"
+data_url = "https://raw.githubusercontent.com/QuantEcon/data-lectures/main/lectures/longprices.xls"
 df_fig5 = pd.read_excel(data_url, 
                         sheet_name='all', 
                         header=2, 
@@ -347,7 +347,7 @@ We prepare the data for each country
 
 ```{code-cell} ipython3
 # Import data
-data_url = "https://github.com/QuantEcon/data-lectures/raw/main/lectures/chapter_3.xlsx"
+data_url = "https://raw.githubusercontent.com/QuantEcon/data-lectures/main/lectures/chapter_3.xlsx"
 xls = pd.ExcelFile(data_url)
 
 # Select relevant sheets
