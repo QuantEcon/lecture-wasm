@@ -94,7 +94,7 @@ Here we read the Maddison data into a pandas `DataFrame`:
 
 ```{code-cell} ipython3
 pyodide_http.patch_all()
-data_url = "https://github.com/QuantEcon/data-lectures/raw/main/lectures/mpd2020.xlsx"
+data_url = "https://raw.githubusercontent.com/QuantEcon/data-lectures/main/lectures/mpd2020.xlsx"
 data = pd.read_excel(data_url, 
                      sheet_name='Full data')
 data.head()
