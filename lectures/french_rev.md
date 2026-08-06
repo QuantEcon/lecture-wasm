@@ -57,9 +57,9 @@ We use matplotlib to replicate several of the graphs with which  {cite}`sargent_
 ## Data Sources
 
 This lecture uses data from three spreadsheets assembled by {cite}`sargent_velde1995`:
-  * [datasets/fig_3.xlsx](https://github.com/QuantEcon/lecture-python-intro/blob/main/lectures/datasets/fig_3.xlsx)
-  * [datasets/dette.xlsx](https://github.com/QuantEcon/lecture-python-intro/blob/main/lectures/datasets/dette.xlsx)
-  * [datasets/assignat.xlsx](https://github.com/QuantEcon/lecture-python-intro/blob/main/lectures/datasets/assignat.xlsx)
+  * [fig_3.xlsx](https://github.com/QuantEcon/data-lectures/blob/main/lectures/fig_3.xlsx)
+  * [dette.xlsx](https://github.com/QuantEcon/data-lectures/blob/main/lectures/dette.xlsx)
+  * [assignat.xlsx](https://github.com/QuantEcon/data-lectures/blob/main/lectures/assignat.xlsx)
 
 ```{code-cell} ipython3
 %pip install openpyxl requests
@@ -77,8 +77,8 @@ import requests
 plt.rcParams.update({'font.size': 12})
 pyodide_http.patch_all()
 
-base_url = 'https://raw.githubusercontent.com/QuantEcon/lecture-python-intro/'\
-           + 'main/lectures/datasets/'
+base_url = 'https://raw.githubusercontent.com/QuantEcon/data-lectures/'\
+           + 'main/lectures/'
 
 fig_3_url = base_url + 'fig_3.xlsx'
 dette_url = base_url + 'dette.xlsx'
