@@ -1,0 +1,38 @@
+# Code cells here execute in the reader's browser, so a dataset read on the
+# wrong host is a reader-visible failure on every page view — and this repo's
+# CI cannot see it: ci.yml runs `myst build --html` with no execution, so a
+# dead URL is fetched by nobody until a reader arrives. The data-audit
+# dashboard that would catch it lives in QuantEcon/data-lectures and never
+# runs on a pull request here.
+#
+# See QuantEcon/data-lectures PLAN.md, repoint rule 6.
+
+name: Data URL guard
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  data-url-guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: No data-lectures read on the LFS media host
+        run: |
+          # media.githubusercontent.com is the LFS *media* endpoint and routes
+          # per path: it serves a file only where that path is LFS-tracked in
+          # the repo the URL names, and 404s otherwise. Everything data-lectures
+          # publishes is plain git, so this host never resolves for it — and a
+          # mechanical org/repo swap that preserves the host breaks every read.
+          #
+          # Only the media host is checked. Rule 5's github.com/*/raw/ form is
+          # wrong for code cells but correct for {download} roles and prose
+          # links, which a grep cannot tell apart — that one is asserted on
+          # code cells only, post-merge, by the strict audit in data-lectures.
+          if grep -rnF 'media.githubusercontent.com/media/QuantEcon/data-lectures' lectures/; then
+            echo "::error::Read data-lectures over raw.githubusercontent.com — that is the only CORS-clean form that resolves (repoint rule 5), and the media host is LFS-only, so it 404s every file data-lectures publishes (repoint rule 6)."
+            exit 1
+          fi
+          echo "OK — no data-lectures read on the media host."
