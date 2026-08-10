@@ -17,6 +17,11 @@ on:
 jobs:
   data-url-guard:
     runs-on: ubuntu-latest
+    # This job greps a checkout and writes nothing. The repo default is
+    # `write`, so without this it would receive a token that can also approve
+    # pull requests. ci.yml sets its own block for the same reason.
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - name: No data-lectures read on the LFS media host
@@ -32,7 +37,7 @@ jobs:
           # links, which a grep cannot tell apart — that one is asserted on
           # code cells only, post-merge, by the strict audit in data-lectures.
           if grep -rnF 'media.githubusercontent.com/media/QuantEcon/data-lectures' lectures/; then
-            echo "::error::Read data-lectures over raw.githubusercontent.com — that is the only CORS-clean form that resolves (repoint rule 5), and the media host is LFS-only, so it 404s every file data-lectures publishes (repoint rule 6)."
+            echo "::error::Found a data-lectures read on media.githubusercontent.com — the LFS media endpoint, which 404s every file data-lectures publishes (repoint rule 6). Use raw.githubusercontent.com, which here is also the only CORS-clean form that resolves in the reader's browser (repoint rule 5)."
             exit 1
           fi
           echo "OK — no data-lectures read on the media host."
