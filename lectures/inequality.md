@@ -247,7 +247,7 @@ The following code block imports a subset of the dataset `SCF_plus` for 2016,
 which is derived from the [Survey of Consumer Finances](https://en.wikipedia.org/wiki/Survey_of_Consumer_Finances) (SCF).
 
 ```{code-cell} ipython3
-url = 'https://media.githubusercontent.com/media/QuantEcon/high_dim_data/main/SCF_plus/SCF_plus_mini.csv'
+url = 'https://raw.githubusercontent.com/QuantEcon/data-lectures/main/lectures/SCF_plus_mini.csv'
 df = pd.read_csv(url)
 df_income_wealth = df.dropna()
 ```
