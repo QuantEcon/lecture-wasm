@@ -59,12 +59,12 @@ print("E ok")
 
 ## F — inside a plain admonition
 
-```{note}
+````{note}
 ```{code-cell} ipython3
 ran.append("F_in_note")
 print("F ok")
 ```
-```
+````
 
 ## REPORT (top level)
 
