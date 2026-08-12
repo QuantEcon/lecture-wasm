@@ -418,12 +418,12 @@ Let's consider two economic variables GDP per capita and Life Expectancy.
 
 
 
-You can download {download}`a copy of the data here <https://github.com/QuantEcon/lecture-python-intro/raw/main/lectures/_static/lecture_specific/simple_linear_regression/life-expectancy-vs-gdp-per-capita.csv>` if you get stuck
+You can download {download}`a copy of the data here <https://raw.githubusercontent.com/QuantEcon/data-lectures/main/lectures/life-expectancy-vs-gdp-per-capita.csv>` if you get stuck
 
 **Q3:** Use `pandas` to import the `csv` formatted data and plot a few different countries of interest
 
 ```{code-cell} ipython3
-data_url = "https://raw.githubusercontent.com/QuantEcon/lecture-python-intro/main/lectures/_static/lecture_specific/simple_linear_regression/life-expectancy-vs-gdp-per-capita.csv"
+data_url = "https://raw.githubusercontent.com/QuantEcon/data-lectures/main/lectures/life-expectancy-vs-gdp-per-capita.csv"
 df = pd.read_csv(data_url, nrows=10)
 ```
 
