@@ -35,6 +35,7 @@ project:
       #       - localStorage
   toc:
     - file: intro.md
+    - file: probe_nesting
     - title: Economic Data 
       children:
         - file: long_run_growth
