@@ -62,6 +62,8 @@ This lecture uses data from three spreadsheets assembled by {cite}`sargent_velde
   * [assignat.xlsx](https://github.com/QuantEcon/data-lectures/blob/main/lectures/assignat.xlsx)
 
 ```{code-cell} ipython3
+:tags: [hide-output]
+
 %pip install openpyxl requests
 ```
 
