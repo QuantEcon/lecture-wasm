@@ -270,16 +270,6 @@ You will be dealing with floating point numbers now, rather than
 integers, so consider replacing `np.equal()` with `np.allclose()`.
 ```
 
-
-```{exercise-end}
-```
-
-% The graph data cell sits OUTSIDE the exercise deliberately. A code cell nested
-% in any directive is never registered with the kernel by @myst-theme/jupyter, so
-% inside the exercise it renders a run button that does nothing and the solution
-% then fails with FileNotFoundError. See QuantEcon/lecture-wasm#64 and
-% QuantEcon/quantecon-theme.mystmd#117. Move it back only once that is fixed.
-
 ```{code-cell} ipython3
 %%file graph.txt
 node0, node1 0.04, node8 11.11, node14 72.21
@@ -382,6 +372,9 @@ node96, node98 3.32, node97 0.43, node99 5.87
 node97, node98 0.30
 node98, node99 0.33
 node99,
+```
+
+```{exercise-end}
 ```
 
 ```{solution} short_path_ex1
