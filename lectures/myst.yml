@@ -119,4 +119,14 @@ project:
 site:
   # Pinned theme release (see https://github.com/QuantEcon/quantecon-theme.mystmd/releases);
   # bump the vX.Y.Z in this URL to take a new theme version.
-  template: https://github.com/QuantEcon/quantecon-theme.mystmd/releases/download/v2.7.0/quantecon-theme.zip
+  template: https://github.com/QuantEcon/quantecon-theme.mystmd/releases/download/v3.0.0/quantecon-theme.zip
+  options:
+    # The site's public URL. The theme emits the canonical link, og:url and an
+    # absolute og:image only when this is set, and this site is served under a
+    # sub-path, so the value carries it.
+    site_url: https://quantecon.github.io/lecture-wasm/
+    # No launch options on purpose. From theme v3.0.0 the Launch control is
+    # opt-in and the notebook repository has to be named here; nothing is
+    # derived from `project.github` any more. There is no
+    # QuantEcon/lecture-wasm.notebooks repository, so naming one would put a
+    # dead link on every page -- which is what the derived value used to do.
