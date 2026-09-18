@@ -23,7 +23,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: No data-lectures read on the LFS media host
         run: |
           # media.githubusercontent.com is the LFS *media* endpoint and routes
