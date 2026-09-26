@@ -69,7 +69,7 @@ The following lectures are excluded due to Pyodide/WASM package limitations:
 ## Authors
 
 - **Thomas J. Sargent** — New York University; Hoover Institution
-- **John Stachurski** — Research School of Economics, ANU
+- **John Stachurski** — National Graduate Institute for Policy Studies
 
 ## License
 
