@@ -28,17 +28,9 @@ myst start
 
 ### Updating lectures
 
-> **Do not edit lectures directly in this repository.**
+Edit lectures directly in `lectures/` and open a pull request. CI builds the site without running any code, so check a change by running the lecture's code in the browser on the pull request's preview.
 
-Lectures are synced from the [wasm branch of lecture-python-intro](https://github.com/QuantEcon/lecture-python-intro/tree/wasm). To update:
-
-1. Make changes in the [wasm branch](https://github.com/QuantEcon/lecture-python-intro/tree/wasm) of `lecture-python-intro`
-2. Run the sync script:
-   ```bash
-   python update_lectures.py
-   ```
-
-The sync script downloads the latest content, converts `!pip` to `%pip`, removes `--upgrade` flags, and fixes MyST directive syntax for WASM compatibility.
+The old sync from the [`wasm` branch of lecture-python-intro](https://github.com/QuantEcon/lecture-python-intro/tree/wasm) is retired: that branch has not changed since 2025-04-24, and `update_lectures.py` would copy its lectures over the ones here.
 
 ### CI/CD
 
@@ -49,13 +41,11 @@ The sync script downloads the latest content, converts `!pip` to `%pip`, removes
 
 The following lectures are excluded due to Pyodide/WASM package limitations:
 
-- `business_cycle`
 - `inequality`
 - `prob_dist`
 - `heavy_tails`
 - `commod_price`
 - `lp_intro`
-- `short_path`
 - `input_output`
 
 ## Technology

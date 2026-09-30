@@ -38,7 +38,7 @@ project:
     - title: Economic Data 
       children:
         - file: long_run_growth
-        # - file: business_cycle
+        - file: business_cycle
         - file: inflation_history
         - file: french_rev 
         # - file: inequality
